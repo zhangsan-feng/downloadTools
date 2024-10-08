@@ -10,11 +10,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.5.1",
+    "@tauri-apps/plugin-http": "^2.0.0",
+    "antd": "^5.21.2",
+    "axios": "^1.7.7",
+    "crypto-js": "^4.2.0",
+    "md5": "^2.3.0",
+    "qs": "^6.13.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
+    "@types/qs": "^6.9.16",
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
