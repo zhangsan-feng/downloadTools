@@ -1,13 +1,12 @@
 import axios from "axios";
 import {stringify} from 'qs'
 
-
-export const HttpServerAddress = "https://wwww.baidu.com"
+export const HttpServerAddress = "http://127.0.0.1:54435"
 
 const instance = axios.create({
-    timeout:5000
+    baseURL: HttpServerAddress,
+    timeout: 5000,
 })
-
 
 instance.interceptors.request.use(
     config => {
@@ -31,26 +30,20 @@ instance.interceptors.response.use(
     error => {
         if(error.response.status){
             switch(error.response.status) {
-
                 case 401:
                     console.log(error.response)
                 case 403:
                     console.log(error.response)
-                case 404:
-                    console.log(error.response)
-                default:
-                    console.log(error.response)
-                    break
             }
             return Promise.reject(error.response);
         }
     }
 )
 
-export async function HttpGet(url, url_params){
+export async function HttpGet(url, params){
     return new Promise((resolve, reject) => {
 
-        instance.get(url + stringify(url_params),{})
+        instance.get(url ,{params:stringify(params)})
             .then(response => {
                 resolve(response.data)
             })
@@ -58,11 +51,15 @@ export async function HttpGet(url, url_params){
                 reject(error.data)
             })
     })
+}
+
+const JsonHeaders = {
+    'Content-Type': 'application/json;encoding=utf-8',
 }
 
 export async function HttpPost(url, params){
     return new Promise((resolve, reject) => {
-        instance.post(url,{data:params})
+        instance.post(url,params, {headers:JsonHeaders})
             .then(response => {
                 resolve(response.data)
             })
@@ -71,18 +68,11 @@ export async function HttpPost(url, params){
             })
     })
 }
-export async function HttpPostForm(url, params){
-    return new Promise((resolve, reject) => {
-        instance.postForm(url,{data:params})
-            .then(response => {
-                resolve(response.data)
-            })
-            .catch(error => {
-                reject(error.data)
-            })
-    })
+const FromHeaders = {
+    'Content-Type': 'application/json;encoding=utf-8',
 }
 
+export async function HttpPostForm(){}
 export async function HttpPut(){}
 export async function HttpDelete(){}
 export async function DownloadFile(){}

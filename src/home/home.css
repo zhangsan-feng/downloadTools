@@ -57,10 +57,3 @@ body{
     align-content: center;
 
 }
-.ant-tabs {
-    width: 95% !important;
-}
-
-.custom-tab-class{
-    background-color: #ce87cc;
-}

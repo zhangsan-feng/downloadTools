@@ -1,17 +1,15 @@
-use crate::web_service::utils::download_task::task_is_running;
+use crate::web_service::api::task::task_is_running;
 use futures_util::StreamExt;
 use log::info;
 use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
 use reqwest::Response;
-use sea_orm::Value;
-use std::collections::HashMap;
 use std::io::Write;
 use std::str::FromStr;
+use reqwest::redirect::Policy;
 
-pub async fn get(url: String, headers: HeaderMap, params: HashMap<String, String>) -> Response {
+pub async fn get(url: String, headers: HeaderMap,  params: serde_json::Value) -> Response {
     let client = reqwest::Client::new();
-    let response = client
-        .get(url)
+    let response = client.get(url)
         .headers(headers)
         .query(&params)
         .send()
@@ -20,7 +18,18 @@ pub async fn get(url: String, headers: HeaderMap, params: HashMap<String, String
     response
 }
 
-async fn post(url: String, headers: HeaderMap, params: String) -> Response {
+pub async fn get_no_redirect(url: String, headers: HeaderMap,  params: serde_json::Value) -> Response {
+    let client = reqwest::Client::builder().redirect(Policy::none()).build().unwrap();
+    let response = client.get(url)
+        .headers(headers)
+        .query(&params)
+        .send()
+        .await
+        .expect("call error");
+    response
+}
+
+pub async fn post(url: String, headers: HeaderMap, params: String) -> Response {
     let client = reqwest::Client::new();
     let response = client
         .post(url)
@@ -32,7 +41,7 @@ async fn post(url: String, headers: HeaderMap, params: String) -> Response {
     response
 }
 
-async fn post_json(url: String, headers: HeaderMap, params: serde_json::Value) -> Response {
+pub async fn post_json(url: String, headers: HeaderMap, params: serde_json::Value) -> Response {
     let client = reqwest::Client::new();
     let response = client
         .post(url)
@@ -44,7 +53,7 @@ async fn post_json(url: String, headers: HeaderMap, params: serde_json::Value) -
     response
 }
 
-async fn post_form(url: String, headers: HeaderMap, params: serde_json::Value) -> Response {
+pub async fn post_form(url: String, headers: HeaderMap, params: serde_json::Value) -> Response {
     let client = reqwest::Client::new();
     let response = client
         .post(url)
@@ -70,11 +79,7 @@ pub async fn download_file(url: String, headers: HeaderMap, save_path: String) -
         .await
         .expect("call error");
 
-    info!(
-        "current request url {} response code {} ",
-        url.clone(),
-        response.status()
-    );
+    info!("current request url {} response code {} ",url.clone(),response.status());
     info!("current file path {} ", save_path.clone());
 
     // let mut file = std::fs::OpenOptions::new().create(true).write(true).append(true).open((save_path.clone())).expect("create file fd error");
@@ -122,9 +127,9 @@ pub async fn download_flv(url: String, headers: HeaderMap, save_path: String, ta
         let chunk = item.expect("item error");
         file.write_all(&chunk).expect("file write error");
 
-        if task_is_running(task_name.clone()).await == false {
-            return;
-        }
+        // if task_is_running(task_name.clone()).await == false {
+        //     return;
+        // }
     }
 }
 
@@ -138,7 +143,7 @@ pub async fn download_flv(url: String, headers: HeaderMap, save_path: String, ta
 //     post_json(url.clone(),HeaderMap::new(),json!({})).await;
 // }
 
-pub fn http_headers(headers: serde_json::Value) -> HeaderMap {
+pub fn convert_headers(headers: serde_json::Value) -> HeaderMap {
     let headers_obj = headers.as_object().expect("json error");
 
     let mut header_map = HeaderMap::new();

@@ -6,10 +6,6 @@
     "main"
   ],
   "permissions": [
-    {
-      "identifier": "http:default",
-      "allow": [{ "url": "https://**" }]
-    },
     "core:window:allow-start-dragging",
     "core:window:allow-toggle-maximize",
     "core:window:allow-minimize",

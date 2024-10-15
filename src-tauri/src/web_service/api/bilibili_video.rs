@@ -1,5 +1,5 @@
 use crate::web_service::config::static_path::BILI_BILI_DIR;
-use crate::web_service::utils::download_task::{add_task, task_is_running};
+use crate::web_service::api::download_task::{add_task, task_is_running};
 use crate::web_service::utils::http_client::{download_file, http_headers};
 use log::info;
 use serde_json::{from_str, json, Value};

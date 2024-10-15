@@ -21,6 +21,10 @@ pub async fn init_logger() {
             ))
         })
         .level(log::LevelFilter::Info)
+        .level(log::LevelFilter::Error)
+        .level(log::LevelFilter::Trace)
+        .level(log::LevelFilter::Warn)
+        .level(log::LevelFilter::Debug)
         .chain(std::io::stdout())
         .chain(fern::log_file(logfile_path).expect("Failed to create log file"));
     dispatch.apply().unwrap();

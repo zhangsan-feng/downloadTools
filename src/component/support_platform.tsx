@@ -1,26 +1,22 @@
 
 import {Flex, Tabs, Button} from 'antd';
-const { open } = window.__TAURI__.shell;
-import {match_url} from '../../platform/comm.js'
-
+import {match_url} from "../platform/comm.ts";
 
 
 function getRandomBrightColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    var rgb;
-    var brightness;
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    let rgb;
+    let brightness;
 
     do {
         color = '#';
-        for (var i = 0; i < 6; i++) {
+        for (let i = 0; i < 6; i++) {
             color += letters[Math.floor(Math.random() * 16)];
         }
-        // 将十六进制颜色转换为RGB
         rgb = parseInt(color.substr(1, 2), 16) + ',' +
             parseInt(color.substr(3, 2), 16) + ',' +
             parseInt(color.substr(5, 2), 16);
-        // 计算亮度
         brightness = 0.2126 * parseInt(rgb.split(',')[0]) +
             0.7152 * parseInt(rgb.split(',')[1]) +
             0.0722 * parseInt(rgb.split(',')[2]);
@@ -124,11 +120,11 @@ const DataList = [
 
 ]
 
-const PlatformTable = ()=>{
-    let items = []
+const SupportPlatformTable = ()=>{
+    const items = []
     DataList.forEach((value, index)=>{
-        let children = []
-        let children_element = []
+        const children = []
+        const children_element = []
         value.url.forEach((value, index)=>{
 
             children_element.push(
@@ -137,7 +133,7 @@ const PlatformTable = ()=>{
 
         })
         children.push(
-            <div key={index} style={{overflowY:'auto', overflow:'auto', maxHeight:250}}>
+            <div key={index} style={{overflowY:'auto', overflow:'auto',height:"100%"}}>
                 <Flex gap="4px 0" wrap >
                     {children_element}
                 </Flex>
@@ -152,10 +148,12 @@ const PlatformTable = ()=>{
     })
 
     return (
-        <Tabs
-            defaultActiveKey="1"
-            items={items}
-        />
+        <div style={{height:"100%"}}>
+            <Tabs
+                defaultActiveKey="1"
+                items={items}
+            />
+        </div>
     )
 }
-export default PlatformTable
+export default SupportPlatformTable
