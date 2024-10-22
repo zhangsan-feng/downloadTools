@@ -24,5 +24,5 @@ pub fn application_router() -> Router<()> {
         .route("/task_query", get(task_query))
         .route("/task_update", post(task_update))
         .route("/call_cmd", post(call_command))
-        .layer(middleware::from_fn(_middleware::request_record::request_record))
+        // .layer(middleware::from_fn(_middleware::request_record::request_record))
 }

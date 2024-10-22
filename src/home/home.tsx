@@ -79,12 +79,12 @@ function Home() {
                             style:TablsChilrenStyle,
                             children: <MusicSearchComponent/>
                         },
-                        {
-                            label: '支持平台',
-                            key: 3,
-                            style:TablsChilrenStyle,
-                            children: <SupportPlatformTable/>
-                        },
+                        // {
+                        //     label: '支持平台',
+                        //     key: 3,
+                        //     style:TablsChilrenStyle,
+                        //     children: <SupportPlatformTable/>
+                        // },
                         {
                             label: '下载配置',
                             key: 4,

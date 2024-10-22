@@ -1,21 +1,25 @@
 
 
-.record_span {
-    white-space: nowrap; /* 不换行 */
-    overflow: hidden; /* 超出隐藏 */
-    text-overflow: ellipsis; /* 显示省略号 */
-    max-width: 200px; /* 指定最大宽度 */
-}
+/*.record_span {*/
+/*    white-space: nowrap; !* 不换行 *!*/
+/*    overflow: hidden; !* 超出隐藏 *!*/
+/*    text-overflow: ellipsis; !* 显示省略号 *!*/
+/*    max-width: 200px; !* 指定最大宽度 *!*/
+/*}*/
 
-.abc{
-    background-color: #9b66e7;
-    width: max-content;
-    display: inline-block;
-    padding: 0 !important;
-    margin: 0 !important;
-}
+/*.abc{*/
+/*    background-color: #9b66e7;*/
+/*    width: max-content;*/
+/*    display: inline-block;*/
+/*    padding: 0 !important;*/
+/*    margin: 0 !important;*/
+/*}*/
 
-.abc .ant-table-cell {
-    padding: 0 !important;
-    background-color: #ce95cc;
+/*.abc .ant-table-cell {*/
+/*    padding: 0 !important;*/
+/*    background-color: #ce95cc;*/
+/*}*/
+
+.ant-table{
+    border-radius: 10px !important;
 }

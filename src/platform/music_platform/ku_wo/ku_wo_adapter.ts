@@ -1,8 +1,0 @@
-
-
-const KuWoaAapter = (url, cookie)=>{
-
-
-
-
-}

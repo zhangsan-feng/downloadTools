@@ -7,7 +7,7 @@ use std::io::Write;
 use std::str::FromStr;
 use reqwest::redirect::Policy;
 
-pub async fn get(url: String, headers: HeaderMap,  params: serde_json::Value) -> Response {
+pub async fn http_get(url: String, headers: HeaderMap,  params: serde_json::Value) -> Response {
     let client = reqwest::Client::new();
     let response = client.get(url)
         .headers(headers)
@@ -18,7 +18,7 @@ pub async fn get(url: String, headers: HeaderMap,  params: serde_json::Value) ->
     response
 }
 
-pub async fn get_no_redirect(url: String, headers: HeaderMap,  params: serde_json::Value) -> Response {
+pub async fn http_get_no_redirect(url: String, headers: HeaderMap,  params: serde_json::Value) -> Response {
     let client = reqwest::Client::builder().redirect(Policy::none()).build().unwrap();
     let response = client.get(url)
         .headers(headers)
@@ -29,7 +29,7 @@ pub async fn get_no_redirect(url: String, headers: HeaderMap,  params: serde_jso
     response
 }
 
-pub async fn post(url: String, headers: HeaderMap, params: String) -> Response {
+pub async fn http_post(url: String, headers: HeaderMap, params: String) -> Response {
     let client = reqwest::Client::new();
     let response = client
         .post(url)
@@ -41,7 +41,7 @@ pub async fn post(url: String, headers: HeaderMap, params: String) -> Response {
     response
 }
 
-pub async fn post_json(url: String, headers: HeaderMap, params: serde_json::Value) -> Response {
+pub async fn http_post_json(url: String, headers: HeaderMap, params: serde_json::Value) -> Response {
     let client = reqwest::Client::new();
     let response = client
         .post(url)
@@ -53,7 +53,7 @@ pub async fn post_json(url: String, headers: HeaderMap, params: serde_json::Valu
     response
 }
 
-pub async fn post_form(url: String, headers: HeaderMap, params: serde_json::Value) -> Response {
+pub async fn http_post_form(url: String, headers: HeaderMap, params: serde_json::Value) -> Response {
     let client = reqwest::Client::new();
     let response = client
         .post(url)

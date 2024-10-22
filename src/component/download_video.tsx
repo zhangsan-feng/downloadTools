@@ -3,17 +3,21 @@ import {Input, Button, message, Checkbox, Tabs} from 'antd';
 import "./comm.css"
 import {MusicSearchAdapter, CommentAdapter, DownLoadAdapter} from './platform_params.tsx'
 
-const {TextArea}  = Input
+const {Search}  = Input
 
 
 const DownloadVideoComponent = () =>{
+
+    const Submit = ()=>{
+
+    }
+
     return (
         <div style={{}}>
 
             <div style={{display: "flex", top:50, }}>
                 <span style={{width: 50, justifyContent: 'center', alignContent: 'center'}}>url:</span>
-                <TextArea id="url"
-                          style={{resize:"none",height:"10vh", maxWidth:"90%", overflow:'auto', borderRadius:10}}/>
+                <Search key='1' enterButton="搜索" onSearch={Submit}/>
             </div>
 
             <div style={{marginTop: 20, marginLeft: "23%",}}>

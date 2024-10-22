@@ -3,9 +3,11 @@ use log::info;
 pub static WEI_BO_DIR: &str = "./download/weibo/";
 pub static DOU_YIN_DIR: &str = "./download/douyin/";
 pub static BILI_BILI_DIR: &str = "./download/bilibili/";
-pub static LOGGER_PATH: &str = "./logs/";
 pub static HONG_SHU_DIR: &str = "./download/xiaohongshu/";
 pub static KUAI_SHOU_DIR: &str = "./download/kuaishou/";
+
+pub static LOGGER_PATH: &str = "./logs/";
+
 pub static APPS: &str = "./apps/";
 
 pub async fn init_dir_config() {

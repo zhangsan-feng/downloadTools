@@ -76,12 +76,11 @@ export function ScriptHandler() {
 
 
 let headers = {
-    'accept': '*/*',
+
+    'Accept': 'application/json, text/plain, */*',
     'Accept-Language': 'zh-CN,zh;q=0.9',
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive',
-    'Pragma': 'no-cache',
-    'Content-Type': 'application/json',
     'sec-ch-ua': '"Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"',
     'sec-ch-ua-mobile': '?0',
     'sec-ch-ua-platform': '"Windows"',

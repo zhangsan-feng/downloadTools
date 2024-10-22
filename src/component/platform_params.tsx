@@ -1,7 +1,7 @@
-
 import {message} from 'antd'
 import {match_url} from "../platform/comm.ts";
-import {KuWoSearch} from '../platform/music_platform/ku_wo/ku_wo_search.ts'
+import {KuWoMusicSearch} from '../platform/music_platform/kuwo_music/kuwo_music_search.ts'
+import {KuWoaMusicAdapter} from '../platform/music_platform/kuwo_music/kuwo_music_adapter.ts'
 
 function PlatFormParams (input){
 
@@ -23,10 +23,18 @@ function PlatFormParams (input){
     return url_list
 }
 
-export async function MusicSearchAdapter(key_world){
-    await KuWoSearch(key_world, "")
+export async function MusicDownLoadAdapter(source_data){
+    if (source_data.download_link.includes("https://www.kuwo.cn/play_detail/")){
+        await KuWoaMusicAdapter(source_data)
+    }
 }
 
-export async function CommentAdapter(){}
+export async function MusicSearchAdapter(key_world){
+    return [
+        ...await KuWoMusicSearch(key_world, "")
+    ]
+}
+
+export async function CommentDownLoadAdapter(){}
 
 export async function DownLoadAdapter(){}
