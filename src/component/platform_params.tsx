@@ -2,7 +2,8 @@ import {message} from 'antd'
 import {match_url} from "../platform/comm.ts";
 import {KuWoMusicSearch} from '../platform/music_platform/kuwo_music/kuwo_music_search.ts'
 import {KuWoaMusicAdapter} from '../platform/music_platform/kuwo_music/kuwo_music_adapter.ts'
-
+import {KuGouMusicSearch} from '../platform/music_platform//kugou_music/kugou_music_search.ts'
+import {KuGouMusicAdapter} from '../platform/music_platform/kugou_music/kugou_music_adapter.ts'
 function PlatFormParams (input){
 
     const url_list = input.split("\n")
@@ -23,15 +24,23 @@ function PlatFormParams (input){
     return url_list
 }
 
-export async function MusicDownLoadAdapter(source_data){
-    if (source_data.download_link.includes("https://www.kuwo.cn/play_detail/")){
-        await KuWoaMusicAdapter(source_data)
+async function QueryConfig(){
+
+}
+
+export async function MusicDownLoadAdapter(source){
+    if (source.download_link.includes("https://www.kuwo.cn/play_detail/")){
+        await KuWoaMusicAdapter(source)
+    }
+    if (source.download_link.includes("https://www.kugou.com/song/#")){
+        await KuGouMusicAdapter(source, "")
     }
 }
 
 export async function MusicSearchAdapter(key_world){
     return [
-        ...await KuWoMusicSearch(key_world, "")
+        // ...await KuWoMusicSearch(key_world, ""),
+        ...await KuGouMusicSearch(key_world, "")
     ]
 }
 

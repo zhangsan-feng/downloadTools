@@ -61,7 +61,7 @@ const MusicSearchComponent = () => {
     const Submit = (data) => {
         console.log(data)
         MusicSearchAdapter(data).then(res=>{
-            console.log(res)
+            // console.log(res)
             setSearchData(res)
         })
     }
@@ -77,6 +77,7 @@ const MusicSearchComponent = () => {
                 {searchData.length !== 0 ? (
                     <Table
                         columns={columns}
+                        pagination={{pageSize:100}}
                         dataSource={searchData}
                         scroll={{ y: 360 }}
                         rowKey="id"

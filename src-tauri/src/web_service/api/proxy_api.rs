@@ -18,7 +18,7 @@ pub struct Params{
     req_params: serde_json::Value,
 }
 
-pub async fn proxy(axum::Json(params): axum::Json<Params>) ->   axum::Json<serde_json::Value>{
+pub async fn proxy(axum::Json(params): axum::Json<Params>) -> axum::Json<serde_json::Value>{
 
     let req_headers = convert_headers(params.req_headers);
     let res = match params.req_type.as_str() {

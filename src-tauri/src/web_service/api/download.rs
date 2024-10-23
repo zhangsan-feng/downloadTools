@@ -7,7 +7,7 @@ use std::fmt::{Debug, Display};
 use log::info;
 use serde::{Deserialize, Serialize};
 use crate::web_service::utils::http_client::{convert_headers, download_file};
-
+use crate::web_service::config::static_path::{match_platform};
 
 #[derive(Debug, Serialize, Deserialize, Clone,)]
 pub struct ResourceParams{
@@ -23,7 +23,7 @@ pub async fn download_resource(Json(params):Json<ResourceParams>)-> Json<serde_j
     if let Some(object) = params.download_link.as_object() {
         for (file_name, file_link) in object {
             let file_link = file_link.as_str().unwrap().to_string();
-            let save_path = format!("./{}", file_name);
+            let save_path = format!("{}{}",match_platform(params.platform.clone()), file_name);
             info!("{}", file_link);
             info!("{}", file_name);
             info!("{}", save_path);
