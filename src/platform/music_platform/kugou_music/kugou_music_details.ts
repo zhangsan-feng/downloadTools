@@ -46,7 +46,7 @@ export async function KuGouMusicDetails(source, config){
     const response = await ProxyApi(proxy_params)
     // const response_header = response.headers
     const response_body = JSON.parse(response.body)
-    console.log(response_body)
+    // console.log(response_body)
 
     const mp3_link = response_body['data']['play_url']
 

@@ -60,7 +60,7 @@ async function DownLoadForApi(source, cookie){
             req_headers:request_headers,
             download_link: { [source.file_name]: mp3_link }
         }
-        console.log(resource_params)
+        // console.log(resource_params)
         ResourceDownloadApi(resource_params).then(res=>{})
         message.success({content:"下载完成"})
     }else{
