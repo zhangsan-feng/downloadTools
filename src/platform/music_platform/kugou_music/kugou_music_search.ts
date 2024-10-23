@@ -54,7 +54,7 @@ export async function KuGouMusicSearch(key_world, config){
     // console.log(response)
     // const response_header = response.headers
     const response_body = JSON.parse(response.body.replace("callback123(", "").slice(0, -1).slice(0, -1))
-    console.log(response_body)
+    // console.log(response_body)
 
     const call_back = []
     for (const index in response_body.data.lists) {

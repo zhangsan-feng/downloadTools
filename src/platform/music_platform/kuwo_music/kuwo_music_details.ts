@@ -62,6 +62,7 @@ async function DownLoadForApi(source, cookie){
         }
         console.log(resource_params)
         ResourceDownloadApi(resource_params).then(res=>{})
+        message.success({content:"下载完成"})
     }else{
         message.error({content:response_body["msg"]})
     }

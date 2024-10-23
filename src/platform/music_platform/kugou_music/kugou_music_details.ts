@@ -1,5 +1,6 @@
 import {GetCookieMid, GetCookieDFid, GenDetailsSignature} from './kugou_sign.ts'
 import {ProxyApi, ProxyParams, ResourceDownloadApi, ResourceParams} from "../../../api/axios_http.ts";
+import {message} from "antd";
 
 
 export async function KuGouMusicDetails(source, config){
@@ -57,4 +58,5 @@ export async function KuGouMusicDetails(source, config){
     }
     // console.log(resource_params)
     ResourceDownloadApi(resource_params).then(res=>{})
+    message.success({content:"下载完成"})
 }

@@ -39,7 +39,7 @@ export async function MusicDownLoadAdapter(source){
 
 export async function MusicSearchAdapter(key_world){
     return [
-        // ...await KuWoMusicSearch(key_world, ""),
+        ...await KuWoMusicSearch(key_world, ""),
         ...await KuGouMusicSearch(key_world, "")
     ]
 }
