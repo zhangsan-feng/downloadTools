@@ -57,3 +57,48 @@ body{
     align-content: center;
 
 }
+
+.content{
+    background: linear-gradient(-45deg,
+    #ce738d, #ce588a, #78a5ce, #f3ed78,
+    #23a6d5, #ac82d9, #a83a67, #c79cce
+    );
+    display:flex;
+    padding: 25px;
+    height: 100%;
+    width:100%;
+    background-size: 400% 400%;
+    animation: Gradient-153d6f28 8s ease infinite;
+}
+
+
+@keyframes Gradient-153d6f28 {
+    0% {
+        background-position: 0% 50%;
+    }
+    12.5% {
+        background-position: 25% 50%;
+    }
+    25% {
+        background-position: 50% 50%;
+    }
+    37.5% {
+        background-position: 75% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    62.5% {
+        background-position: 75% 50%;
+    }
+    75% {
+        background-position: 50% 50%;
+    }
+    87.5% {
+        background-position: 25% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+

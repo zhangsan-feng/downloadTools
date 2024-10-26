@@ -23,3 +23,21 @@
 .ant-table{
     border-radius: 10px !important;
 }
+
+.music-player {
+    position: fixed;
+    left: 0;
+    width: 800px;
+    background-color: #fff;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    height: 50px;
+    /*transition: height 0.5s ease;*/
+    margin-left: 20%;
+    border-radius: 8px;
+    bottom: 40px;
+}
+
+/*.music-player:hover {*/
+/*    height: 50px;*/
+
+/*}*/

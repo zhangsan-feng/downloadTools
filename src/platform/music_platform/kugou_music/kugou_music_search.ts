@@ -50,6 +50,7 @@ export async function KuGouMusicSearch(key_world, config){
         req_params:request_params,
         req_headers:request_headers
     }
+    // console.log(proxy_params)
     const response = await ProxyApi(proxy_params)
     // console.log(response)
     // const response_header = response.headers

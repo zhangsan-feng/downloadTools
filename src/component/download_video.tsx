@@ -1,7 +1,7 @@
 
-import {Input, Button, message, Checkbox, Tabs} from 'antd';
+import {Input} from 'antd';
 import "./comm.css"
-import {MusicSearchAdapter, CommentAdapter, DownLoadAdapter} from './platform_params.tsx'
+
 
 const {Search}  = Input
 
@@ -15,7 +15,7 @@ const DownloadVideoComponent = () =>{
     return (
         <div style={{}}>
 
-            <div style={{display: "flex", top:50, }}>
+            <div style={{display: "flex", top:50, width:500}}>
                 <span style={{width: 50, justifyContent: 'center', alignContent: 'center'}}>url:</span>
                 <Search key='1' enterButton="搜索" onSearch={Submit}/>
             </div>

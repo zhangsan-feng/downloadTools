@@ -1,4 +1,4 @@
-import {Input, Table, Tag} from 'antd';
+import {Input, Table} from 'antd';
 import "./comm.css"
 import {MusicSearchAdapter, MusicDownLoadAdapter} from './platform_params.tsx'
 import {useState} from 'react'
@@ -8,35 +8,16 @@ const {Search} = Input
 
 const MusicSearchComponent = () => {
     const columns = [
-        {
-            title: 'id',
-            dataIndex: 'id',
-            width:150,
-        },
-        {
-            title: 'platform',
-            dataIndex: 'platform',
-        },
-        {
-            title: 'music_id',
-            dataIndex: 'music_id',
-        },
-        {
-            title: 'author',
-            dataIndex: 'author',
-        },
-        {
-            title: "music_name",
-            dataIndex: "music_name",
-        },
-        {
-            title: "file_name",
-            dataIndex: "file_name",
-        },
+        {title: 'id', dataIndex: 'id', width:150,},
+        {title: 'platform', dataIndex: 'platform',},
+        {title: 'music_id', dataIndex: 'music_id',},
+        {title: 'author', dataIndex: 'author',},
+        {title: "music_name", dataIndex: "music_name",},
+        {title: "file_name", dataIndex: "file_name",},
         {
             width:100,
-            title: '下载',
-            dataIndex: '下载',
+            title: '',
+            dataIndex: '',
             render: (_, src) => {
                 return <a onClick={()=>{
                     MusicDownLoadAdapter(src).then(res=>{})
@@ -54,6 +35,16 @@ const MusicSearchComponent = () => {
                 }}>打开</a>
             },
         },
+        {
+            width:100,
+            title: '',
+            dataIndex: '',
+            render: (_, src) => {
+                return <a onClick={()=>{
+
+                }}>播放</a>
+            },
+        },
     ];
 
     const [searchData, setSearchData] = useState([])
@@ -68,23 +59,23 @@ const MusicSearchComponent = () => {
     return (
         <div style={{}}>
 
-            <div style={{display: "flex", top: 50,}}>
-                <span style={{width: 50, justifyContent: 'center', alignContent: 'center'}}>url:</span>
+            <div style={{display: "flex", top: 50, width:500}}>
+                <span style={{width: 100, justifyContent: 'center', alignContent: 'center'}}>音乐搜索:</span>
                 <Search key='1' enterButton="搜索" onSearch={Submit}/>
             </div>
 
             <div style={{marginTop: 20,}}>
                 {searchData.length !== 0 ? (
-                    <Table
-                        columns={columns}
-                        pagination={{pageSize:100}}
-                        dataSource={searchData}
-                        scroll={{ y: 360 }}
-                        rowKey="id"
-                        expandable={{
-                            // expandedRowClassName: () => "abc",
-                        }}
-                    />
+                    <div>
+                        <Table
+                            columns={columns}
+                            pagination={{pageSize:100}}
+                            dataSource={searchData}
+                            scroll={{ y: 360 }}
+                            rowKey="id"
+                        />
+                        <div className="music-player"></div>
+                    </div>
                 ) : (
                     <div></div>
                 )}

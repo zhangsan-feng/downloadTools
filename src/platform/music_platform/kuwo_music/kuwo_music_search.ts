@@ -1,7 +1,7 @@
 import {ProxyApi, ProxyParams} from '../../../api/axios_http.ts'
 import {word_analysis} from '../../comm.ts'
 
-export async function KuWoMusicSearch(search_world, cookie) {
+export async function KuWoMusicSearch(search_world, config) {
     const request_url = "https://www.kuwo.cn/search/searchMusicBykeyWord"
     const request_headers = {
         'Accept': 'application/json, text/plain, */*',
@@ -41,6 +41,7 @@ export async function KuWoMusicSearch(search_world, cookie) {
         req_params:request_params,
         req_headers:request_headers
     }
+    // console.log(proxy_params)
     const response = await ProxyApi(proxy_params)
     // const response_header = response.headers
     const response_body = JSON.parse(response.body)

@@ -15,7 +15,7 @@
     "windows": [
       {
         "resizable": false,
-        "minWidth": 1400,
+        "minWidth": 1600,
         "minHeight": 700,
         "center": true,
         "hiddenTitle": true,

@@ -62,11 +62,14 @@ const DownloadRecord = ()=>{
 
     return(
         <div>
-            <Table columns={columns} dataSource={TableData}  scroll={{y:400}} rowKey="id"
-                   expandable={{expandedRowClassName:()=>{
-                           return "abc"
-                       }}}
-            />
+            {TableData.length !== 0 ? (
+                <Table columns={columns} dataSource={TableData}  scroll={{y:400}} rowKey="id"
+                       expandable={{expandedRowClassName:()=>{
+                               return "abc"
+                           }}}
+                />
+            ) : (<div></div>)}
+
         </div>
     )
 

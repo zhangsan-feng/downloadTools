@@ -1,4 +1,4 @@
-use crate::web_service::api::task::task_is_running;
+// use crate::web_service::api::task::task_is_running;
 use futures_util::StreamExt;
 use log::info;
 use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
@@ -54,6 +54,7 @@ pub async fn http_post_json(url: String, headers: HeaderMap, params: serde_json:
 }
 
 pub async fn http_post_form(url: String, headers: HeaderMap, params: serde_json::Value) -> Response {
+
     let client = reqwest::Client::new();
     let response = client
         .post(url)
@@ -99,7 +100,7 @@ pub async fn download_file(url: String, headers: HeaderMap, save_path: String) -
     true
 }
 
-pub async fn download_flv(url: String, headers: HeaderMap, save_path: String, task_name: String) {
+pub async fn download_flv(url: String, headers: HeaderMap, save_path: String) {
     let client = reqwest::Client::new();
     let response = client
         .get(url.clone())

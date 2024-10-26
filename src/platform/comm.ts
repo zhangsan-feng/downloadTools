@@ -93,5 +93,7 @@ let headers = {
     'User-Agent': navigator.userAgent,
 }
 
-
+const PlatFormTypes = {
+    DouYin = "douyin"
+}
 

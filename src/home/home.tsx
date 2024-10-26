@@ -5,7 +5,7 @@ import logo from "../../src-tauri/icons/title_icon.png";
 import {getCurrentWebviewWindow} from "@tauri-apps/api/webviewWindow";
 import {CloseOutlined, CompressOutlined, MinusOutlined} from "@ant-design/icons";
 import SupportPlatformTable from "../component/support_platform.tsx";
-import DownloadConfig from "../component/download_config.tsx";
+import PlatFormConfig from "../component/platform_config.tsx";
 import DownloadVideoComponent from "../component/download_video.tsx";
 import MusicSearchComponent from "../component/music_search.tsx";
 import DownloadRecord from "../component/download_record.tsx";
@@ -13,7 +13,7 @@ import {ProxyApi} from '../api/axios_http.ts'
 
 const appWindow = getCurrentWebviewWindow()
 
-const TablsChilrenStyle  = {width:"82vw", backgroundColor:"#ce87cc", height:"80vh",
+const TablsChilrenStyle  = {width:"84vw", backgroundColor:"#ce87cc", height:"82vh",
     marginLeft:"2%", borderRadius:25, padding:25}
 
 
@@ -89,7 +89,7 @@ function Home() {
                             label: '下载配置',
                             key: 4,
                             style:TablsChilrenStyle,
-                            children: <DownloadConfig/>
+                            children: <PlatFormConfig/>
                         },
                         {
                             label: '下载记录',

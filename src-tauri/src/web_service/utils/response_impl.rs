@@ -16,4 +16,5 @@ impl ResponseImpl for ResponseStruct {
             "msg": ""
         }))
     }
+
 }
