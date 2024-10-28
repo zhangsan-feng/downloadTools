@@ -11,6 +11,7 @@ use crate::web_service::config::config::init_config;
 #[tokio::main]
 async fn main() {
     init_config().await;
+
     tokio::spawn(async move {
         start_web_service().await;
     });
@@ -28,6 +29,3 @@ async fn main() {
         .expect("error while running tauri application");
 
 }
-
-
-// https://v2.tauri.app/start/

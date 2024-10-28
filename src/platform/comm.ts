@@ -94,6 +94,6 @@ let headers = {
 }
 
 const PlatFormTypes = {
-    DouYin = "douyin"
+    DouYin : "douyin"
 }
 

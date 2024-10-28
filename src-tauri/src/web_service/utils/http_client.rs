@@ -41,30 +41,30 @@ pub async fn http_post(url: String, headers: HeaderMap, params: String) -> Respo
     response
 }
 
-pub async fn http_post_json(url: String, headers: HeaderMap, params: serde_json::Value) -> Response {
-    let client = reqwest::Client::new();
-    let response = client
-        .post(url)
-        .headers(headers)
-        .json(&params)
-        .send()
-        .await
-        .expect("call error");
-    response
-}
-
-pub async fn http_post_form(url: String, headers: HeaderMap, params: serde_json::Value) -> Response {
-
-    let client = reqwest::Client::new();
-    let response = client
-        .post(url)
-        .headers(headers)
-        .form(&params)
-        .send()
-        .await
-        .expect("call error");
-    response
-}
+// pub async fn http_post_json(url: String, headers: HeaderMap, params: serde_json::Value) -> Response {
+//     let client = reqwest::Client::new();
+//     let response = client
+//         .post(url)
+//         .headers(headers)
+//         .json(&params)
+//         .send()
+//         .await
+//         .expect("call error");
+//     response
+// }
+//
+// pub async fn http_post_form(url: String, headers: HeaderMap, params: serde_json::Value) -> Response {
+//
+//     let client = reqwest::Client::new();
+//     let response = client
+//         .post(url)
+//         .headers(headers)
+//         .form(&params)
+//         .send()
+//         .await
+//         .expect("call error");
+//     response
+// }
 
 pub async fn download_file(url: String, headers: HeaderMap, save_path: String) -> bool {
     if tokio::fs::metadata(save_path.clone()).await.is_ok() {

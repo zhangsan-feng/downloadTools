@@ -8,10 +8,7 @@ use http_body_util::BodyExt;
 use log::debug;
 use log::info;
 
-pub async fn request_record(
-    req: Request,
-    next: Next,
-) -> Result<impl IntoResponse, (StatusCode, String)> {
+pub async fn request_record(req: Request, next: Next, ) -> Result<impl IntoResponse, (StatusCode, String)> {
     let (parts, body) = req.into_parts();
     let bytes = body
         .collect()

@@ -4,12 +4,12 @@ import {Button,Row, Col, Tabs} from 'antd';
 import logo from "../../src-tauri/icons/title_icon.png";
 import {getCurrentWebviewWindow} from "@tauri-apps/api/webviewWindow";
 import {CloseOutlined, CompressOutlined, MinusOutlined} from "@ant-design/icons";
-import SupportPlatformTable from "../component/support_platform.tsx";
+
 import PlatFormConfig from "../component/platform_config.tsx";
 import DownloadVideoComponent from "../component/download_video.tsx";
 import MusicSearchComponent from "../component/music_search.tsx";
 import DownloadRecord from "../component/download_record.tsx";
-import {ProxyApi} from '../api/axios_http.ts'
+
 
 const appWindow = getCurrentWebviewWindow()
 

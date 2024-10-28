@@ -21,7 +21,7 @@ export async function KuWoMusicDetailsDownload(source, config){
             download_link: { [source.file_name]: mp3_link }
         }
         // console.log(resource_params)
-        ResourceDownloadApi(resource_params).then(res=>{})
+        await ResourceDownloadApi(resource_params)
         message.success({content:"下载完成"})
     }else{
         message.error({content:response_body["msg"]})
