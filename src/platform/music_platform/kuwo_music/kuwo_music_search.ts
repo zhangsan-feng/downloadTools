@@ -16,7 +16,7 @@ export async function KuWoMusicSearch(key_world, config) {
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"Windows"',
         'Referer': 'https://www.kuwo.cn/search/list?key=%E9%9D%92%E8%8A%B1%E7%93%B7',
-        'Cookie': '_ga=GA1.2.1312299211.1726711416; Hm_lvt_cdb524f42f0ce19b169a8071123a4797=1726711416,1728628418; HMACCOUNT=767E63CB2A05D70F; _gid=GA1.2.1963391643.1728628418; Hm_lpvt_cdb524f42f0ce19b169a8071123a4797=1728635088; _ga_ETPBRPM9ML=GS1.2.1728635052.4.1.1728635087.25.0.0; Hm_Iuvt_cdb524f42f23cer9b268564v7y735ewrq2324=aYbRM3e37zsx3PZyeYjBtWNnjNET4sTh',
+        'Cookie': config['kw_music']['cookie'],
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
     }
 

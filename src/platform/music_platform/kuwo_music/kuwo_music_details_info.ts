@@ -9,7 +9,7 @@ async function KuWoMusicDetailsInfoForHtml(source, config){
 async function KuWoMusicDetailsInfoForApi(source, config){
     const music_id = source.download_link.split("?")[0].replace("https://www.kuwo.cn/play_detail/", "")
     // console.log(music_id)
-    const cookie = '_ga=GA1.2.1312299211.1726711416; Hm_lvt_cdb524f42f0ce19b169a8071123a4797=1728628418,1729043449,1729492565; HMACCOUNT=767E63CB2A05D70F; _gid=GA1.2.545340960.1729492586; Hm_lpvt_cdb524f42f0ce19b169a8071123a4797=1729493427; _ga_ETPBRPM9ML=GS1.2.1729492599.7.1.1729493426.15.0.0; Hm_Iuvt_cdb524f42f23cer9b268564v7y735ewrq2324=8TS4X2pjaiDkwQicT2hnxTTRj3PwwpeJ'
+    const cookie = config['kw_music']['cookie']
     const request_url = "https://www.kuwo.cn/api/v1/www/music/playUrl"
     const request_headers = {
         'Accept': 'application/json, text/plain, */*',

@@ -4,7 +4,7 @@ import {word_analysis} from "../../comm.ts";
 
 export async function KuGouMusicSearch(key_world, config){
     const request_url = "https://complexsearch.kugou.com/v2/search/song"
-    const cookie = 'kg_mid=827b466e5454a32b9fb01a735962f79d; kg_dfid=2UHCVX0t0H8E0okksB0jZlFu; kg_dfid_collect=d41d8cd98f00b204e9800998ecf8427e; Hm_lvt_aedee6983d4cfc62f509129360d6bb3d=1729649806; HMACCOUNT=48AB10115F4CD233; kg_mid_temp=827b466e5454a32b9fb01a735962f79d; Hm_lpvt_aedee6983d4cfc62f509129360d6bb3d=1729650622'
+    const cookie = config['kg_music']['cookie']
     const request_headers = {
         'accept': '*/*',
         'accept-language': 'zh-CN,zh;q=0.9,zh-TW;q=0.8,en-US;q=0.7,en;q=0.6',
