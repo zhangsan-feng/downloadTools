@@ -1,7 +1,7 @@
 import {ProxyApi, ProxyParams} from '../../../api/axios_http.ts'
 import {word_analysis} from '../../comm.ts'
 
-export async function KuWoMusicSearch(search_world, config) {
+export async function KuWoMusicSearch(key_world, config) {
     const request_url = "https://www.kuwo.cn/search/searchMusicBykeyWord"
     const request_headers = {
         'Accept': 'application/json, text/plain, */*',
@@ -33,7 +33,7 @@ export async function KuWoMusicSearch(search_world, config) {
         'show_copyright_off': '1',
         'pn': '0',
         'rn': '20',
-        'all': search_world,
+        'all': key_world,
     }
     const proxy_params:ProxyParams = {
         req_url:request_url,
@@ -48,14 +48,13 @@ export async function KuWoMusicSearch(search_world, config) {
     // console.log(response_body)
 
     const call_back = []
-
     for (const index in response_body.abslist) {
         const music_id   = response_body.abslist[index]['DC_TARGETID']
         const author     = response_body.abslist[index]['ARTIST']
         const music_name = response_body.abslist[index]['NAME']
         const download_link = "https://www.kuwo.cn/play_detail/" + music_id
         call_back.push({
-            "id":Date.now() + Math.floor(Math.random() * 100000),
+            "id":Date.now() + Math.floor(Math.random() * 110000),
             "platform":"酷我音乐",
             "music_id":music_id,
             "author":author,

@@ -6,6 +6,8 @@ import {QQMusicSearch} from '../platform/music_platform/qq_music/qq_music_search
 
 import {KuWoaMusicAdapter} from '../platform/music_platform/kuwo_music/kuwo_music_adapter.ts'
 import {KuGouMusicAdapter} from '../platform/music_platform/kugou_music/kugou_music_adapter.ts'
+import {QQMusicAdapter} from '../platform/music_platform/qq_music/qq_music_adapter.ts'
+
 import {PlatFormConfigQueryAPi} from "../api/axios_http.ts";
 
 function PlatFormParams (input){
@@ -41,12 +43,16 @@ async function GenCookie() {
 }
 
 export async function MusicDownLoadAdapter(source){
+    // console.log(source)
     const config = await GenCookie()
     if (source.download_link.includes("https://www.kuwo.cn/play_detail/")){
-        await KuWoaMusicAdapter(source,"")
+        await KuWoaMusicAdapter(source,config)
     }
     if (source.download_link.includes("https://www.kugou.com/song/#")){
-        await KuGouMusicAdapter(source, "")
+        await KuGouMusicAdapter(source, config)
+    }
+    if (source.download_link.includes("https://y.qq.com/n/ryqq/songDetail/")){
+        await QQMusicAdapter(source, config)
     }
 }
 
@@ -56,7 +62,7 @@ export async function MusicPlayerAdapter(source){
 
 
 export async function MusicSearchAdapter(key_world){
-    const functions = [ QQMusicSearch]
+    const functions = [ KuGouMusicSearch, KuWoMusicSearch, QQMusicSearch]
     const config = await GenCookie()
     let call_back = []
     for (let index = 0; index < functions.length; index++){

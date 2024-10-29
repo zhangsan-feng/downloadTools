@@ -50,7 +50,7 @@ const MusicSearchComponent = () => {
     const [searchData, setSearchData] = useState([])
 
     const Submit = (data) => {
-        console.log(data)
+        // console.log(data)
         MusicSearchAdapter(data).then(res=>{
             // console.log(res)
             setSearchData(res)

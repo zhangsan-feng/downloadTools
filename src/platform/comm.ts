@@ -38,6 +38,14 @@ export function sleep() {
     });
 }
 
+export function RandomNumber(maxLength) {
+
+    let result = '';
+    for (let i = 0; i < maxLength; i++) {
+        result += Math.floor(Math.random() * 10);
+    }
+    return result;
+}
 
 export function ScriptHandler() {
     let scriptElement;
@@ -91,6 +99,16 @@ let headers = {
     'Referer': '',
     'Cookie': '',
     'User-Agent': navigator.userAgent,
+}
+
+export function GetCookieKey(cookie, key){
+    const cookiesArray = cookie.split(';');
+    for (let i = 0; i < cookiesArray.length; i++) {
+        const cookiePair = cookiesArray[i].split('=');
+        if (cookiePair[0].trim() === key) {
+            return cookiePair[1]
+        }
+    }
 }
 
 const PlatFormTypes = {
