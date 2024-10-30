@@ -22,7 +22,11 @@ export function GetTime(){
     let mm = String(today.getMonth() + 1).padStart(2, '0');
     let yyyy = today.getFullYear();
     let result = ""
-    result = yyyy + '_' + mm + '_' + dd + "_" + String(today.getHours()) + "_" + String(today.getMinutes()) + "_" + String(today.getSeconds())
+    result = yyyy + '_' + mm + '_' + dd + "_" +
+        String(today.getHours()) +
+        "_" + String(today.getMinutes()) +
+        "_" + String(today.getSeconds()) +
+        "_" + String(today.getMilliseconds())
     return result
 }
 
@@ -81,26 +85,6 @@ export function ScriptHandler() {
 }
 
 
-
-
-let headers = {
-
-    'Accept': 'application/json, text/plain, */*',
-    'Accept-Language': 'zh-CN,zh;q=0.9',
-    'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive',
-    'sec-ch-ua': '"Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"',
-    'sec-ch-ua-mobile': '?0',
-    'sec-ch-ua-platform': '"Windows"',
-    'Sec-Fetch-Dest': 'empty',
-    'Sec-Fetch-Mode': 'cors',
-    'Sec-Fetch-Site': 'same-origin',
-    'Origin': '',
-    'Referer': '',
-    'Cookie': '',
-    'User-Agent': navigator.userAgent,
-}
-
 export function GetCookieKey(cookie, key){
     const cookiesArray = cookie.split(';');
     for (let i = 0; i < cookiesArray.length; i++) {
@@ -115,3 +99,30 @@ const PlatFormTypes = {
     DouYin : "douyin"
 }
 
+/*
+
+    const proxy_params:ProxyParams = {
+        req_url:request_url,
+        req_type:"GET",
+        req_params:request_params,
+        req_headers:request_headers
+    }
+    console.log(proxy_params)
+    const response = await ProxyApi(proxy_params)
+    const response_header = response.headers
+    const response_body = JSON.parse(response.body)
+    console.log(response_body)
+
+
+    const resource_params:ResourceParams = {
+        id:source.id,
+        platform:"kuwo_music",
+        req_headers:request_headers,
+        download_link: { [source.file_name]: mp3_link }
+    }
+    console.log(resource_params)
+    await ResourceDownloadApi(resource_params)
+
+
+
+*/

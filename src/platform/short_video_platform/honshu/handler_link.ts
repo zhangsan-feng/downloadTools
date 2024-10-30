@@ -1,7 +1,7 @@
 
-import {HongShuDetails} from './hongshu_details.js'
+import {HongShuDetails} from './hongshu_details.ts'
 import {HTTPGetForText} from '../../../api/request.js'
-import {HongShuPost} from './hongshu_post.js'
+import {HongShuPost} from './hongshu_post.ts'
 
 // 37 【“夫人的香水味是我对自由的想象” - 鈴铃铃 | 小红书 - 你的生活指南】 😆 GCKijwTTqip9gAL 😆 http://xhslink.com/ch8AHP
 export async function HongShuHandlerLink(url, cookie){

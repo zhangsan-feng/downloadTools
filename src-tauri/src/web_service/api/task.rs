@@ -12,12 +12,11 @@ use tokio::sync::RwLock;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct TaskInfo{
+    file_name:String,
+    file_size:i64,
+    link:String,
     author: String,
     title: String,
-    description: String,
-    sec_uid: String,
-    uid: String,
-
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -25,7 +24,6 @@ pub struct DownLoadTaskManager {
     pub task_status: String,
     pub children: Vec<TaskInfo>,
     pub platform:String,
-    pub file_size:i64
 }
 
 lazy_static! {

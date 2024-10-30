@@ -85,7 +85,7 @@ export async function QQMusicSearch(key_world, config) {
             "music_id":music_id,
             "author":author,
             "music_name":music_name,
-            "file_name":word_analysis(author) + "_" + music_name + "_" + ".mp3",
+            "file_name":word_analysis(author) + "_" + word_analysis(music_name) + "_" + ".mp3",
             "download_link":download_link
         })
     }

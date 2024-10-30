@@ -1,5 +1,5 @@
 import Qs from "qs";
-import {GetCookieA1} from "./headers.js";
+import {GetCookieA1} from "./headers.ts";
 import {get_sign} from "./X-S-Common.js";
 import {traceid} from "./X-B3-Traceid.js";
 import {HTTPPost} from "../../../api/request.js";

@@ -1,6 +1,6 @@
 
 import {CallUpdateTask} from "../../../api/call.js";
-import {Details} from './details.js'
+import {Details} from './details.ts'
 
 
 

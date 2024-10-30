@@ -1,6 +1,6 @@
-import {BiliBiliDetails} from "./bilibili_details.js";
-import {bilibili_live} from "./bilibili_live.js";
-import {BiliBiliPost} from "./bilibili_post.js";
+import {BiliBiliDetails} from "./bilibili_details.ts";
+import {bilibili_live} from "./bilibili_live.ts";
+import {BiliBiliPost} from "./bilibili_post.ts";
 
 export async function BiliBiliHandlerLink(url, cookie){
 

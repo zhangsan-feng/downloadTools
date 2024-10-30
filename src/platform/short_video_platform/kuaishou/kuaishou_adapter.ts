@@ -1,7 +1,7 @@
 
-import {KuaishouDetails} from './kuaishou_details.js'
-import {KuaishouLive} from "./kuaishou_live.js";
-import {KuaishouPost} from './kuaishou_post.js'
+import {KuaishouDetails} from './kuaishou_details.ts'
+import {KuaishouLive} from "./kuaishou_live.ts";
+import {KuaishouPost} from './kuaishou_post.ts'
 import {HTTPGetForTextNoRedirect} from "../../../api/request.js";
 import {match_url} from '../../comm.ts'
 

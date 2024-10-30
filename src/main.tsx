@@ -7,3 +7,8 @@ createRoot(document.getElementById('root')).render(
 
     <RouterProvider router={httpRouter}/>
 )
+
+/*
+https://github.com/goldfire/howler.js
+https://github.com/videojs/video.js
+*/
