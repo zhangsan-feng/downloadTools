@@ -17,10 +17,10 @@ export function match_url(text){
 }
 
 export function GetTime(){
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0');
-    let yyyy = today.getFullYear();
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
     let result = ""
     result = yyyy + '_' + mm + '_' + dd + "_" +
         String(today.getHours()) +
@@ -107,12 +107,10 @@ const PlatFormTypes = {
         req_params:request_params,
         req_headers:request_headers
     }
-    console.log(proxy_params)
-    const response = await ProxyApi(proxy_params)
-    const response_header = response.headers
-    const response_body = JSON.parse(response.body)
+    // console.log(proxy_params)
+    const {response_body} = await ProxyApi(proxy_params)
     console.log(response_body)
-
+    return {"response_body":response_body, "request_headers":request_headers}
 
     const resource_params:ResourceParams = {
         id:source.id,

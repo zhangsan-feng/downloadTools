@@ -1,4 +1,4 @@
-import {Input, Table} from 'antd';
+import {Input, message, Table} from 'antd';
 import "./comm.css"
 import {MusicSearchAdapter, MusicDownLoadAdapter} from './platform_params.tsx'
 import {useState} from 'react'
@@ -51,10 +51,12 @@ const MusicSearchComponent = () => {
 
     const Submit = (data) => {
         // console.log(data)
+
         MusicSearchAdapter(data).then(res=>{
             // console.log(res)
             setSearchData(res)
         })
+
     }
     return (
         <div style={{}}>
@@ -74,7 +76,7 @@ const MusicSearchComponent = () => {
                             scroll={{ y: 360 }}
                             rowKey="id"
                         />
-                        <div className="music-player"></div>
+                        {/*<div className="music-player"></div>*/}
                     </div>
                 ) : (
                     <div></div>

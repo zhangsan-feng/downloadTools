@@ -4,7 +4,7 @@ import {ABogus} from './a_bogus.js'
 
 import Qs from "qs";
 import {CallDownLoadLive, CallDwonLoadApi} from "../../../api/call.js";
-import {GetTime} from '../../comm.ts'
+import {GetTime} from '../../comm.js'
 
 export async function DouYinLive(url, room_id, sec_user_id, platform, cookie){
     let headers = {

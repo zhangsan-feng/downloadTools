@@ -1,6 +1,6 @@
 import {HTTPGet, HTTPPost} from '../../../api/request.js'
 import {CallDownLoadVideo,  CallUpdateTask} from "../../../api/call.js";
-import {word_analysis} from '../../comm.ts'
+import {word_analysis} from '../../comm.js'
 import Qs from "qs";
 
 async function run1(url, headers){

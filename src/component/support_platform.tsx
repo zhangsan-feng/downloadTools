@@ -1,6 +1,6 @@
 
 import {Flex, Tabs, Button} from 'antd';
-import {match_url} from "../platform/comm.ts";
+import {match_url} from "../platform/comm.js";
 
 
 function getRandomBrightColor() {

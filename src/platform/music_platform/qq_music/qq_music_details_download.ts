@@ -5,7 +5,7 @@ import {message} from "antd";
 
 export async function QQMusicDetailsDownLoad(source, config){
     const {response_body, request_headers} = await QQMusicDetailsInfo(source, config)
-    console.log(response_body)
+    // console.log(response_body)
     const mp3_link = "https://ws6.stream.qqmusic.qq.com/" + response_body.req_4.data.midurlinfo[0].purl
     request_headers["referer"] = mp3_link
 
@@ -15,7 +15,7 @@ export async function QQMusicDetailsDownLoad(source, config){
         req_headers:request_headers,
         download_link: { [source.file_name]: mp3_link }
     }
-    console.log(resource_params)
+    // console.log(resource_params)
     await ResourceDownloadApi(resource_params)
     message.success({content:"下载成功"})
 }

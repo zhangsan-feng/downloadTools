@@ -1,6 +1,6 @@
 import {HTTPGet} from '../../../api/request.js'
 import { CallDownLoadLive} from '../../../api/call.js'
-import {word_analysis} from '../../comm.ts'
+import {word_analysis} from '../../comm.js'
 
 export async function bilibili_live(url){
     let headers = {

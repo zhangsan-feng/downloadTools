@@ -26,14 +26,22 @@ const PlatFormConfig = ()=>{
     useEffect(()=>{
         PlatFormConfigQueryAPi({}).then(res=>{
             // console.log(res)
-            setCookieData(res.data)
+            const config = {}
+            for (const index in res.data) {
+                config[res.data[index].platform] = {
+                    "cookie":res.data[index].cookie,
+                    "id" :res.data[index].id
+                }
+            }
+            // console.log(config)
+            setCookieData(config)
         })
     },[])
 
-    let Element = []
+    const Element = []
     PlatformCookie.forEach((value, index)=>{
         // console.log(value, index)
-        // console.log(cookieData[index])
+        // console.log(cookieData[index][value])
         Element.push(
             <div style={{marginTop: 20, display: "flex", width:"70vw", marginLeft:20, }} key={index}>
                 <span style={{
@@ -43,8 +51,8 @@ const PlatFormConfig = ()=>{
                     justifyContent: 'center',
                     alignContent: 'center'
                 }}>{value}</span>
-                <Search key={cookieData[index]?.["id"] ? cookieData[index]["id"] : ""} enterButton="提交"
-                        defaultValue = {cookieData[index]?.["cookie"] ? cookieData[index]["cookie"] : ""}
+                <Search key={cookieData[value]?.["id"] ? cookieData[value]["id"] : ""} enterButton="提交"
+                        defaultValue = {cookieData[value]?.["cookie"] ? cookieData[value]["cookie"] : ""}
                         onSearch={(cookie) => {
                                 const platform = value
                             PlatFormConfigUpdateAPi({"cookie":cookie, "platform":platform}).then(res=>{

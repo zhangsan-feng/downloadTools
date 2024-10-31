@@ -1,5 +1,5 @@
 import {HTTPGet} from '../../../api/request.js'
-import {word_analysis, GetTime} from '../../comm.ts'
+import {word_analysis, GetTime} from '../../comm.js'
 import {CallDownLoadLive, CallDwonLoadApi} from "../../../api/call.js";
 export async function KuaishouLive(url ,cookie){
 

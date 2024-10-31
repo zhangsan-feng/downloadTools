@@ -1,7 +1,7 @@
 
 // import  {get_wrid} from './w_rid.js'
 import {HttpGet} from '../../../api/tauri_http.ts'
-// import {word_analysis} from '../../comm.ts'
+// import {word_analysis} from '../../comm.js'
 
 
 

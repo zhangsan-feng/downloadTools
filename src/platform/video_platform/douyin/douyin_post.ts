@@ -4,7 +4,7 @@ import {GetVerifyFp} from './verify_fp.js'
 import {ABogus} from './a_bogus.js'
 import {CallDownLoadVideo, CallDwonLoadApi} from "../../../api/call.js";
 import {GetWebId} from "./web_id.js";
-import {word_analysis} from '../../comm.ts'
+import {word_analysis} from '../../comm.js'
 import Qs from "qs";
 import {CallUpdateTask} from '../../../api/call.js'
 

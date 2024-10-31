@@ -36,8 +36,8 @@ pub async fn proxy(axum::Json(params): axum::Json<ProxyParams>) -> axum::Json<se
     let body_text =  res.text().await.unwrap();
 
     let response_json = json!({
-        "headers": headers_value,
-        "body": body_text
+        "response_headers": headers_value,
+        "response_body": body_text
     });
 
     axum::Json(response_json)

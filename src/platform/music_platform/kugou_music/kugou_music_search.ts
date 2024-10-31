@@ -1,6 +1,6 @@
 import {GetCookieMid, GetCookieDFid, GenSearchSignature} from './kugou_sign.ts'
 import {ProxyApi, ProxyParams} from "../../../api/axios_http.ts";
-import {word_analysis} from "../../comm.ts";
+import {word_analysis} from "../../comm.js";
 
 export async function KuGouMusicSearch(key_world, config){
     const request_url = "https://complexsearch.kugou.com/v2/search/song"
@@ -16,7 +16,7 @@ export async function KuGouMusicSearch(key_world, config){
         'sec-fetch-dest': 'script',
         'sec-fetch-mode': 'no-cors',
         'sec-fetch-site': 'same-site',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
+        'user-agent': navigator.userAgent,
     }
     const clienttime = Date.now();
     const request_params = {
@@ -51,10 +51,9 @@ export async function KuGouMusicSearch(key_world, config){
         req_headers:request_headers
     }
     // console.log(proxy_params)
-    const response = await ProxyApi(proxy_params)
-    // console.log(response)
-    // const response_header = response.headers
-    const response_body = JSON.parse(response.body.replace("callback123(", "").slice(0, -1).slice(0, -1))
+    let {response_body} = await ProxyApi(proxy_params)
+    // console.log(response_body)
+    response_body = JSON.parse(response_body.replace("callback123(", "").slice(0, -1).slice(0, -1))
     // console.log(response_body)
 
     const call_back = []

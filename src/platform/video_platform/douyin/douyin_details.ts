@@ -3,7 +3,7 @@ import {GetMsToken} from './ms_token.js'
 import {GetVerifyFp} from './verify_fp.js'
 import {ABogus} from "./a_bogus.js";
 import {CallDownLoadVideo, CallUpdateTask} from '../../../api/call.js'
-import {word_analysis} from '../../comm.ts'
+import {word_analysis} from '../../comm.js'
 import Qs from "qs";
 import {GetWebId} from "./web_id.js";
 

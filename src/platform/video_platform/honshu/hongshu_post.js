@@ -1,11 +1,11 @@
 import {HTTPGet} from '../../../api/request.js'
-import {GetCookieA1} from "./headers.ts";
+
 import {get_sign} from "./X-S-Common.js";
 import {traceid} from "./X-B3-Traceid.js";
 import Qs from "qs";
-import {Details} from "./details.ts";
+
 import {CallUpdateTask} from "../../../api/call.js";
-import {sleep} from '../../comm.ts'
+import {sleep} from '../../comm.js'
 
 export async function HongShuPost(url ,cookie){
     let task_name = url

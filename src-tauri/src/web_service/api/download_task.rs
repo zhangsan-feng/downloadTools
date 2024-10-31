@@ -8,54 +8,58 @@ use serde::{Deserialize, Serialize};
 use serde_json::{json, to_value, Value};
 use std::collections::HashMap;
 use std::sync::Arc;
+use axum::Json;
 use tokio::sync::RwLock;
+use crate::web_service::api::download::ResourceParams;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct TaskInfo{
-    file_name:String,
-    file_size:i64,
-    link:String,
-    author: String,
-    title: String,
+pub enum TaskStatus{
+    Running,
+    Stop,
+    Fishing,
+    Failed,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct DownLoadTaskManager {
-    pub task_status: String,
-    pub children: Vec<TaskInfo>,
+pub struct Task {
+    pub status:TaskStatus,
+    pub children: Vec<String>,
     pub platform:String,
 }
 
 lazy_static! {
-    pub static ref DOWN_LOAD_TASK_MANAGER: Arc<RwLock<HashMap<i64, DownLoadTaskManager>>> =
+     static ref TaskManager: Arc<RwLock<HashMap<i64, Task>>> =
         Arc::new(RwLock::new(HashMap::new()));
 }
 
 
-pub async fn add_task(id: i64, task: TaskInfo, _platform:String) {
-    info!("add new task {}", id);
-    let mut task_manager = DOWN_LOAD_TASK_MANAGER.write().await;
+#[derive(Debug, Serialize, Deserialize, Clone,)]
+pub struct RequestParams{
+    id:i64,
+}
+
+
+pub async fn add_task(id: i64, file_name: String, _platform:String) {
+    info!("add new task {}, {}, {}", id, _platform, file_name);
+    let mut task_manager = TaskManager.write().await;
     match task_manager.get_mut(&id) {
         Some(task_vec) => {
-            task_vec.children.push(task);
+            task_vec.children.push(file_name);
         }
         None => {
-            let mut new_task_vec = Vec::new();
-            new_task_vec.push(task);
-            let manager = DownLoadTaskManager {
-                task_status: "running".to_string(),
-                children: new_task_vec,
-                platform: _platform,
-                file_size: 0,
+            let record = Task{
+                status: TaskStatus::Running,
+                children: vec![file_name],
+                platform: _platform
             };
-            task_manager.insert(id, manager);
+            task_manager.insert(id, record);
         }
     }
 }
 
 
 pub async fn task_query() {
-    let tasks_manager = DOWN_LOAD_TASK_MANAGER.read().await;
+    let tasks_manager = TaskManager.read().await;
     let mut tmp_list: Vec<HashMap<String, Value>> = Vec::new();
     let mut index = 0;
     let mut rng = thread_rng();
@@ -72,16 +76,13 @@ pub async fn task_query() {
 
             let n4: i64 = rng.gen_range(1..=i64::MAX);
             children_map.insert("id".to_string(), to_value(i as i64 + n4).unwrap());
-            children_map.insert("task_name".to_string(), to_value(c).unwrap());
+            children_map.insert("file_name".to_string(), to_value(c).unwrap());
             children.push(to_value(children_map).unwrap());
         }
 
         tmp_map.insert("id".to_string(), to_value(index).unwrap());
-        tmp_map.insert("task_name".to_string(), to_value(key).unwrap());
-        tmp_map.insert(
-            "task_status".to_string(),
-            to_value(&value.task_status).unwrap(),
-        );
+        tmp_map.insert("status".to_string(), to_value(&value.status).unwrap());
+        tmp_map.insert("platform".to_string(), to_value(&value.platform).unwrap());
         tmp_map.insert("children".to_string(), to_value(&children).unwrap());
         tmp_list.push(tmp_map);
         index += 1;
@@ -89,9 +90,13 @@ pub async fn task_query() {
 
 }
 
+pub async fn stop_task(Json(params):Json<ResourceParams>){
 
-pub async fn task_update() {
-    // let mut task_manager = DOWN_LOAD_TASK_MANAGER.write().await;
+}
+
+
+pub async fn update_task_status(Json(params):Json<ResourceParams>) {
+    // let mut task_manager = TaskManager.write().await;
     // // info!("{}", task_name);
     // match task_manager.get_mut(&id) {
     //     Some(task) => {
@@ -102,8 +107,8 @@ pub async fn task_update() {
 
 }
 
-pub async fn task_is_running(id: i64) -> bool {
-    // let task_manager = DOWN_LOAD_TASK_MANAGER.read().await;
+pub async fn task_is_running() -> bool {
+    // let task_manager = TaskManager.read().await;
     // match task_manager.get(&id) {
     //     Some(task_vec) => {
     //         if task_vec.task_status == "done".to_string()

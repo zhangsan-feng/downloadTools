@@ -2,10 +2,8 @@ import {GenDetailsSignature, GetCookieDFid, GetCookieMid} from "./kugou_sign.ts"
 import {ProxyApi, ProxyParams} from "../../../api/axios_http.ts";
 
 
-async function KuGouMusicDetailsForHtml(){}
 
-
-async function KuGouMusicDetailsForApi(source, config){
+export async function KuGouMusicDetailsInfo(source, config){
     const request_url = "https://wwwapi.kugou.com/play/songinfo"
     const cookie = config['kg_music']['cookie']
     const request_headers = {
@@ -20,7 +18,7 @@ async function KuGouMusicDetailsForApi(source, config){
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-site',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
+        'user-agent': navigator.userAgent,
     }
 
     const clienttime = Date.now();
@@ -46,13 +44,9 @@ async function KuGouMusicDetailsForApi(source, config){
         req_headers:request_headers
     }
     // console.log(proxy_params)
-    const response = await ProxyApi(proxy_params)
-    // const response_header = response.headers
-    const response_body = JSON.parse(response.body)
+    let {response_body} = await ProxyApi(proxy_params)
+    response_body = JSON.parse(response_body)
     // console.log(response_body)
     return {"response_body":response_body, "request_headers":request_headers}
 }
 
-export async function KuGouMusicDetailsInfo(source, config){
-    return await KuGouMusicDetailsForApi(source, config)
-}

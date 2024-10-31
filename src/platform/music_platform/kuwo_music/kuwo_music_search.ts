@@ -1,5 +1,5 @@
 import {ProxyApi, ProxyParams} from '../../../api/axios_http.ts'
-import {word_analysis} from '../../comm.ts'
+import {word_analysis} from '../../comm.js'
 
 export async function KuWoMusicSearch(key_world, config) {
     const request_url = "https://www.kuwo.cn/search/searchMusicBykeyWord"
@@ -17,7 +17,7 @@ export async function KuWoMusicSearch(key_world, config) {
         'sec-ch-ua-platform': '"Windows"',
         'Referer': 'https://www.kuwo.cn/search/list?key=%E9%9D%92%E8%8A%B1%E7%93%B7',
         'Cookie': config['kw_music']['cookie'],
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
+        'User-Agent': navigator.userAgent,
     }
 
     const request_params = {
@@ -42,9 +42,9 @@ export async function KuWoMusicSearch(key_world, config) {
         req_headers:request_headers
     }
     // console.log(proxy_params)
-    const response = await ProxyApi(proxy_params)
-    // const response_header = response.headers
-    const response_body = JSON.parse(response.body)
+    let {response_body} = await ProxyApi(proxy_params)
+    // console.log(response_body)
+    response_body = JSON.parse(response_body)
     // console.log(response_body)
 
     const call_back = []

@@ -1,19 +1,37 @@
+import {GetCookieKey, ScriptHandler, word_analysis} from "../../comm.js";
 import Qs from "qs";
-import {GetCookieA1} from "./headers.ts";
 import {get_sign} from "./X-S-Common.js";
 import {traceid} from "./X-B3-Traceid.js";
-import {HTTPPost} from "../../../api/request.js";
-import {word_analysis, ScriptHandler} from "../../comm.ts";
-import {CallDownLoadVideo} from "../../../api/call.js";
+import {ProxyApi} from "../../../api/axios_http.ts";
 
-export async function Details(url, headers, task_name){
+
+export async function HongShuDetailsDownload(source, config){
+    const url = source.download_link
+    let request_headers = {
+        'accept': 'application/json, text/plain, */*',
+        'accept-language': 'zh-CN,zh;q=0.9',
+        'cache-control': 'no-cache',
+        'cookie': config['hongshu'].cookie,
+        'origin': 'https://www.xiaohongshu.com/',
+        'pragma': 'no-cache',
+        'priority': 'u=1, i',
+        'referer': url,
+        'sec-ch-ua': '"Not)A;Brand";v="99", "Google Chrome";v="127", "Chromium";v="127"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-site',
+        'user-agent': navigator.userAgent,
+    }
+
     const scriptHandler = ScriptHandler();
-    await scriptHandler.loadScript("src/platform/honshu/x-s.js")
+    await scriptHandler.loadScript("src/platform/video_platform/honshu/x-s.js")
 
     let source_note_id = url.split("?")[0].split("/")
     source_note_id = source_note_id[source_note_id.length - 1]
-    url = 'https://edith.xiaohongshu.com/api/sns/web/v1/feed'
-    let params= {
+    const request_url = 'https://edith.xiaohongshu.com/api/sns/web/v1/feed'
+    const request_params= {
         'source_note_id': source_note_id,
         'image_formats': [
             'jpg',
@@ -24,19 +42,29 @@ export async function Details(url, headers, task_name){
             'need_body_topic': '1',
         },
         'xsec_source': 'pc_feed',
-        'xsec_token': Qs.parse( url.split("?")[1])["xsec_token"],
+        'xsec_token': Qs.parse(url.split("?")[1])["xsec_token"],
     }
 
-    let a1 = GetCookieA1(headers['cookie'])
+    let a1 = GetCookieKey(request_headers['cookie'],"a1")
     let xs = window._webmsxyw("/api/sns/web/v1/feed",params)
-    let xscomm = get_sign(xs,  a1)
-    headers["x-b3-traceid"] = traceid()
-    headers["x-s"] = xs["X-s"]
-    headers["x-s-common"] = xscomm
-    headers["x-t"] = xs["X-t"].toString()
+    let x_s_common = get_sign(xs,  a1)
+    request_headers["x-b3-traceid"] = traceid()
+    request_headers["x-s"] = xs["X-s"]
+    request_headers["x-s-common"] = x_s_common
+    request_headers["x-t"] = xs["X-t"].toString()
 
-    let response = await HTTPPost(url, params, headers)
-    console.log(response)
+    const proxy_params = {
+        req_url:request_url,
+        req_type:"GET",
+        req_params:request_params,
+        req_headers:request_headers
+    }
+    // console.log(proxy_params)
+    let {response_body} = await ProxyApi(proxy_params)
+    response_body = JSON.parse(response_body)
+    console.log(response_body)
+
+    return
     let data = response.data.data
     let aweme_id    = data.items[0].id
     let title       = word_analysis(data.items[0].note_card.title)

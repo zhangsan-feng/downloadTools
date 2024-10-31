@@ -1,15 +1,11 @@
 import {stringify} from 'Qs'
 import {ProxyApi, ProxyParams} from "../../../api/axios_http.ts";
-import {RandomNumber, GetCookieKey} from "../../comm.ts";
+import {RandomNumber, GetCookieKey} from "../../comm.js";
 import {zzcSign} from "./qq_music_sign.ts";
 
 
-async function QQMusicDetailsInfoForHtml() {
-}
-
-
-async function QQMusicDetailsInfoForApi(source, config) {
-    console.log(source)
+export async function QQMusicDetailsInfo(source, config) {
+    // console.log(source)
     let request_url = "https://u6.y.qq.com/cgi-bin/musics.fcg"
     const request_headers = {
         'accept': 'application/json',
@@ -27,7 +23,7 @@ async function QQMusicDetailsInfoForApi(source, config) {
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-site',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+        'user-agent': navigator.userAgent,
     }
     const uin = GetCookieKey(request_headers['cookie'], "o2_uin")
     const request_params = {
@@ -73,14 +69,8 @@ async function QQMusicDetailsInfoForApi(source, config) {
         req_headers: request_headers
     }
     // console.log(proxy_params)
-    const response = await ProxyApi(proxy_params)
-    // const response_header = response.headers
-    const response_body = JSON.parse(response.body)
+    let {response_body} = await ProxyApi(proxy_params)
+    response_body = JSON.parse(response_body)
     // console.log(response_body)
     return {"response_body":response_body, "request_headers":request_headers}
-}
-
-
-export async function QQMusicDetailsInfo(source, config) {
-    return await QQMusicDetailsInfoForApi(source, config)
 }

@@ -1,7 +1,7 @@
 import {stringify} from "qs";
 import {ProxyApi, ProxyParams, ResourceParams} from '../../../api/axios_http.ts'
 import {zzcSign} from './qq_music_sign.ts'
-import {GetCookieKey, RandomNumber, word_analysis} from '../../comm.ts'
+import {GetCookieKey, RandomNumber, word_analysis} from '../../comm.js'
 
 
 export async function QQMusicSearch(key_world, config) {
@@ -20,8 +20,9 @@ export async function QQMusicSearch(key_world, config) {
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-site',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
+        'user-agent': navigator.userAgent,
     }
+
     const uin = GetCookieKey(request_headers['cookie'], "o2_uin")
     const request_params = {
         "comm": {
@@ -65,16 +66,15 @@ export async function QQMusicSearch(key_world, config) {
         req_headers: request_headers
     }
     // console.log(proxy_params)
-    const response = await ProxyApi(proxy_params)
-    // const response_headers = response.response_headers
-    const response_body = JSON.parse(response.body)
+    let {response_body} = await ProxyApi(proxy_params)
+    // console.log(response_body)
+    response_body = JSON.parse(response_body)
     // console.log(response_body)
 
     const call_back = []
     for (const index in response_body.req_1.data.body.song.list){
         const music_id   = response_body.req_1.data.body.song.list[index]['mid']
         const song_id    = response_body.req_1.data.body.song.list[index]['id']
-        const album_mid  = response_body.req_1.data.body.song.list[index]['album']['mid']
         const author     = response_body.req_1.data.body.song.list[index]['singer'][0].name
         const music_name = response_body.req_1.data.body.song.list[index]['name']
         const download_link = "https://y.qq.com/n/ryqq/songDetail/" + music_id
