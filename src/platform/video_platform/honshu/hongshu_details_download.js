@@ -28,6 +28,11 @@ export async function HongShuDetailsDownload(source, config){
     const scriptHandler = ScriptHandler();
     await scriptHandler.loadScript("src/platform/video_platform/honshu/x-s.js")
 
+
+    request_headers['cookie'].split(";").forEach((data)=>{
+        document.cookie = data
+    })
+
     let source_note_id = url.split("?")[0].split("/")
     source_note_id = source_note_id[source_note_id.length - 1]
     const request_url = 'https://edith.xiaohongshu.com/api/sns/web/v1/feed'
@@ -46,7 +51,7 @@ export async function HongShuDetailsDownload(source, config){
     }
 
     let a1 = GetCookieKey(request_headers['cookie'],"a1")
-    let xs = window._webmsxyw("/api/sns/web/v1/feed",params)
+    let xs = window._webmsxyw("/api/sns/web/v1/feed",request_params)
     let x_s_common = get_sign(xs,  a1)
     request_headers["x-b3-traceid"] = traceid()
     request_headers["x-s"] = xs["X-s"]
@@ -55,12 +60,13 @@ export async function HongShuDetailsDownload(source, config){
 
     const proxy_params = {
         req_url:request_url,
-        req_type:"GET",
+        req_type:"POSTJson",
         req_params:request_params,
         req_headers:request_headers
     }
-    // console.log(proxy_params)
+    console.log(proxy_params)
     let {response_body} = await ProxyApi(proxy_params)
+    console.log(response_body)
     response_body = JSON.parse(response_body)
     console.log(response_body)
 

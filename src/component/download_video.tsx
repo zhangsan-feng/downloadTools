@@ -11,7 +11,12 @@ const DownloadVideoComponent = () =>{
 
     const Submit = ()=>{
         const download_link = document.getElementById("download_link").value
-        DownLoadAdapter(download_link).then(res=>{}).catch(err=>{message.error({content:"下载失败"})})
+        DownLoadAdapter(download_link).
+        then(res=>{}).
+        catch(err=>{
+            console.log(err)
+            message.error({content:"下载失败"}
+            )})
     }
 
     return (
