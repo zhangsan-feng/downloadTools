@@ -1,9 +1,75 @@
-import {HTTPGet} from '../../../api/request.js'
-import { CallDownLoadLive} from '../../../api/call.js'
-import {word_analysis} from '../../comm.js'
 
-export async function bilibili_live(url){
-    let headers = {
+import {word_analysis, GetTime} from '../../comm.js'
+import {ProxyApi, ProxyParams, StreamDownloadApi, ResourceParams} from "../../../api/axios_http.ts";
+
+
+
+async function RoomPlayInfo(url, headers){
+    const room_id =  url.split("?")[0].replace("https://live.bilibili.com/","")
+    // console.log(room_id)
+    const request_params = {
+        "room_id":room_id,
+        "mask":"1",
+        "qn":"0",
+        "platform":"web",
+        "protocol":"0,1",
+        "format":"0,1,2",
+        "codec":"0,1,2",
+        "dolby":"5",
+        "panorama":"1",
+    }
+
+    const request_url = "https://api.live.bilibili.com/xlive/web-room/v2/index/getRoomPlayInfo"
+    const proxy_params:ProxyParams = {
+        req_url:request_url,
+        req_type:"GET",
+        req_params:request_params,
+        req_headers:headers
+    }
+    // console.log(proxy_params)
+    let {response_body} = await ProxyApi(proxy_params)
+    response_body  = JSON.parse(response_body)
+    // console.log(response_body)
+
+
+    const info = response_body['data']["playurl_info"]["playurl"]["stream"][0]["format"][0]["codec"][0]
+    const uids = response_body['data']["uid"].toString()
+    const flv_stream_url = info["url_info"][0]["host"] + info["base_url"] + info["url_info"][0]["extra"]
+
+    console.log(uids)
+    console.log(flv_stream_url)
+    return {"uids":uids, "flv_stream_url":flv_stream_url,"m38u_stream_url":""}
+
+}
+
+async function RoomBaseInfo(uids, headers){
+    const request_params = {
+        "uids":uids,
+        "req_biz":"video"
+    }
+    const request_url = "https://api.live.bilibili.com/xlive/web-room/v1/index/getRoomBaseInfo"
+    const proxy_params:ProxyParams = {
+        req_url:request_url,
+        req_type:"GET",
+        req_params:request_params,
+        req_headers:headers
+    }
+    // console.log(proxy_params)
+    let {response_body} = await ProxyApi(proxy_params)
+    response_body  = JSON.parse(response_body)
+    console.log(response_body)
+
+
+    const nickname = word_analysis(response_body['data']["by_uids"][uids]["uname"])
+    const title = word_analysis(response_body['data']["by_uids"][uids]["title"])
+    const flv_file_name = nickname + '_' + GetTime()+ ".flv"
+
+    return {"flv_file_name":flv_file_name}
+
+}
+
+export async function BiliBiliLive(source){
+    const request_headers = {
         'accept': 'application/json, text/plain, */*',
         'accept-language': 'zh-CN,zh;q=0.9',
         'cache-control': 'no-cache',
@@ -20,64 +86,18 @@ export async function bilibili_live(url){
         'user-agent': navigator.userAgent,
     }
 
-    let task_name = url
-    let room_id =  url.split("?")[0].replace("https://live.bilibili.com/","")
-    // console.log(room_id)
-    let params = {
-        "room_id":room_id.toString(),
-        "mask":"1",
-        "qn":"0",
-        "platform":"web",
-        "protocol":"0,1",
-        "format":"0,1,2",
-        "codec":"0,1,2",
-        "dolby":"5",
-        "panorama":"1",
+    const {uids, flv_stream_url} = await RoomPlayInfo(source.download_link, request_headers)
+    const {flv_file_name} = await RoomBaseInfo(uids, request_headers)
+    console.log(flv_file_name, flv_stream_url)
+
+    const resource_params:ResourceParams = {
+        id:source.id,
+        platform:"bilibili",
+        req_headers:request_headers,
+        download_link: { "flv_file_name": flv_file_name, "flv_stream_url": flv_stream_url}
     }
-
-    url = "https://api.live.bilibili.com/xlive/web-room/v2/index/getRoomPlayInfo"
-
-
-    let response = await HTTPGet(url, params, headers)
-    console.log(response)
-    let data = await response.data.data
-    // console.log(data)
-    let info = data["playurl_info"]["playurl"]["stream"][0]["format"][0]["codec"][0]
-    let uids = data["uid"].toString()
-    let live_stream_url = info["url_info"][0]["host"] + info["base_url"] + info["url_info"][0]["extra"]
-    // console.log(host)
-    // console.log(base_url)
-    // console.log(extra)
-    // console.log(live_stream_url)
-
-
-    params = {
-        "uids":uids,
-        "req_biz":"video"
-    }
-    url = "https://api.live.bilibili.com/xlive/web-room/v1/index/getRoomBaseInfo"
-    response = await HTTPGet(url, params, headers)
-    console.log(response)
-
-    data = await response.data.data
-    let nickname = word_analysis(data["by_uids"][uids]["uname"])
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    var yyyy = today.getFullYear();
-    var ms = String(today.getHours())+ String(today.getMinutes())
-    today = yyyy + '_' + mm + '_' + dd + "_" + ms
-
-
-    let call_data = {
-        "task_name":task_name,
-        "headers":headers,
-        "platform":"bilibili",
-        "flv_url": live_stream_url,
-        "flv_file_name":nickname + "_" + today + ".flv",
-    }
-
-    await CallDownLoadLive(JSON.stringify(call_data))
+    // console.log(resource_params)
+    await StreamDownloadApi(resource_params)
 
 }
 

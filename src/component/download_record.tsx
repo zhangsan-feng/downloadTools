@@ -1,14 +1,24 @@
 import {Table, Tag} from "antd";
 import {useState} from "react";
+import {StopDownloadTaskApi, DownloadRecordQueryApi} from '../api/axios_http.ts'
 
 
 const DownloadRecord = ()=>{
 
     const columns = [
         {
-            title: '',
-            dataIndex: '',
+            title: 'id',
+            dataIndex: 'id',
         },
+        {
+            title: 'platform',
+            dataIndex: 'platform',
+        },
+        {
+            title: 'status',
+            dataIndex: 'status',
+        },
+
         {
             width:150,
             title: '',
@@ -36,9 +46,9 @@ const DownloadRecord = ()=>{
             dataIndex: '操作',
             render: (_, src) => {
                 // console.log(src)
-                if (src.task_status === "running") {
+                if (src.status === "running") {
                     return <a onClick={()=>{
-
+                        StopDownloadTaskApi({"id":src.id}).then(res=>{}).catch(err=>{})
                     }}>停止</a>
                 }
                 // if (src.task_status === "failed") {
@@ -49,24 +59,32 @@ const DownloadRecord = ()=>{
                 // }
             },
         },
-        // {
-        //     width:200,
-        //     title: '',
-        //     dataIndex: '',
-        //     render: (data) => <DownloadRecord data={data.children}/>,
-        // },
     ];
 
     const [TableData, setTableData] = useState([])
 
+    setTimeout(()=>{
+        DownloadRecordQueryApi({}).then(res=>{
+            console.log(res)
+            setTableData(res.data)
+        })
+    }, 2000)
 
     return(
         <div>
             {TableData.length !== 0 ? (
-                <Table columns={columns} dataSource={TableData}  scroll={{y:400}} rowKey="id"
-                       expandable={{expandedRowClassName:()=>{
-                               return "abc"
-                           }}}
+                <Table columns={columns} dataSource={TableData}  scroll={{ y: "68vh" }} rowKey="id"
+                       expandable={{
+                           expandedRowRender: (record) => {
+                                const items = []
+                               for (const itemsKey in record.children_element) {
+                                   console.log()
+                                   items.push(<div key={itemsKey}>{record.children_element[itemsKey].file_name}</div>)
+                               }
+
+                               return <div>{items}</div>
+                           },
+                       }}
                 />
             ) : (<div></div>)}
 

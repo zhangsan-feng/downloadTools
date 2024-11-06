@@ -1,6 +1,6 @@
 
 import  {GetParams} from './dm.js'
-import  {get_wrid} from './w_rid.js'
+import  {get_wrid} from './w_rid.ts'
 import {HTTPGet} from "../../../api/request.js";
 
 

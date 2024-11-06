@@ -1,12 +1,13 @@
-// use crate::web_service::api::task::task_is_running;
+use crate::web_service::api::download_task::task_is_running;
 use futures_util::StreamExt;
 use log::info;
 use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
-use reqwest::{Body, Response};
+use reqwest::{ Response};
 use std::io::Write;
 use std::str::FromStr;
 use reqwest::redirect::Policy;
-use serde::Serialize;
+
+
 
 pub async fn http_get(url: String, headers: HeaderMap,  params: serde_json::Value) -> Response {
     let client = reqwest::Client::new();
@@ -101,7 +102,7 @@ pub async fn download_file(url: String, headers: HeaderMap, save_path: String) -
     true
 }
 
-pub async fn download_flv(url: String, headers: HeaderMap, save_path: String) {
+pub async fn download_flv(url: String, headers: HeaderMap, save_path: String, id: i64) {
     let client = reqwest::Client::new();
     let response = client
         .get(url.clone())
@@ -129,9 +130,9 @@ pub async fn download_flv(url: String, headers: HeaderMap, save_path: String) {
         let chunk = item.expect("item error");
         file.write_all(&chunk).expect("file write error");
 
-        // if task_is_running(task_name.clone()).await == false {
-        //     return;
-        // }
+        if task_is_running(id).await == false {
+            return;
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 import {stringify} from "qs";
-import {ProxyApi, ProxyParams, ResourceParams} from '../../../api/axios_http.ts'
+import {ProxyApi, ProxyParams} from '../../../api/axios_http.ts'
 import {zzcSign} from './qq_music_sign.ts'
 import {GetCookieKey, RandomNumber, word_analysis} from '../../comm.js'
 

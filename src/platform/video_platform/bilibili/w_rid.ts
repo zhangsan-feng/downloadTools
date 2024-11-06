@@ -1,5 +1,5 @@
 import md5 from 'md5'
-import { HttpGet } from '../../../api/tauri_http.ts';
+import {ProxyApi, ProxyParams} from "../../../api/axios_http.ts";
 
 
 const mixinKeyEncTab = [
@@ -37,10 +37,18 @@ function encWbi(params, img_key, sub_key) {
 
 // 获取最新的 img_key 和 sub_key
 async function getWbiKeys(headers) {
-    const res = await(await HttpGet('https://api.bilibili.com/x/web-interface/nav', null, headers)).json()
-    // console.log(res)
-    const { img_url, sub_url }  = await res["data"]["data"]["wbi_img"]
 
+    const proxy_params:ProxyParams = {
+        req_url:'https://api.bilibili.com/x/web-interface/nav',
+        req_type:"GET",
+        req_params: {},
+        req_headers:headers
+    }
+    // console.log(proxy_params)
+    let {response_body} = await ProxyApi(proxy_params)
+    response_body  = JSON.parse(response_body)
+    // console.log(response_body)
+    const { img_url, sub_url }  = response_body["data"]["wbi_img"]
     return {
         img_key: img_url.slice(
             img_url.lastIndexOf('/') + 1,
@@ -68,9 +76,9 @@ export async function get_wrid(params, headers){
     const sub_key = web_keys.sub_key
     const query = encWbi(params, img_key, sub_key)
 
-    let  result = {}
+    const  result = {}
     query.split("&").forEach((value)=>{
-        let data_list = value.split("=")
+        const data_list = value.split("=")
         result[data_list[0]] = data_list[1]
     })
     return result

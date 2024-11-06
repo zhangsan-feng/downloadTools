@@ -3,7 +3,7 @@ import {match_url} from "../platform/comm.js";
 import {PlatFormConfigQueryAPi} from "../api/axios_http.ts";
 
 import {KuWoMusicSearch} from '../platform/music_platform/kuwo_music/kuwo_music_search.ts'
-import {KuGouMusicSearch} from '../platform/music_platform//kugou_music/kugou_music_search.ts'
+import {KuGouMusicSearch} from '../platform/music_platform/kugou_music/kugou_music_search.ts'
 import {QQMusicSearch} from '../platform/music_platform/qq_music/qq_music_search.ts'
 
 import {KuWoaMusicAdapter} from '../platform/music_platform/kuwo_music/kuwo_music_adapter.ts'
@@ -11,6 +11,7 @@ import {KuGouMusicAdapter} from '../platform/music_platform/kugou_music/kugou_mu
 import {QQMusicAdapter} from '../platform/music_platform/qq_music/qq_music_adapter.ts'
 
 import {HongSHuAdapter} from '../platform/video_platform/honshu/hongshu_adapter.ts'
+import {BiliBiliAdapter} from '../platform/video_platform/bilibili/bilibili_adapter.ts'
 import {message} from "antd";
 
 async function GenCookie() {
@@ -69,9 +70,18 @@ export async function DownLoadAdapter(input_link){
         "download_link":match_url(input_link),
         "id":Date.now() + Math.floor(Math.random() * 100000)
     }
+    localStorage.clear()
+    sessionStorage.clear()
+    document.cookie = ''
     const config = await GenCookie()
-    if (source.download_link.includes("https://www.xiaohongshu.com/")){
+
+
+    if (source.download_link.includes("xiaohongshu")){
         await HongSHuAdapter(source, config)
     }
+    if (source.download_link.includes("bilibili")){
+        await BiliBiliAdapter(source, config)
+    }
 
+    message.success({content:"下载完成"})
 }

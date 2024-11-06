@@ -16,7 +16,10 @@ pub async fn request_record(req: Request, next: Next, ) -> Result<impl IntoRespo
         .expect("collect request body error")
         .to_bytes();
     let req = Request::from_parts(parts, Body::from(bytes.clone()));
-    info!("{:?}", req);
+
+    info!("Request Method : {} Url: {:?}", req.method(), req.url());
+    info!("Request Headers: {}", req.headers());
+    info!("Request Body   : {}", req.body());
 
     let res = next.run(req).await;
 

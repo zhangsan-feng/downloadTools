@@ -108,9 +108,12 @@ const PlatFormTypes = {
         req_headers:request_headers
     }
     // console.log(proxy_params)
-    const {response_body} = await ProxyApi(proxy_params)
+    let {response_body} = await ProxyApi(proxy_params)
+    response_body  = JSON.parse(response_body)
     console.log(response_body)
-    return {"response_body":response_body, "request_headers":request_headers}
+
+
+
 
     const resource_params:ResourceParams = {
         id:source.id,

@@ -26,7 +26,7 @@ export async function HongShuDetailsDownload(source, config){
     }
 
     const scriptHandler = ScriptHandler();
-    await scriptHandler.loadScript("src/platform/video_platform/honshu/x-s.js")
+    await scriptHandler.loadScript("src/platform/honshu/x-s.js")
 
 
     request_headers['cookie'].split(";").forEach((data)=>{
@@ -66,7 +66,7 @@ export async function HongShuDetailsDownload(source, config){
     }
     console.log(proxy_params)
     let {response_body} = await ProxyApi(proxy_params)
-    console.log(response_body)
+    // console.log(response_body)
     response_body = JSON.parse(response_body)
     console.log(response_body)
 

@@ -73,7 +73,7 @@ const MusicSearchComponent = () => {
                             columns={columns}
                             pagination={{pageSize:100}}
                             dataSource={searchData}
-                            scroll={{ y: 360 }}
+                            scroll={{ y: "68vh" }}
                             rowKey="id"
                         />
                         {/*<div className="music-player"></div>*/}

@@ -58,15 +58,12 @@ body{
 
 }
 
-.content{
+.container{
     background: linear-gradient(-45deg,
-    #ce738d, #ce588a, #78a5ce, #f3ed78,
-    #23a6d5, #ac82d9, #a83a67, #c79cce
+    #ce738d, #fda3a3, #78a5ce, #e7e4bc,
+    #83d4f3, #ac82d9, #ec7aa9, #c79cce
     );
-    display:flex;
-    padding: 25px;
-    height: 100%;
-    width:100%;
+
     background-size: 400% 400%;
     animation: Gradient-153d6f28 8s ease infinite;
 }

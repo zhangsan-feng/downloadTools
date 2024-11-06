@@ -18,6 +18,9 @@ const PlatformCookie = [
 
     // "douyu",
     // "huya",
+    // "aiqiyi",
+    // "tencent_video",
+    // "xigua_video"
 ]
 
 const PlatFormConfig = ()=>{
@@ -43,9 +46,9 @@ const PlatFormConfig = ()=>{
         // console.log(value, index)
         // console.log(cookieData[index][value])
         Element.push(
-            <div style={{marginTop: 20, display: "flex", width:"70vw", marginLeft:20, }} key={index}>
+            <div style={{marginTop: 20, display: "flex", width:"75vw", marginLeft:20, }} key={index}>
                 <span style={{
-                    width: 50,
+                    width: 100,
                     textAlign: "right",
                     marginRight: 10,
                     justifyContent: 'center',
@@ -64,7 +67,7 @@ const PlatFormConfig = ()=>{
         )
     })
     return (
-        <div style={{overflow:'auto', maxHeight:"70vh"}}>
+        <div style={{overflow:'auto', height:"85vh"}}>
             <h2 >cookie 配置</h2>
             {Element}
         </div>
