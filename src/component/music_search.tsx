@@ -95,14 +95,20 @@ const MusicSearchComponent = () => {
             <div style={{display: "flex", top: 50,}}>
                 <span style={{justifyContent: 'center', alignContent: 'center'}}>音乐搜索:</span>
                 <Search style={{width: 500}} key='1' enterButton="搜索" onSearch={Submit}/>
-                <span style={spanStyle}>当前播放</span>
-                <span style={spanStyle}>{currentPlayInfo.id}</span>
-                <span style={spanStyle}>{currentPlayInfo.platform}</span>
-                <span style={spanStyle}>{currentPlayInfo.author}</span>
-                <span style={spanStyle}>{currentPlayInfo.music_name}</span>
-                <Button style={{marginLeft:10}} onClick={handlePlayPause}>
-                    {isPlaying ? 'Pause' : 'Play'}
-                </Button>
+                {searchData.length !== 0 ?
+                    <div>
+                        <span style={spanStyle}>当前播放</span>
+                        <span style={spanStyle}>{currentPlayInfo.id}</span>
+                        <span style={spanStyle}>{currentPlayInfo.platform}</span>
+                        <span style={spanStyle}>{currentPlayInfo.author}</span>
+                        <span style={spanStyle}>{currentPlayInfo.music_name}</span>
+                        <Button style={{marginLeft: 10}} onClick={handlePlayPause}>
+                            {isPlaying ? '停止' : '播放'}
+                        </Button>
+                    </div>: (
+                        <div></div>
+                    )
+                }
             </div>
 
             <div style={{marginTop: 20,}}>
