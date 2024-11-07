@@ -10,6 +10,9 @@ import {KuWoaMusicAdapter} from '../platform/music_platform/kuwo_music/kuwo_musi
 import {KuGouMusicAdapter} from '../platform/music_platform/kugou_music/kugou_music_adapter.ts'
 import {QQMusicAdapter} from '../platform/music_platform/qq_music/qq_music_adapter.ts'
 
+import {KuGouMusicDetailsInfo} from '../platform/music_platform/kugou_music/kugou_music_details_info.ts'
+import {KuWoMusicDetailsInfo} from '../platform/music_platform/kuwo_music/kuwo_music_details_info.ts'
+
 import {HongSHuAdapter} from '../platform/video_platform/honshu/hongshu_adapter.ts'
 import {BiliBiliAdapter} from '../platform/video_platform/bilibili/bilibili_adapter.ts'
 import {message} from "antd";
@@ -41,6 +44,15 @@ export async function MusicDownLoadAdapter(source){
 }
 
 export async function MusicPlayerAdapter(source){
+    const config = await GenCookie()
+    if (source.download_link.includes("https://www.kuwo.cn/play_detail/")){
+        const {response_body} = await KuWoMusicDetailsInfo(source, config)
+        return response_body['data']['url']
+    }
+    if (source.download_link.includes("https://www.kugou.com/song/#")){
+        const {response_body} = await KuGouMusicDetailsInfo(source, config)
+        return response_body['data']['play_url']
+    }
 
 }
 
