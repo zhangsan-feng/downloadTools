@@ -54,14 +54,6 @@ export async function BiliBiliDetails(source, config) {
 
     const {aid, bvid, cid, nickname, title} = await GetVideoApiMsg(source.download_link, request_headers)
 
-
-
-    // let data = await response.data.data
-    // let aid = data["aid"]
-    // let cid = data["cid"]
-    // let nickname = data["owner"]["name"]
-    // let title = data["title"]
-    //
     let request_params = {
         "qn": "32",
         "fnver": "0",
@@ -100,6 +92,7 @@ export async function BiliBiliDetails(source, config) {
     const resource_params:ResourceParams = {
         id:source.id,
         platform:"bilibili",
+        source:source.download_link,
         req_headers:request_headers,
         download_link: { [audio_file_name]: audio_url, [video_file_name]: video_url}
     }

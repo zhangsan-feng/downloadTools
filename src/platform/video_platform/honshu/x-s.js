@@ -2600,16 +2600,3 @@ function o() {
     ;
     return o();
 }
-
-localStorage.setItem("sdt_source_storage_key",'{"url":"https://fe-video-qc.xhscdn.com/fe-platform/a1c872577b980b890b0850cef89371b35125649a.js","reportUrl":"/api/sec/v1/shield/webprofile","desVersion":"2","validate":true,"commonPatch":["/fe_api/burdock/v2/note/post","/api/sns/web/v1/comment/post","/api/sns/web/v1/note/like","/api/sns/web/v1/note/collect","/api/sns/web/v1/user/follow","/api/sns/web/v1/feed","/api/sns/web/v1/login/activate","/api/sns/web/v1/note/metrics_report","/api/redcaptcha","/api/store/jpd/main","/phoenix/api/strategy/getAppStrategy"],"signUrl":"https://fe-video-qc.xhscdn.com/fe-platform/bccb34c4f2976c51b565494c0a760c42d962b25b.js","signVersion":"1"}')
-
-
-// let ck = "abRequestId=cc96f01a-40f2-5dae-9bf2-3f29128e5667; xsecappid=xhs-pc-web; a1=1914545f3aftyaarw4pk5bd429m3achlkcmq400r950000154136; webId=43e30cd309f5e2b83016e7da5756de74; gid=yjy424K8WDKYyj80K8Sf4727K43IW2C6yqCh38ujdiWFU228iK7WJy888yYWJyj8jYKKKjd8; timestamp2=1724035806816e86d302df422609c5addd15513f8ebfa9568ad4110323b98b7; timestamp2.sig=LSmmh9EyiGksHX3Ou0kbq3pRm3pyosSzrtYHOdjjySI; webBuild=4.32.0; unread={%22ub%22:%2266cecf1b000000001d017c09%22%2C%22ue%22:%2266cc4acc000000001f01e382%22%2C%22uc%22:53}; websectiga=f47eda31ec99545da40c2f731f0630efd2b0959e1dd10d5fedac3dce0bd1e04d; sec_poison_id=b7352f9c-25eb-49a3-b539-46e7e2e78420"
-// let cookie = ck.split(";")
-// cookie.forEach((data)=>{
-//     document.cookie = data
-// })
-
-
-// let asd = '/api/sns/web/v1/user_posted?num=30&cursor=66af99c6000000000d0311b7&user_id=62c92a060000000002001ec9&image_formats=jpg,webp,avif'
-// console.log(window._webmsxyw(asd, undefined)["X-s"].length)

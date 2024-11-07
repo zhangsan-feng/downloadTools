@@ -13,6 +13,7 @@ pub struct ResourceParams{
     id:i64,
     req_headers:serde_json::Value,
     platform:String,
+    source:String,
     download_link:serde_json::Value, // video audio image
 }
 
@@ -32,7 +33,7 @@ pub async fn download_resource(Json(params):Json<ResourceParams>)-> Json<serde_j
             let save_path = format!("{}{}", tmp_path.clone(), file_name);
             info!("{}", params.platform.clone());
             download_file(file_link, headers.clone(), save_path.clone()).await;
-            add_task(params.id, save_path.clone(), params.platform.clone()).await;
+            add_task(params.id, save_path.clone(), params.platform.clone(), params.source.clone()).await;
         }
     }
 
@@ -57,7 +58,7 @@ pub async fn download_stream(Json(params):Json<ResourceParams>) -> Json<serde_js
         let save_path = format!("{}{}", tmp_path.clone(), flv_file_name);
 
         tokio::spawn(async move {
-            add_task(params.id, save_path.clone(), params.platform.clone()).await;
+            add_task(params.id, save_path.clone(), params.platform.clone(), params.source.clone()).await;
             download_flv(flv_stream_url, headers, save_path, params.id).await;
         });
     }

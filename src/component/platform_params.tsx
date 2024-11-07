@@ -83,5 +83,5 @@ export async function DownLoadAdapter(input_link){
         await BiliBiliAdapter(source, config)
     }
 
-    message.success({content:"下载完成"})
+    message.success({content:"已经加入下载队列"})
 }

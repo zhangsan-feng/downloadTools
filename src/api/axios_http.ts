@@ -5,8 +5,8 @@ const HttpRouterUrl = `${HttpRouterMatchV1}`
 
 
 export type ProxyParams = {
-    req_url:string;
-    req_type:string;
+    req_url:any;
+    req_type:any;
     req_headers:any;
     req_params:any;
 
@@ -14,9 +14,10 @@ export type ProxyParams = {
 export const ProxyApi = (params:ProxyParams)=> HttpPost(`${HttpRouterUrl}/proxy`, params);
 
 export type ResourceParams = {
-    id:bigint,
+    id:any,
     req_headers:any;
-    platform:String,
+    platform:any,
+    source:any,
     download_link:any,
 }
 export const ResourceDownloadApi = (params:ResourceParams)=> HttpPost(`${HttpRouterUrl}/download_resource`, params);

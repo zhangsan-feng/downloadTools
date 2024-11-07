@@ -1,5 +1,5 @@
 
-import {ResourceDownloadApi, ResourceParams} from '../../../api/axios_http.ts'
+import {DownloadFinishApi, ResourceDownloadApi, ResourceParams} from '../../../api/axios_http.ts'
 
 import {message} from 'antd'
 import {KuWoMusicDetailsInfo} from './kuwo_music_details_info.ts'
@@ -17,12 +17,13 @@ export async function KuWoMusicDetailsDownload(source, config){
         const resource_params:ResourceParams = {
             id:source.id,
             platform:"kuwo_music",
+            source:source.download_link,
             req_headers:request_headers,
             download_link: { [source.file_name]: mp3_link }
         }
         // console.log(resource_params)
         await ResourceDownloadApi(resource_params)
-        message.success({content:"下载完成"})
+        await DownloadFinishApi({"id":source.id})
     }else{
         message.error({content:response_body["msg"]})
     }

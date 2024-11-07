@@ -29,7 +29,7 @@ pub async fn ffmpeg_composite_video(Json(params):Json<RequestParams>) ->Json<Val
     std::process::Command::new("ffmpeg").args(cmd.split_whitespace()).output().expect("ffmpeg command failed");
     tokio::fs::remove_file(audio_file_name).await.unwrap();
     tokio::fs::remove_file(video_file_name).await.unwrap();
-    add_task(params.id, merge_file_name.clone(), params.platform.clone()).await;
+    add_task(params.id, merge_file_name.clone(), params.platform.clone(), "".to_string()).await;
 
     ResponseStruct::success(json!("success"))
 }

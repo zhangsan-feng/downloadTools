@@ -6,23 +6,13 @@ import {StopDownloadTaskApi, DownloadRecordQueryApi} from '../api/axios_http.ts'
 const DownloadRecord = ()=>{
 
     const columns = [
+        {title: 'id', dataIndex: 'id',},
+        {title: 'platform', dataIndex: 'platform',},
+        {title: 'source', dataIndex: 'source',  ellipsis: true},
         {
-            title: 'id',
-            dataIndex: 'id',
-        },
-        {
-            title: 'platform',
-            dataIndex: 'platform',
-        },
-        {
+
             title: 'status',
             dataIndex: 'status',
-        },
-
-        {
-            width:150,
-            title: '',
-            dataIndex: '',
             render: (data, src) => {
                 // console.log(data)
                 if (data === "finish"){
@@ -41,7 +31,7 @@ const DownloadRecord = ()=>{
             }
         },
         {
-            width:150,
+
             title: '操作',
             dataIndex: '操作',
             render: (_, src) => {

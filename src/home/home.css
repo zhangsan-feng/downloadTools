@@ -60,8 +60,8 @@ body{
 
 .container{
     background: linear-gradient(-45deg,
-    #ce738d, #fda3a3, #78a5ce, #e7e4bc,
-    #83d4f3, #ac82d9, #ec7aa9, #c79cce
+    #f86584, #fda3a3, #78a5ce, #e7e4bc,
+    #83d4f3, #ac82d9, #f5e886, #a4eabb
     );
 
     background-size: 400% 400%;

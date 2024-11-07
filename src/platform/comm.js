@@ -38,7 +38,7 @@ export function sleep() {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve();
-        }, generateRandomNumber(3000, 6000));
+        }, generateRandomNumber(3000, 8000));
     });
 }
 
@@ -95,6 +95,17 @@ export function GetCookieKey(cookie, key){
     }
 }
 
+export function generateRandomString(length) {
+    var result = '';
+    var characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+
 const PlatFormTypes = {
     DouYin : "douyin"
 }
@@ -118,12 +129,13 @@ const PlatFormTypes = {
     const resource_params:ResourceParams = {
         id:source.id,
         platform:"kuwo_music",
+         source:source.download_link,
         req_headers:request_headers,
         download_link: { [source.file_name]: mp3_link }
     }
     console.log(resource_params)
     await ResourceDownloadApi(resource_params)
-
+    await DownloadFinishApi({"id":source.id})
 
 
 */

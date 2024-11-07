@@ -2,19 +2,22 @@
 import {Input, Button, message} from 'antd';
 import "./comm.css"
 import {DownLoadAdapter} from './platform_params.tsx'
+import {useState} from "react";
 
 
 
 
 
 const DownloadVideoComponent = () =>{
-
+    const [ButtonLoading, setButtonLoading] = useState(false)
     const Submit = ()=>{
+        setButtonLoading(true)
         const download_link = document.getElementById("download_link").value
         DownLoadAdapter(download_link).
-        then(res=>{}).
+        then(res=>{setButtonLoading(false)}).
         catch(err=>{
             console.log(err)
+            setButtonLoading(false)
             message.error({content:"下载失败"}
             )})
     }
@@ -30,7 +33,7 @@ const DownloadVideoComponent = () =>{
             </div>
 
             <div style={{marginTop: 20, marginLeft: "20%",}}>
-                <Button style={{ width: 200, marginLeft:"25%"}}
+                <Button loading={ButtonLoading} style={{ width: 200, marginLeft:"25%"}}
                         type='primary' onClick={Submit}>下载 视频/图片/直播/音乐</Button>
                 {/*<Button style={{marginLeft: 10, width: 200}} type='primary' onClick={DownLoadComment}>下载评论</Button>*/}
                 {/*<Button style={{marginLeft: 10, width: 200}} type='primary' onClick={MusicSearch} >音乐搜索</Button>*/}

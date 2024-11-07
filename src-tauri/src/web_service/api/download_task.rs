@@ -12,6 +12,7 @@ use crate::web_service::utils::response_impl::{ResponseImpl, ResponseStruct};
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Task {
     pub status:String,
+    pub source:String,
     pub children: Vec<String>,
     pub platform:String,
 }
@@ -28,7 +29,7 @@ pub struct RequestParams{
 }
 
 
-pub async fn add_task(id: i64, file_name: String, _platform:String) {
+pub async fn add_task(id: i64, file_name: String, _platform:String, source:String) {
     info!("add new task {}, {}, {}", id, _platform, file_name);
     let mut task_manager = TaskManager.write().await;
     match task_manager.get_mut(&id) {
@@ -37,6 +38,7 @@ pub async fn add_task(id: i64, file_name: String, _platform:String) {
         }
         None => {
             let record = Task{
+                source:source.clone(),
                 status: "running".to_string(),
                 children: vec![file_name],
                 platform: _platform
@@ -70,6 +72,7 @@ pub async fn download_record_query() -> axum::Json<Value> {
 
         tmp_map.insert("id".to_string(), to_value(key).unwrap());
         tmp_map.insert("status".to_string(), to_value(&value.status).unwrap());
+        tmp_map.insert("source".to_string(), to_value(&value.source).unwrap());
         tmp_map.insert("platform".to_string(), to_value(&value.platform).unwrap());
         tmp_map.insert("children_element".to_string(), to_value(&children).unwrap());
         tmp_list.push(tmp_map);
