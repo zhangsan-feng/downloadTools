@@ -9,7 +9,7 @@ import DownloadRecord from "../component/download_record.tsx";
 
 
 
-const TablsStyle  = {width:"85vw", backgroundColor:"#efb1dc", height:"95vh",
+const TablsStyle  = {width:"84vw", backgroundColor:"#efb1dc", height:"95vh",
     marginLeft:"2%", borderRadius:25, padding:25, opacity:'0.7'}
 
 
@@ -24,7 +24,7 @@ function Home() {
 
             <div style={{ display:"flex", padding: 15, height: "100%", width:"100%"}}>
                 <Tabs
-                    tabBarStyle={{width:180,  height:"95%", backgroundColor:"#ab5fa1",borderRadius:25, padding:15, opacity:'0.7'}}
+                    tabBarStyle={{width:"13%",  height:"95%", backgroundColor:"#ab5fa1",borderRadius:25, padding:15, opacity:'0.7'}}
                     tabPosition={"left"}
                     items={[
                         {

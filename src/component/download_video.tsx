@@ -26,7 +26,7 @@ const DownloadVideoComponent = () =>{
         <div style={{}}>
 
             <div style={{display:'flex',top:50, width:800, marginLeft:"15%"}}>
-                <span style={{width: 50, justifyContent: 'center', alignContent: 'center'}}>url:</span>
+                <span style={{width: 100, justifyContent: 'center', alignContent: 'center'}}>url:</span>
                 <Input key='1' id="download_link" autoComplete="off"/>
 
 
