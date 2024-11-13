@@ -1,4 +1,4 @@
-import {Button, Input, Table} from 'antd';
+import {Button, Input, message, Table} from 'antd';
 import "./comm.css"
 import {MusicSearchAdapter, MusicDownLoadAdapter, MusicPlayerAdapter} from './platform_params.tsx'
 import {useEffect, useRef, useState} from 'react'
@@ -56,7 +56,9 @@ const MusicSearchComponent = () => {
             dataIndex: '',
             render: (_, src) => {
                 return <a onClick={()=>{
-                    MusicDownLoadAdapter(src).then(res=>{})
+                    MusicDownLoadAdapter(src)
+                        .then(res=>{message.success({content:"下载完成 " + src.music_name})})
+                        .catch(err=>{message.error({content:"下载失败"})})
                     // console.log(src.music_id)
                 }}>下载</a>
             },
@@ -82,6 +84,7 @@ const MusicSearchComponent = () => {
                         setAudioUrl((res))
                         handlePlayPause()
                     })
+                        .catch(err=>{message.error({content:"播放失败 "})})
                     //
                 }}>播放</a>
             },
@@ -93,15 +96,15 @@ const MusicSearchComponent = () => {
         <div style={{}}>
 
             <div style={{display: "flex", top: 50,}}>
-                <div style={{display: 'flex', top: 50, width: 800, marginLeft: "15%"}}>
-                    <span style={{width: 100, justifyContent: 'center', alignContent: 'center'}}>音乐搜索:</span>
-                    <Search style={{width: 700}} key='1' enterButton="搜索" onSearch={Submit}/>
+                <div style={{display: 'flex', top: 50, width: 800, }}>
+                    <span style={{justifyContent: 'center', alignContent: 'center'}}>音乐搜索:</span>
+                    <Search style={{width: 300}} key='1' enterButton="搜索" onSearch={Submit}/>
 
                 </div>
 
 
                 {currentPlayInfo ?
-                    <div>
+                    <div >
                         <span style={spanStyle}>当前播放</span>
                         <span style={spanStyle}>{currentPlayInfo.id}</span>
                         <span style={spanStyle}>{currentPlayInfo.platform}</span>

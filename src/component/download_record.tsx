@@ -1,5 +1,5 @@
 import {Table, Tag} from "antd";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {StopDownloadTaskApi, DownloadRecordQueryApi} from '../api/axios_http.ts'
 
 
@@ -31,7 +31,6 @@ const DownloadRecord = ()=>{
             }
         },
         {
-
             title: '操作',
             dataIndex: '操作',
             render: (_, src) => {
@@ -52,6 +51,12 @@ const DownloadRecord = ()=>{
     ];
 
     const [TableData, setTableData] = useState([])
+    useEffect(()=>{
+        DownloadRecordQueryApi({}).then(res=>{
+            console.log(res)
+            setTableData(res.data)
+        })
+    }, [])
 
     setTimeout(()=>{
         DownloadRecordQueryApi({}).then(res=>{
@@ -68,10 +73,8 @@ const DownloadRecord = ()=>{
                            expandedRowRender: (record) => {
                                 const items = []
                                for (const itemsKey in record.children_element) {
-                                   console.log()
                                    items.push(<div key={itemsKey}>{record.children_element[itemsKey].file_name}</div>)
                                }
-
                                return <div>{items}</div>
                            },
                        }}

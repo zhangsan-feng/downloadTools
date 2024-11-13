@@ -29,3 +29,5 @@ function base64Encode(data: number[]): string {
 export function zzcSign(text: string): string {
     return _zzcSign(text, sha1, base64Encode);
 }
+
+// https://github.com/jixunmoe/qmweb-sign/blob/main/src/web.ts

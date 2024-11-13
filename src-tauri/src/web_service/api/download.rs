@@ -6,7 +6,7 @@ use log::info;
 use serde::{Deserialize, Serialize};
 use crate::web_service::utils::http_client::{convert_headers, download_file, download_flv};
 use crate::web_service::utils::response_impl::{ResponseImpl, ResponseStruct};
-use crate::web_service::api::download_task::{add_task};
+use crate::web_service::api::download_task::{add_task, task_is_running};
 
 #[derive(Debug, Serialize, Deserialize, Clone,)]
 pub struct ResourceParams{
@@ -19,6 +19,10 @@ pub struct ResourceParams{
 
 
 pub async fn download_resource(Json(params):Json<ResourceParams>)-> Json<serde_json::Value> {
+    if task_is_running(params.id).await == false {
+        return ResponseStruct::success(json!("stop"))
+    }
+
     let headers = convert_headers(params.req_headers);
     let tmp_path = format!("./download/{}/", params.platform.clone());
 

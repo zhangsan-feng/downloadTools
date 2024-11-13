@@ -1,75 +1,90 @@
-import {HTTPGet} from '../../../api/request.js'
-
 import {get_sign} from "./X-S-Common.js";
-import {traceid} from "./X-B3-Traceid.js";
 import Qs from "qs";
+import {generateRandomString, GetCookieKey, sleep} from '../../comm.js'
+import {DownloadFinishApi, ProxyApi} from "../../../api/axios_http";
+import {HongShuDetailsDownload} from './hongshu_details_download.js'
 
-import {CallUpdateTask} from "../../../api/call.js";
-import {sleep} from '../../comm.js'
-
-export async function HongShuPost(url ,cookie){
-    let task_name = url
+export async function HongShuPost(source ,config){
+    const url = source.download_link.split("?")[0]
+    const url_params = Qs.parse(source.download_link.split("?")[1])
     let user_id = url.split("/")
     user_id = user_id[user_id.length - 1]
 
-    let params = {
+    let request_params = {
         "num":30,
         "cursor":"",
         "user_id":user_id,
         "image_formats":"jpg,webp,avif",
+        "xsec_token":url_params['xsec_token'],
+        "xsec_source":url_params['xsec_source']
     }
-    let headers = {
+    let request_headers = {
         'accept': 'application/json, text/plain, */*',
         'accept-language': 'zh-CN,zh;q=0.9',
         'cache-control': 'no-cache',
-        'cookie': cookie,
+        'cookie': config['hongshu'].cookie,
         'origin': 'https://www.xiaohongshu.com',
         'pragma': 'no-cache',
         'priority': 'u=1, i',
         'referer': 'https://www.xiaohongshu.com/',
-        'sec-ch-ua': '"Not)A;Brand";v="99", "Google Chrome";v="127", "Chromium";v="127"',
+        'sec-ch-ua': '"Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"',
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"Windows"',
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-site',
         'user-agent': navigator.userAgent,
-    }
+        'x-b3-traceid': '',
+        'x-s': '=',
+        'x-s-common': '',
+        'x-t': '',
+        'x-xray-traceid': '',
+}
 
     for (;;){
-        url = "https://edith.xiaohongshu.com/api/sns/web/v1/user_posted?" + Qs.stringify(params)
-        let sign_params = "/api/sns/web/v1/user_posted?" + Qs.stringify(params)
-        let a1 = GetCookieA1(headers['cookie'])
+        let request_url = "https://edith.xiaohongshu.com/api/sns/web/v1/user_posted?" + Qs.stringify(request_params)
+        let sign_params = "/api/sns/web/v1/user_posted?" + Qs.stringify(request_params)
+        let a1 = GetCookieKey(request_headers['cookie'],"a1")
         let xs = window._webmsxyw(sign_params, undefined)
         let xscomm = get_sign(xs,  a1)
-        headers["x-b3-traceid"] = traceid()
-        headers["x-s"] = xs["X-s"]
-        headers["x-s-common"] = xscomm
-        headers["x-t"] = xs["X-t"].toString()
+        request_headers["x-b3-traceid"] = generateRandomString(16)
+        request_headers["x-xray-traceid"] = generateRandomString(32)
+        request_headers["x-s"] = xs["X-s"]
+        request_headers["x-s-common"] = xscomm
+        request_headers["x-t"] = xs["X-t"].toString()
         // console.log(url, headers)
 
-        let response = await HTTPGet(url, null, headers)
-        console.log(response.data, params)
-        let cursor = response.data.data.cursor
-        params["cursor"] = cursor
+        const proxy_params = {
+            req_url:request_url,
+            req_type:"GET",
+            req_params:{},
+            req_headers:request_headers
+        }
+        // console.log(proxy_params)
+        let {response_body} = await ProxyApi(proxy_params)
+        response_body = JSON.parse(response_body)
+        // console.log(response_body)
 
-        let array = response.data.data.notes
+        let cursor = response_body.data.cursor
+        request_params["cursor"] = cursor
+        let array = response_body.data.notes
         for (const index in array) {
             // console.log(array[index].xsec_token, array[index].note_id);
-            let details_url = `https://www.xiaohongshu.com/explore/${array[index].note_id}?xsec_token=${array[index].xsec_token}&xsec_source=pc_feed&source=xhs_sec_server`
-            let res = await Details(details_url, headers, task_name)
-            await sleep()
-            if (JSON.parse(res).data === "stop"){
-                break
+            const tmp = {
+                download_link:`https://www.xiaohongshu.com/explore/${array[index].note_id}?xsec_token=${array[index].xsec_token}&xsec_source=pc_feed&source=xhs_sec_server`
             }
+            let {data} = await HongShuDetailsDownload(tmp, config)
+            if (data === "stop"){
+                return
+            }
+            await sleep()
         }
 
-        if (response.data.data.has_more === false || cursor.length === 0){
-            await CallUpdateTask(task_name)
+        if (response_body.data.has_more === false || cursor.length === 0){
             break
         }
     }
 
-
+    await DownloadFinishApi({"id":source.id})
 
 }

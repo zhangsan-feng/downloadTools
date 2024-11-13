@@ -1,110 +1,73 @@
-import {HTTPGetForText, HTTPPost} from '../../../api/request.js'
-import {CallDownLoadVideo,  CallUpdateTask} from "../../../api/call.js";
-import Qs from "qs";
-import {word_analysis} from '../../comm.js'
-import {HTTPGetForTextNoRedirect} from "../../../api/request.js";
+
+
+import {word_analysis, findJsonKey} from '../../comm.js'
+import {
+    DownloadFinishApi,
+    ProxyApi,
+    ProxyParams,
+    ResourceDownloadApi,
+    ResourceParams
+} from "../../../api/axios_http.ts";
 
 
 
-
-async function run1(url, headers){
-    let query = Qs.parse(url.split("?")[1])
-    let params = {
-        "env": 'SHARE_VIEWER_ENV_TX_TRICK',
-        "photoId": query['photoId'],
-        "shareToken": query['shareToken'],
-        "shareObjectId": query['shareObjectId'],
-        "shareResourceType": 'PHOTO_OTHER',
-        "efid": query['efid'],
-        "shareMethod": 'token',
-        "shareChannel": 'share_copylink',
-        "h5Domain": "v.m.chenzhongtech.com",
-        "isLongVideo": false,
-        "kpn": "KUAISHOU",
-        "subBiz": "BROWSE_SLIDE_PHOTO",
-    }
-
-    let req_url =  'https://v.m.chenzhongtech.com/rest/wd/photo/info?kpn=KUAISHOU&captchaToken='
-
-    return await  HTTPPost(req_url, params, headers)
-}
-async function run2(url, headers){
-    let query = Qs.parse(url.split("?")[1])
-    let photoId = url.split("?")[0].split("/")
-    let  params = {
-        'fid': query["fid"],
-        'shareToken': query["shareToken"],
-        'shareObjectId': query["shareObjectId"],
-        'shareMethod': query["shareMethod"],
-        'shareId': query["shareId"],
-        'shareChannel': 'share_copylink',
-        'kpn': query["kpn"],
-        'subBiz': query["subBiz"],
-        'env': 'SHARE_VIEWER_ENV_TX_TRICK',
-        'h5Domain': 'm.gifshow.com',
-        'photoId': photoId[photoId.length - 1],
-        'isLongVideo': false,
-    }
-
-    let req_url =  'https://m.gifshow.com/rest/wd/photo/info?kpn=KUAISHOU_VISION&captchaToken='
-
-    return await  HTTPPost(req_url, params, headers)
-}
-
-export async function KuaishouDetails(url ,cookie){
-    let task_name = url
-    let headers = {
-        'accept': '*/*',
+export async function KuAiShouDetails(source ,config){
+    const request_headers  = {
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
         'Accept-Language': 'zh-CN,zh;q=0.9',
         'Cache-Control': 'no-cache',
         'Connection': 'keep-alive',
+        'Cookie': 'did=web_536be27981ca4119aaffeacfa1dd4bf6; didv=1728974865000',
         'Pragma': 'no-cache',
-        'Content-Type': 'application/json',
-        'sec-ch-ua': '"Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'Sec-Fetch-Dest': 'empty',
-        'Sec-Fetch-Mode': 'cors',
-        'Sec-Fetch-Site': 'same-origin',
-        'Origin': 'https://www.kuaishou.com',
-        'Referer': url,
-        'Cookie': cookie,
-        'User-Agent': navigator.userAgent,
+        'Sec-Fetch-Dest': 'document',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-Site': 'none',
+        'Sec-Fetch-User': '?1',
+        'Upgrade-Insecure-Requests': '1',
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36',
+        'sec-ch-ua': '"Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?1',
+        'sec-ch-ua-platform': '"Android"',
     }
 
-    let response = {}
-
-    if (url.includes("kuaishou.com/short-video/")){
-        response = await run2(url, headers)
-    }else{
-        response = await run1(url, headers)
+    const proxy_params:ProxyParams = {
+        req_url:source.download_link,
+        req_type:"GET",
+        req_params:{},
+        req_headers:request_headers
     }
-    console.log(response)
-    let download_data = {}
+    // console.log(proxy_params)
+    const {response_body} = await ProxyApi(proxy_params)
+    const pattern = /<script>window\.INIT_STATE =(.*?)<\/script>/;
+    let data = JSON.parse(response_body.match(pattern)[1])
+    data = findJsonKey(data, 'photo')
+    // console.log(data)
 
-    let nickname = word_analysis(response.data.photo.userName)
-    let title    = word_analysis(response.data.photo.caption)
-    let aweme_id    = response.data.photo.photoId
-    let video_file_name = nickname + "_" + title + "_" + aweme_id + ".mp4"
-    download_data[video_file_name] = response.data.mp4Url
-    let image_list = response.data.atlas ? response.data.atlas.list : ""
-    if (image_list.length !== 0){
-        for (let i in image_list) {
-            let image_url = "https://p5.a.yximgs.com" + image_list[i]
-            let l = image_list[i].split("/")
-            let image_file_name = nickname + "_" + title + "_" + aweme_id + "_" + l[l.length - 1]
-            download_data[image_file_name] = image_url
-            // console.log(image_url)
-        }
-    }
+    const aweme_id = data.photoId
+    const author = data.userName
+    const title = data.caption
+    const file_name = word_analysis(author) + "_" + word_analysis(title) + "_" + aweme_id + "_"
+    const download_data = {}
 
-    let call_params = {
-        "task_name":task_name,
-        "headers":headers,
-        "platform":"kuaishou",
-        "data":download_data
+    data.ext_params?.atlas?.list?.forEach((value, index)=>{
+        const image_name =  file_name + index + ".png"
+        download_data[image_name] = "https://p5.a.yximgs.com" + value
+        // console.log(image_link)
+    })
+    const video_name = file_name + ".mp4"
+    download_data[video_name] = data.manifest?.adaptationSet[0].representation[0].url
+    // console.log(download_data)
+
+    const resource_params:ResourceParams = {
+        id:source.id,
+        platform:"kuaishou",
+        source:source.download_link,
+        req_headers:request_headers,
+        download_link: download_data
     }
-    await CallDownLoadVideo(JSON.stringify(call_params))
-    await CallUpdateTask(task_name)
+    console.log(resource_params)
+    await ResourceDownloadApi(resource_params)
+    await DownloadFinishApi({"id":source.id})
 
 }
+// https://www.kuaishou.com/f/X6Vox7MKxBzPqiC

@@ -1,4 +1,5 @@
 import {HongShuDetailsDownload} from './hongshu_details_download.js'
+import {HongShuPost} from './hongshu_post.js'
 import {ScriptHandler} from "../../comm.js";
 
 export async function HongSHuAdapter(source, config){
@@ -7,8 +8,15 @@ export async function HongSHuAdapter(source, config){
     const scriptHandler = ScriptHandler();
     await scriptHandler.loadScript("src/platform/video_platform/honshu/x-s.js")
 
+    config['hongshu'].cookie.split(";").forEach((data)=>{
+        document.cookie = data
+    })
+
     if (source.download_link.includes("https://www.xiaohongshu.com/explore")){
         await HongShuDetailsDownload(source, config)
+    }
+    if (source.download_link.includes("https://www.xiaohongshu.com/user/profile/")){
+        await HongShuPost(source, config)
     }
 
     scriptHandler.removeScript()

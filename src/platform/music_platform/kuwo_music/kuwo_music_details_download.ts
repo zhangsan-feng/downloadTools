@@ -26,6 +26,7 @@ export async function KuWoMusicDetailsDownload(source, config){
         await DownloadFinishApi({"id":source.id})
     }else{
         message.error({content:response_body["msg"]})
+        throw ""
     }
 }
 

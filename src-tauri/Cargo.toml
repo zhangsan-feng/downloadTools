@@ -19,10 +19,6 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 tauri-build = { version = "2.0.1", features = [] }
 
 [dependencies]
-proc-macro2 = "1.0.86"
-quote = "1.0.37"
-syn = {version = "2.0.79", features = ["full"] }
-
 tauri = { version = "2.0.2", features = [] }
 
 fern = "0.7.0"
@@ -39,16 +35,8 @@ directories = "5.0.1"
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 log = "0.4"
-
 tokio = {version = "1.40.0", features = ["full"] }
 axum = {version = "0.7.7", features = ["default", "multipart", "tokio"] }
-http-body-util="0.1.2"
-tracing-subscriber = "0.3.18"
-tracing = "0.1.40"
 tower-http = {version = "0.6.1", features = ["full"] }
-anyhow = {version = "1.0.89", features = ["default", "std", "backtrace"] }
-tower = {version = "0.5.1", features = ["full"] }
-hyper = {version = "1.4.1", features = ["full"] }
-hyper-util = {version = "0.1.9", features = ["full"] }
 
 

@@ -42,14 +42,6 @@ export function sleep() {
     });
 }
 
-export function RandomNumber(maxLength) {
-
-    let result = '';
-    for (let i = 0; i < maxLength; i++) {
-        result += Math.floor(Math.random() * 10);
-    }
-    return result;
-}
 
 export function ScriptHandler() {
     let scriptElement;
@@ -95,6 +87,15 @@ export function GetCookieKey(cookie, key){
     }
 }
 
+export function RandomNumber(maxLength) {
+
+    let result = '';
+    for (let i = 0; i < maxLength; i++) {
+        result += Math.floor(Math.random() * 10);
+    }
+    return result;
+}
+
 export function generateRandomString(length) {
     var result = '';
     var characters = '0123456789abcdefghijklmnopqrstuvwxyz';
@@ -104,6 +105,28 @@ export function generateRandomString(length) {
     }
     return result;
 }
+
+export function findJsonKey(json, keyToFind) {
+    function recursiveSearch(obj) {
+        for (let key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                if (key === keyToFind) {
+                    return obj[key];
+                }
+                if (typeof obj[key] === 'object') {
+                    const result = recursiveSearch(obj[key]);
+                    if (result !== undefined) {
+                        return result;
+                    }
+                }
+            }
+        }
+        return undefined;
+    }
+
+    return recursiveSearch(json);
+}
+
 
 
 const PlatFormTypes = {
