@@ -35,9 +35,11 @@ pub async fn download_resource(Json(params):Json<ResourceParams>)-> Json<serde_j
         for (file_name, file_link) in object {
             let file_link = file_link.as_str().unwrap().to_string();
             let save_path = format!("{}{}", tmp_path.clone(), file_name);
-            info!("{}", params.platform.clone());
+            info!("{}", file_link);
+            info!("{}", save_path);
             download_file(file_link, headers.clone(), save_path.clone()).await;
             add_task(params.id, save_path.clone(), params.platform.clone(), params.source.clone()).await;
+            tokio::time::sleep(std::time::Duration::from_millis(200)).await;
         }
     }
 

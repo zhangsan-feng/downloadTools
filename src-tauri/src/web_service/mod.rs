@@ -3,7 +3,7 @@ use axum::http::{Method};
 use axum::Router;
 use log::info;
 use tower_http::cors::{Any, CorsLayer};
-
+use crate::web_service::config::config::init_config;
 
 pub mod config;
 pub mod utils;
@@ -15,6 +15,7 @@ pub mod entity;
 
 
 pub async fn start_web_service() {
+    init_config().await;
 
     let app = Router::new()
         .nest("/v1", Router::new().nest("/web_api", application_router()))

@@ -17,7 +17,7 @@ export async function KuAiShouDetails(source ,config){
         'Accept-Language': 'zh-CN,zh;q=0.9',
         'Cache-Control': 'no-cache',
         'Connection': 'keep-alive',
-        'Cookie': 'did=web_536be27981ca4119aaffeacfa1dd4bf6; didv=1728974865000',
+        'Cookie': config['kuaishou'].cookie,
         'Pragma': 'no-cache',
         'Sec-Fetch-Dest': 'document',
         'Sec-Fetch-Mode': 'navigate',

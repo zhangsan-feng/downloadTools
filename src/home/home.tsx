@@ -24,7 +24,7 @@ function Home() {
 
             <div style={{ display:"flex", padding: 15, height: "100%", width:"100%"}}>
                 <Tabs
-                    tabBarStyle={{width:"13%",  height:"95%", backgroundColor:"#F4ACB7",borderRadius:25, padding:15, opacity:'1'}}
+                    tabBarStyle={{width:"13%",  height:"95%", backgroundColor:"#F0A6CA",borderRadius:25, padding:15, opacity:'1'}}
                     tabPosition={"left"}
                     items={[
                         {

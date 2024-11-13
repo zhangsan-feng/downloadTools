@@ -70,10 +70,9 @@ pub async fn http_post_json(url: String, headers: HeaderMap, params: serde_json:
 
 pub async fn download_file(url: String, headers: HeaderMap, save_path: String) -> bool {
     if tokio::fs::metadata(save_path.clone()).await.is_ok() {
-        tokio::time::sleep(std::time::Duration::from_millis(100)).await;
         return true;
     }
-
+    info!("current request url {}", url.clone());
     let client = reqwest::Client::new();
     let response = client
         .get(url.clone())
@@ -82,8 +81,7 @@ pub async fn download_file(url: String, headers: HeaderMap, save_path: String) -
         .await
         .expect("call error");
 
-    info!("current request url {} response code {} ",url.clone(),response.status());
-    info!("current file path {} ", save_path.clone());
+    info!("response code {} ", response.status());
 
     // let mut file = std::fs::OpenOptions::new().create(true).write(true).append(true).open((save_path.clone())).expect("create file fd error");
     let mut file = std::fs::OpenOptions::new()

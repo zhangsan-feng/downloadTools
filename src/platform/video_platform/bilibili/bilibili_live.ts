@@ -92,6 +92,7 @@ export async function BiliBiliLive(source){
 
     const resource_params:ResourceParams = {
         id:source.id,
+        source:source.download_link,
         platform:"bilibili",
         req_headers:request_headers,
         download_link: { "flv_file_name": flv_file_name, "flv_stream_url": flv_stream_url}

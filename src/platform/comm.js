@@ -38,7 +38,7 @@ export function sleep() {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve();
-        }, generateRandomNumber(3000, 8000));
+        }, generateRandomNumber(3000, 6000));
     });
 }
 

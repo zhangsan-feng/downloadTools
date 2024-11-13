@@ -96,7 +96,7 @@ const MusicSearchComponent = () => {
         <div style={{}}>
 
             <div style={{display: "flex", top: 50,}}>
-                <div style={{display: 'flex', top: 50, width: 800, }}>
+                <div style={{display: 'flex', top: 50 }}>
                     <span style={{justifyContent: 'center', alignContent: 'center'}}>音乐搜索:</span>
                     <Search style={{width: 300}} key='1' enterButton="搜索" onSearch={Submit}/>
 

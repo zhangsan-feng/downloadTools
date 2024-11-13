@@ -5,7 +5,6 @@ export const HttpServerAddress = "http://127.0.0.1:54435"
 
 const instance = axios.create({
     baseURL: HttpServerAddress,
-    timeout: 5000,
 })
 
 instance.interceptors.request.use(
