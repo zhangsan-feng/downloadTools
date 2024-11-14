@@ -20,6 +20,8 @@
         "center": true,
         "hiddenTitle": true,
         "contentProtected": false,
+        "maximized": false,
+        "maximizable": false,
         "title": ""
       }
     ],

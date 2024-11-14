@@ -1,36 +1,30 @@
-import {weibo_user_feed} from "./weibo_user_feed.ts";
-import {weibo_details1} from "./weibo_details1.ts";
+import {WeiBoUserFeed} from "./weibo_user_feed.ts";
+import {WeiBoDetails1} from "./weibo_details1.ts";
 import {weibo_details2} from './weibo_details2.ts'
-import {weibo_user_home} from './weibo_user_home.ts'
-import {weibo_user_video} from './weibo_user_video.ts'
-import {weibo_user_image} from './weibo_user_image.ts'
+import {WeiBoUserHome} from './weibo_user_home.ts'
+import {WeiBoUserVideo} from './weibo_user_video.ts'
+import {WeiBoUserImage} from './weibo_user_image.js'
 
 
-export async function WeiBoAdapter(url, config){
+export async function WeiBoAdapter(source, config){
 
-    const headers = {
-        'accept': 'application/json, text/plain, */*',
-        'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
-        'origin': 'https://weibo.com',
-        'referer': 'https://weibo.com',
-        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Microsoft Edge";v="126"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'User-Agent': navigator.userAgent,
-        'cookie': config['weibo'].cookie
-    }
-
-    if (url.includes("https://weibo.com/tv/show/")){await weibo_details2(url, headers)}
-    else if (url.includes("weibo.com") && url.includes("tabtype=home")){await weibo_user_home(url, headers)}
-    else if (url.includes("weibo.com") && url.includes("tabtype=feed")){await weibo_user_feed(url, headers)}
-    else if (url.includes("weibo.com") && url.includes("tabtype=newVideo")){await weibo_user_video(url, headers)}
-    else if (url.includes("weibo.com") && url.includes("tabtype=album")){await weibo_user_image(url, headers)}
-    else if (url.includes("weibo.com/u/")){ await weibo_user_feed(url, headers)}
-    else if (url.includes("weibo.com")){await weibo_details1(url, headers)}
-    else{throw ""}
-
+    if (source.download_link.includes("https://weibo.com/tv/show/")){await weibo_details2(source, config)}
+    else if (source.download_link.includes("tabtype=home")){await WeiBoUserHome(source, config)}
+    else if (source.download_link.includes("tabtype=feed")){await WeiBoUserFeed(source, config)}
+    else if (source.download_link.includes("tabtype=newVideo")){await WeiBoUserVideo(source, config)}
+    else if (source.download_link.includes("tabtype=album")){await WeiBoUserImage(source, config)}
+    else if (source.download_link.includes("weibo.com/u/")){ await WeiBoUserFeed(source, config)}
+    else if (source.download_link.includes("weibo.com")){await WeiBoDetails1(source, config)}
 
 }
+
+/*
+https://weibo.com/u/7277950214
+https://weibo.com/u/7821585704
+https://weibo.com/u/1887095340
+https://weibo.com/u/3518608920
+https://weibo.com/u/5205636486
+https://weibo.com/u/2014402415
+
+
+*/

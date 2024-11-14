@@ -65,7 +65,7 @@ export async function KuAiShouDetails(source ,config){
         req_headers:request_headers,
         download_link: download_data
     }
-    console.log(resource_params)
+    // console.log(resource_params)
     await ResourceDownloadApi(resource_params)
     await DownloadFinishApi({"id":source.id})
 

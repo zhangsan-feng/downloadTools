@@ -105,6 +105,15 @@ export function generateRandomString(length) {
     }
     return result;
 }
+export function generateRandomUpperString(length) {
+    var result = '';
+    var characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
 
 export function findJsonKey(json, keyToFind) {
     function recursiveSearch(obj) {
@@ -156,7 +165,7 @@ const PlatFormTypes = {
         req_headers:request_headers,
         download_link: { [source.file_name]: mp3_link }
     }
-    console.log(resource_params)
+    // console.log(resource_params)
     await ResourceDownloadApi(resource_params)
     await DownloadFinishApi({"id":source.id})
 

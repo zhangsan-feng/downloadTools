@@ -19,9 +19,6 @@ pub struct ResourceParams{
 
 
 pub async fn download_resource(Json(params):Json<ResourceParams>)-> Json<serde_json::Value> {
-    if task_is_running(params.id).await == false {
-        return ResponseStruct::success(json!("stop"))
-    }
 
     let headers = convert_headers(params.req_headers);
     let tmp_path = format!("./download/{}/", params.platform.clone());
@@ -33,6 +30,9 @@ pub async fn download_resource(Json(params):Json<ResourceParams>)-> Json<serde_j
 
     if let Some(object) = params.download_link.as_object() {
         for (file_name, file_link) in object {
+            if task_is_running(params.id).await == false {
+                return ResponseStruct::success(json!("stop"))
+            }
             let file_link = file_link.as_str().unwrap().to_string();
             let save_path = format!("{}{}", tmp_path.clone(), file_name);
             info!("{}", file_link);
@@ -42,8 +42,6 @@ pub async fn download_resource(Json(params):Json<ResourceParams>)-> Json<serde_j
             tokio::time::sleep(std::time::Duration::from_millis(200)).await;
         }
     }
-
-
     ResponseStruct::success(json!("success"))
 }
 

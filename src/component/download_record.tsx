@@ -68,7 +68,7 @@ const DownloadRecord = ()=>{
     return(
         <div>
             {TableData.length !== 0 ? (
-                <Table columns={columns} dataSource={TableData}  scroll={{ y: "68vh" }} rowKey="id"
+                <Table columns={columns} dataSource={TableData}  scroll={{ y: "70vh" }} rowKey="id"
                        expandable={{
                            expandedRowRender: (record) => {
                                 const items = []

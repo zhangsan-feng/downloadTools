@@ -3,21 +3,22 @@ import {Input, Button, message} from 'antd';
 import "./comm.css"
 import {DownLoadAdapter} from './platform_params.tsx'
 import {useState} from "react";
-
-
+import {sleep} from "../platform/comm.js";
 
 
 
 const DownloadVideoComponent = () =>{
     const [ButtonLoading, setButtonLoading] = useState(false)
-    const Submit = ()=>{
-        setButtonLoading(true)
+    const Submit = async ()=>{
+        // setButtonLoading(true)
+        message.success({content:"已经加入下载队列 即将开始下载"})
+        await sleep()
         const download_link = document.getElementById("download_link").value
         DownLoadAdapter(download_link).
         then(res=>{setButtonLoading(false)}).
         catch(err=>{
             console.log(err)
-            setButtonLoading(false)
+            // setButtonLoading(false)
             message.error({content:"下载失败"}
             )})
     }

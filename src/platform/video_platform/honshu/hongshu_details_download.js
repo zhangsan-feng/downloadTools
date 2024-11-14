@@ -81,8 +81,6 @@ export async function HongShuDetailsDownload(source, config){
     let nickname    = word_analysis(data.items[0].note_card.user.nickname)
 
     let download_data = {}
-
-    // console.log(outMsg)
     image_list.forEach((value, index)=>{
         let file_name = nickname + "_" + title + "_" + aweme_id + "_" + index.toString() + ".png"
         download_data[file_name] = value.url_default

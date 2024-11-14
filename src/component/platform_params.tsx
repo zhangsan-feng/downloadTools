@@ -20,7 +20,7 @@ import {MiGuMusicDetailsInfo} from '../platform/music_platform/migu_music/migu_m
 import {HongSHuAdapter} from '../platform/video_platform/honshu/hongshu_adapter.ts'
 import {BiliBiliAdapter} from '../platform/video_platform/bilibili/bilibili_adapter.ts'
 import {KuAiShouAdapter} from '../platform/video_platform/kuaishou/kuaishou_adapter.ts'
-
+import {WeiBoAdapter} from '../platform/video_platform/weibo/weibo_adapter.ts'
 
 import {message} from "antd";
 
@@ -116,6 +116,9 @@ export async function DownLoadAdapter(input_link){
     if (source.download_link.includes("kuaishou")){
         await KuAiShouAdapter(source, config)
     }
+    if (source.download_link.includes("weibo")){
+        await WeiBoAdapter(source, config)
+    }
 
-    message.success({content:"已经加入下载队列"})
+
 }

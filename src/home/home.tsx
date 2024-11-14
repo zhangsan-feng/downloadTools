@@ -5,6 +5,8 @@ import PlatFormConfig from "../component/platform_config.tsx";
 import DownloadVideoComponent from "../component/download_video.tsx";
 import MusicSearchComponent from "../component/music_search.tsx";
 import DownloadRecord from "../component/download_record.tsx";
+import Support_platform from "../component/support_platform.tsx";
+import SupportPlatformTable from "../component/support_platform.tsx";
 
 
 //
@@ -39,7 +41,12 @@ function Home() {
                             style:TablsStyle,
                             children: <MusicSearchComponent/>
                         },
-
+                        {
+                            label: '支持平台',
+                            key: 3,
+                            style:TablsStyle,
+                            children: <SupportPlatformTable/>
+                        },
                         {
                             label: '下载配置',
                             key: 4,

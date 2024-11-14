@@ -46,7 +46,7 @@ const PlatFormConfig = ()=>{
         // console.log(value, index)
         // console.log(cookieData[index][value])
         Element.push(
-            <div style={{marginTop: 20, display: "flex", width:"75vw", marginLeft:20, }} key={index}>
+            <div style={{marginTop: 20, display: "flex", marginLeft:20, }} key={index}>
                 <span style={{
                     width: 100,
                     textAlign: "right",
@@ -67,7 +67,7 @@ const PlatFormConfig = ()=>{
         )
     })
     return (
-        <div style={{overflow:'auto', height:"85vh"}}>
+        <div style={{overflow:'auto',width:"95%", height:"95%"}}>
             <h2 >cookie 配置</h2>
             {Element}
         </div>

@@ -1,7 +1,9 @@
-import {HTTPGet} from "../../../api/request.js";
-import Qs from "qs";
-import {CallDownLoadVideo, CallDwonLoadApi, CallUpdateTask} from "../../../api/call.js";
-
+import {generateRandomUpperString} from "../../comm.js";
+import {
+    DownloadFinishApi,
+    ProxyApi,
+    ResourceDownloadApi,
+} from "../../../api/axios_http.ts";
 
 
 function a(t) {
@@ -34,31 +36,58 @@ function image_link(t) {
 }
 
 
-export async function weibo_user_image(url, headers){
-    let task_name = url
+export async function WeiBoUserImage(source, config){
 
-    let uid = url.split("?")[0].replace("https://weibo.com/u/", "")
+    const request_url = "https://weibo.com/ajax/profile/getImageWall"
+    let uid = source.download_link.split("?")[0].replace("https://weibo.com/u/", "")
+    const request_headers = {
+        'accept': 'application/json, text/plain, */*',
+        'accept-language': 'zh-CN,zh;q=0.9',
+        'cache-control': 'no-cache',
+        'client-version': 'v2.46.33',
+        'cookie': config['weibo'].cookie,
+        'pragma': 'no-cache',
+        'priority': 'u=1, i',
+        'referer': source.download_link,
+        'sec-ch-ua': '"Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-origin',
+        'server-version': 'v2024.11.13.2',
+        'user-agent': navigator.userAgent,
+        'x-requested-with': 'XMLHttpRequest',
+        'x-xsrf-token': generateRandomUpperString(24),
+    }
+
     let sinceid = 0
     for (;;){
-        let params ={
+        let request_params ={
             "sinceid": sinceid,  // page
             "uid": uid,
             "has_album":true,
         }
         // console.log(params)
 
-        let response = await HTTPGet("https://weibo.com/ajax/profile/getImageWall?" + Qs.stringify(params), null, headers)
-        console.log(response)
+        const proxy_params = {
+            req_url:request_url,
+            req_type:"GET",
+            req_params:request_params,
+            req_headers:request_headers
+        }
+        // console.log(proxy_params)
+        let {response_body} = await ProxyApi(proxy_params)
+        response_body  = JSON.parse(response_body)
+        // console.log(response_body)
 
-        let download_data = {}
-
-        let data_list = response.data.data.list
-        if (data_list.length === 0) {
-            // console.log("none response")
-            await CallUpdateTask(task_name);
+        const data_list = response_body.data.list
+        sinceid = response_body.data.since_id
+        if (data_list.length === 0 || sinceid == 0) {
             break
         }
-        sinceid = response.data.data.since_id
+
+        let download_data = {}
         data_list.forEach((value)=>{
             download_data[value.pid + ".png"] = image_link(value.pid)
             // console.log(image_link(value.pid))
@@ -66,16 +95,20 @@ export async function weibo_user_image(url, headers){
         // console.log(image_list)
 
 
-        let call_params = {
-            "task_name":task_name,
-            "headers":headers,
-            "platform":"weibo",
-            "data":download_data
+        const resource_params = {
+            id:source.id,
+            platform:"weibo",
+            source:source.download_link,
+            req_headers:request_headers,
+            download_link:download_data
         }
-        let res =  await CallDownLoadVideo(JSON.stringify(call_params))
-        if (JSON.parse(res).data === "stop") {
+        // console.log(resource_params)
+        const {data} = await ResourceDownloadApi(resource_params)
+        if (data === "stop"){
             break
         }
     }
+
+    await DownloadFinishApi({"id":source.id})
 
 }
