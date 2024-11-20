@@ -13,13 +13,13 @@ use crate::web_service::utils::response_impl::{ResponseImpl, ResponseStruct};
 pub struct Task {
     pub status:String,
     pub source:String,
-    pub children: Vec<String>,
+    pub nickname:String,
     pub platform:String,
+    pub children: Vec<String>,
 }
 
 lazy_static! {
-     static ref TaskManager: Arc<RwLock<HashMap<i64, Task>>> =
-        Arc::new(RwLock::new(HashMap::new()));
+     static ref TaskManager: Arc<RwLock<HashMap<i64, Task>>> = Arc::new(RwLock::new(HashMap::new()));
 }
 
 
@@ -29,7 +29,7 @@ pub struct RequestParams{
 }
 
 
-pub async fn add_task(id: i64, file_name: String, _platform:String, source:String) {
+pub async fn add_record(id: i64, file_name: String, _platform:String, source:String) {
     info!("add new task {}, {}, {}", id, _platform, file_name);
     let mut task_manager = TaskManager.write().await;
     match task_manager.get_mut(&id) {
@@ -38,6 +38,7 @@ pub async fn add_task(id: i64, file_name: String, _platform:String, source:Strin
         }
         None => {
             let record = Task{
+                nickname:"".to_string(),
                 source:source.clone(),
                 status: "running".to_string(),
                 children: vec![file_name],

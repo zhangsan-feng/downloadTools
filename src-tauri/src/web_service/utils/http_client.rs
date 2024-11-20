@@ -1,5 +1,5 @@
-use crate::web_service::api::download_task::task_is_running;
-use futures_util::StreamExt;
+use crate::web_service::api::download_record::task_is_running;
+use futures_util::{StreamExt};
 use log::info;
 use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
 use reqwest::{ Response};

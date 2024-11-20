@@ -70,6 +70,7 @@ async function run1(source, headers){
         if (data === "stop"){
             break
         }
+        await sleep()
     }
     await DownloadFinishApi({"id":source.id})
 }
@@ -140,6 +141,7 @@ async function run2(source, headers){
         if (data === "stop"){
             break
         }
+        await sleep()
     }
     await DownloadFinishApi({"id":source.id})
 }

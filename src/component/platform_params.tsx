@@ -21,6 +21,7 @@ import {HongSHuAdapter} from '../platform/video_platform/honshu/hongshu_adapter.
 import {BiliBiliAdapter} from '../platform/video_platform/bilibili/bilibili_adapter.ts'
 import {KuAiShouAdapter} from '../platform/video_platform/kuaishou/kuaishou_adapter.ts'
 import {WeiBoAdapter} from '../platform/video_platform/weibo/weibo_adapter.ts'
+import {DouYinAdapter} from '../platform/video_platform/douyin/douyin_adapter.ts'
 
 import {message} from "antd";
 
@@ -75,7 +76,6 @@ export async function MusicPlayerAdapter(source){
 
 }
 
-
 export async function MusicSearchAdapter(key_world){
     const functions = [KuGouMusicSearch, KuWoMusicSearch, QQMusicSearch, MiGuMusicSearch]
     const config = await GenCookie()
@@ -92,32 +92,37 @@ export async function MusicSearchAdapter(key_world){
     return call_back
 }
 
-
 export async function CommentDownLoadAdapter(){}
 
-
 export async function DownLoadAdapter(input_link){
-    const source = {
-        "download_link":match_url(input_link),
-        "id":Date.now() + Math.floor(Math.random() * 100000)
-    }
-    localStorage.clear()
-    sessionStorage.clear()
-    document.cookie = ''
-    const config = await GenCookie()
+    input_link = input_link.split("\n")
+    for (const index in input_link){
+        const link = match_url(input_link[index])
+        if (link.length === 0){continue}
+        const source = {
+            "download_link":link,
+            "id":Date.now() + Math.floor(Math.random() * 100000)
+        }
+        localStorage.clear()
+        sessionStorage.clear()
+        document.cookie = ''
+        const config = await GenCookie()
 
-
-    if (source.download_link.includes("xiaohongshu")){
-        await HongSHuAdapter(source, config)
-    }
-    if (source.download_link.includes("bilibili")){
-        await BiliBiliAdapter(source, config)
-    }
-    if (source.download_link.includes("kuaishou")){
-        await KuAiShouAdapter(source, config)
-    }
-    if (source.download_link.includes("weibo")){
-        await WeiBoAdapter(source, config)
+        if (source.download_link.includes("xiaohongshu")){
+            await HongSHuAdapter(source, config)
+        }
+        if (source.download_link.includes("bilibili")){
+            await BiliBiliAdapter(source, config)
+        }
+        if (source.download_link.includes("kuaishou")){
+            await KuAiShouAdapter(source, config)
+        }
+        if (source.download_link.includes("weibo")){
+            await WeiBoAdapter(source, config)
+        }
+        if (source.download_link.includes("douyin")){
+            await DouYinAdapter(source, config)
+        }
     }
 
 

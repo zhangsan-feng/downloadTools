@@ -29,11 +29,3 @@ async fn main() {
         .expect("error while running tauri application");
 
 }
-
-/*
-
-//    "core:window:allow-unmaximize",
-//    "core:window:allow-is-maximized",
-//    "core:window:allow-maximize",
-
-*/

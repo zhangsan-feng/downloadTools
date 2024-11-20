@@ -1,5 +1,5 @@
 use crate::web_service::config::static_path::BILI_BILI_DIR;
-use crate::web_service::api::download_task::{add_task, task_is_running};
+use crate::web_service::api::download_task::{add_record, task_is_running};
 use crate::web_service::utils::http_client::{download_file, http_headers};
 use log::info;
 use serde_json::{from_str, json, Value};
@@ -107,7 +107,7 @@ pub async fn bilibili_video(parameter: String) -> Result<String, String> {
                 .await
                 .expect("remove file error");
 
-            add_task(task_name.clone(), merge_file_name.clone()).await;
+            add_record(task_name.clone(), merge_file_name.clone()).await;
         }
     }
     return Ok(json!({

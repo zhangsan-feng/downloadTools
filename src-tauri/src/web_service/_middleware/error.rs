@@ -47,3 +47,4 @@ where
         ApplicationError::ServiceError(anyhow_err.to_string())
     }
 }
+

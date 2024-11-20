@@ -1,17 +1,18 @@
-import {Table, Tag} from "antd";
+import {message, Table, Tag} from "antd";
 import {useEffect, useState} from "react";
 import {StopDownloadTaskApi, DownloadRecordQueryApi} from '../api/axios_http.ts'
-
+import copy from "copy-to-clipboard";
 
 const DownloadRecord = ()=>{
 
     const columns = [
         {title: 'id', dataIndex: 'id',},
-        {title: 'platform', dataIndex: 'platform',},
-        {title: 'source', dataIndex: 'source',  ellipsis: true},
+        {title: '平台', dataIndex: 'platform',},
+        {title: '昵称', dataIndex: 'nickname',  ellipsis: true},
+        {title: '链接', dataIndex: 'source',  ellipsis: true},
         {
 
-            title: 'status',
+            title: '状态',
             dataIndex: 'status',
             render: (data, src) => {
                 // console.log(data)
@@ -31,8 +32,8 @@ const DownloadRecord = ()=>{
             }
         },
         {
-            title: '操作',
-            dataIndex: '操作',
+            title: '',
+            dataIndex: '',
             render: (_, src) => {
                 // console.log(src)
                 if (src.status === "running") {
@@ -46,6 +47,17 @@ const DownloadRecord = ()=>{
                 // if (src.task_status === "fished") {
                 //     return <a>删除</a>
                 // }
+            },
+        },
+        {
+            title: '',
+            dataIndex: '',
+            render: (_, src) => {
+                return <a onClick={()=>{
+                copy(src.source)
+                message.success({content:"复制成功"})}}
+                >
+                    复制链接</a>
             },
         },
     ];
@@ -63,7 +75,7 @@ const DownloadRecord = ()=>{
             console.log(res)
             setTableData(res.data)
         })
-    }, 2000)
+    }, 1500)
 
     return(
         <div>
