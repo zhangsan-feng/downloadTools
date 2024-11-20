@@ -1,7 +1,7 @@
 import {GetCookieKey, word_analysis, generateRandomString} from "../../comm.js";
-import Qs from "qs";
+import {parse, stringify} from "qs";
 import {get_sign} from "./X-S-Common.js";
-import {DownloadFinishApi, ProxyApi, ResourceDownloadApi} from "../../../api/axios_http.ts";
+import {DownloadFinishApi, ProxyApi, ResourceDownloadApi} from "../../../api/axios_http.js";
 
 
 
@@ -46,7 +46,7 @@ export async function HongShuDetailsDownload(source, config){
             'need_body_topic': '1',
         },
         'xsec_source': 'pc_feed',
-        'xsec_token': Qs.parse(url.split("?")[1])["xsec_token"],
+        'xsec_token': parse(url.split("?")[1])["xsec_token"],
     }
 
     let a1 = GetCookieKey(request_headers['cookie'],"a1")

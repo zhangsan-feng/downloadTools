@@ -1,7 +1,11 @@
+import {HTTPPost} from '../../../api/request.js'
 
-import {ProxyApi} from "../../../api/axios_http.ts";
 
-let request_headers = {
+// AxiosHTTPPost(url,params, headers).then(res=>{
+//     console.log(res.data.web_id)
+// })
+
+let headers = {
     'accept': 'application/json, text/plain, */*',
     'accept-language': 'zh-CN,zh;q=0.9',
     'cache-control': 'no-cache',
@@ -18,8 +22,8 @@ let request_headers = {
 
 export async function GetWebId(){
 
-    let request_url = "https://mcs.zijieapi.com/webid"
-    let request_params = {
+    let url = "https://mcs.zijieapi.com/webid"
+    let params = {
         "app_id": 6383,
         "referer": "https://www.douyin.com/",
         "url": "https://www.douyin.com/",
@@ -27,16 +31,8 @@ export async function GetWebId(){
         "user_unique_id": "",
     }
 
-    const proxy_params = {
-        req_url:request_url,
-        req_type:"POSTJson",
-        req_params:request_params,
-        req_headers:request_headers
-    }
-    // console.log(proxy_params)
-    let {response_body} = await ProxyApi(proxy_params)
-    response_body = JSON.parse(response_body)
-    console.log(response_body)
-    return response_body.web_id
+    let response = await  HTTPPost(url,params, headers)
+    let response_data = await response.data
+    return response_data.web_id
 }
 // console.log(await GetWebId())

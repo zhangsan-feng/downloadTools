@@ -1,9 +1,5 @@
 import {generateRandomUpperString} from "../../comm.js";
-import {
-    DownloadFinishApi,
-    ProxyApi,
-    ResourceDownloadApi,
-} from "../../../api/axios_http.ts";
+import {DownloadFinishApi, ProxyApi, ResourceDownloadApi,} from "../../../api/axios_http.js";
 
 
 function a(t) {

@@ -1,17 +1,16 @@
 
 import "./home.css"
 import {Tabs} from 'antd';
-import PlatFormConfig from "../component/platform_config.tsx";
-import DownloadVideoComponent from "../component/download_video.tsx";
-import MusicSearchComponent from "../component/music_search.tsx";
-import DownloadRecord from "../component/download_record.tsx";
-import Support_platform from "../component/support_platform.tsx";
-import SupportPlatformTable from "../component/support_platform.tsx";
+import PlatFormConfig from "../component/platform_config.jsx";
+import DownloadVideoComponent from "../component/download_video.jsx";
+import MusicSearchComponent from "../component/music_search.jsx";
+import DownloadRecord from "../component/download_record.jsx";
+import SupportPlatformTable from "../component/support_platform.jsx";
 
 
 //
 
-const TablsStyle  = {width:"84vw", backgroundColor:"#FFE5D9", height:"95vh",
+const TabStyle  = {width:"84vw", backgroundColor:"#FFE5D9", height:"95vh",
     marginLeft:"2%", borderRadius:25, padding:25, opacity:'1'}
 
 
@@ -32,31 +31,31 @@ function Home() {
                         {
                             label: '资源下载',
                             key: 1,
-                            style:TablsStyle,
+                            style:TabStyle,
                             children: <DownloadVideoComponent/>
                         },
                         {
                             label: '音乐搜索',
                             key: 2,
-                            style:TablsStyle,
+                            style:TabStyle,
                             children: <MusicSearchComponent/>
                         },
                         {
                             label: '支持平台',
                             key: 3,
-                            style:TablsStyle,
+                            style:TabStyle,
                             children: <SupportPlatformTable/>
                         },
                         {
                             label: '下载配置',
                             key: 4,
-                            style:TablsStyle,
+                            style:TabStyle,
                             children: <PlatFormConfig/>
                         },
                         {
                             label: '下载记录',
                             key: 5,
-                            style:TablsStyle,
+                            style:TabStyle,
                             children: <DownloadRecord/>
                         },
                     ]}

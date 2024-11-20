@@ -1,12 +1,12 @@
 import {get_sign} from "./X-S-Common.js";
-import Qs from "qs";
+import {stringify, parse} from "qs";
 import {generateRandomString, GetCookieKey, sleep} from '../../comm.js'
-import {DownloadFinishApi, ProxyApi} from "../../../api/axios_http";
+import {DownloadFinishApi, ProxyApi} from "../../../api/axios_http.js";
 import {HongShuDetailsDownload} from './hongshu_details_download.js'
 
 export async function HongShuPost(source ,config){
     const url = source.download_link.split("?")[0]
-    const url_params = Qs.parse(source.download_link.split("?")[1])
+    const url_params = parse(source.download_link.split("?")[1])
     let user_id = url.split("/")
     user_id = user_id[user_id.length - 1]
 
@@ -42,8 +42,8 @@ export async function HongShuPost(source ,config){
 }
 
     for (;;){
-        let request_url = "https://edith.xiaohongshu.com/api/sns/web/v1/user_posted?" + Qs.stringify(request_params)
-        let sign_params = "/api/sns/web/v1/user_posted?" + Qs.stringify(request_params)
+        let request_url = "https://edith.xiaohongshu.com/api/sns/web/v1/user_posted?" + stringify(request_params)
+        let sign_params = "/api/sns/web/v1/user_posted?" + stringify(request_params)
         let a1 = GetCookieKey(request_headers['cookie'],"a1")
         let xs = window._webmsxyw(sign_params, undefined)
         let xscomm = get_sign(xs,  a1)

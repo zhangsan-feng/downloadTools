@@ -87,6 +87,17 @@ export function GetCookieKey(cookie, key){
     }
 }
 
+export function GetUrlParams(url, key){
+    let call_back = ""
+    let url_split = url.split("?")
+    url_split[1].split("&").forEach((value, index) => {
+        if (value.includes(key)) {
+            call_back =  value.split("=")[1]
+        }
+    })
+    return call_back
+}
+
 export function RandomNumber(maxLength) {
 
     let result = '';
@@ -144,21 +155,21 @@ const PlatFormTypes = {
 
 /*
 
-    const proxy_params:ProxyParams = {
+    const proxy_params = {
         req_url:request_url,
         req_type:"GET",
         req_params:request_params,
         req_headers:request_headers
     }
     // console.log(proxy_params)
-    let {response_body} = await ProxyApi(proxy_params)
-    response_body  = JSON.parse(response_body)
-    console.log(response_body)
+        const {response_headers, response_body} = await ProxyApi(proxy_params)
+        console.log(response_headers)
+        console.log(response_body)
 
 
 
 
-    const resource_params:ResourceParams = {
+    const resource_params = {
         id:source.id,
         platform:"kuwo_music",
          source:source.download_link,
