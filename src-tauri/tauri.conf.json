@@ -2,9 +2,9 @@
   "$schema": "https://schema.tauri.app/config/2.0.0-rc",
   "productName": "downloadTools",
   "version": "0.1.0",
-  "identifier": "com.tauri.dev",
+  "identifier": "winTools",
   "build": {
-    "frontendDist": "../build",
+    "frontendDist": "../dist",
     "devUrl": "http://localhost:5173",
     "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build"

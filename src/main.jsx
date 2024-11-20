@@ -1,5 +1,5 @@
 import {RouterProvider} from "react-router-dom";
-import httpRouter from "./router.tsx";
+import httpRouter from "./router.jsx";
 import {createRoot} from 'react-dom/client';
 
 
