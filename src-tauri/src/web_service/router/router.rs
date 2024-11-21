@@ -1,6 +1,6 @@
 use crate::web_service::api::{
     platform_config::{platform_config_update, platform_config_query},
-    cmd_api::ffmpeg_composite_video,
+    cmd_api::{ffmpeg_composite_video, ffmpeg_download_m38u},
     download::{download_resource, download_stream},
     download_record::{download_record_query,stop_download_task, download_finish},
     proxy_api::{proxy}
@@ -56,6 +56,7 @@ pub fn application_router() -> Router<()> {
         .route("/stop_download_task", post(stop_download_task))
         .route("/download_finish", post(download_finish))
         .route("/ffmpeg_composite_video", post(ffmpeg_composite_video))
+        .route("/ffmpeg_download_m38u", post(ffmpeg_download_m38u))
         // .layer(middleware::from_fn(_middleware::request_record::request_record))
         .layer(           ServiceBuilder::new()
             // Handle errors from middleware

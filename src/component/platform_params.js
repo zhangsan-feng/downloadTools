@@ -1,6 +1,6 @@
 
-import {match_url} from "../platform/comm.js";
-import {PlatFormConfigQueryAPi} from "../api/axios_http.js";
+import {match_url, GetTime} from "../platform/comm.js";
+import {PlatFormConfigQueryAPi, FfmpegDownloadM3U8Api} from "../api/axios_http.js";
 
 import {KuWoMusicSearch} from '../platform/music_platform/kuwo_music/kuwo_music_search.js'
 import {KuGouMusicSearch} from '../platform/music_platform/kugou_music/kugou_music_search.js'
@@ -127,6 +127,9 @@ export async function DownLoadAdapter(input_link){
         }
         if (source.download_link.includes("douyin")){
             await DouYinAdapter(source, config)
+        }
+        if (source.download_link.includes(".m3u8")){
+            await FfmpegDownloadM3U8Api({url:link, id:source.id})
         }
     }
 

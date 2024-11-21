@@ -37,6 +37,7 @@ export const PlatFormConfigUpdateAPi = (params) => HttpPost(`${HttpRouterUrl}/pl
 //     merge_file_name:any,
 // }
 export const FfmpegCompositeVideoApi = (params) => HttpPost(`${HttpRouterUrl}/ffmpeg_composite_video`, params)
+export const FfmpegDownloadM3U8Api = (params) => HttpPost(`${HttpRouterUrl}/ffmpeg_download_m38u`, params)
 export const StopDownloadTaskApi = (params) => HttpPost(`${HttpRouterUrl}/stop_download_task`, params)
 export const DownloadFinishApi  = (params) => HttpPost(`${HttpRouterUrl}/download_finish`, params)
 

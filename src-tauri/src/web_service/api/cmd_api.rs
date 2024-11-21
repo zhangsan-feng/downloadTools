@@ -1,9 +1,11 @@
 use serde_json::{json, Value};
 use crate::web_service::utils::response_impl::{ResponseImpl, ResponseStruct};
 use axum::Json;
+use log::info;
 use serde::{Deserialize, Serialize};
 use crate::web_service::api::download_record::add_record;
-
+use rand::{distributions::Alphanumeric, thread_rng, Rng, SeedableRng};
+use rand_xorshift::XorShiftRng;
 
 #[derive(Debug, Serialize, Deserialize, Clone,)]
 pub struct RequestParams{
@@ -34,4 +36,28 @@ pub async fn ffmpeg_composite_video(Json(params):Json<RequestParams>) ->Json<Val
     ResponseStruct::success(json!("success"))
 }
 
-// pub async fn ffmpeg_download_m38u(){}
+#[derive(Debug, Serialize, Deserialize, Clone,)]
+pub struct M3U8tParams{
+    id:i64,
+    url:String
+}
+
+fn generate_random_string(length: usize) -> String {
+    let mut rng: XorShiftRng = SeedableRng::from_entropy();
+    (0..length).map(|_| rng.sample(Alphanumeric) as char).collect()
+}
+
+pub async fn ffmpeg_download_m38u(Json(params):Json<M3U8tParams>) ->Json<Value> {
+    let tmp_path = format!("./download/m3u8/{}.mp4", generate_random_string(32));
+    match tokio::fs::create_dir_all(tmp_path.clone()).await {
+        Ok(()) => info!("Directory created successfully {}", tmp_path),
+        Err(e) => info!("Failed to create directory: {}", e),
+    }
+    let mut rng = thread_rng();
+
+    let cmd = format!("-i {} -c copy -f mp4 {}", params.url,  tmp_path);
+    std::process::Command::new("ffmpeg").args(cmd.split_whitespace()).output().expect("ffmpeg command failed");
+    add_record(params.id, tmp_path.clone(),"".to_string(), "".to_string(), "".to_string()).await;
+
+    ResponseStruct::success(json!("success"))
+}
