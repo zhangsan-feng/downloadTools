@@ -55,6 +55,7 @@ export async function KuAiShouDetails(source ,config){
     const resource_params = {
         id:source.id,
         platform:"kuaishou",
+        nickname:author,
         source:source.download_link,
         req_headers:request_headers,
         download_link: download_data

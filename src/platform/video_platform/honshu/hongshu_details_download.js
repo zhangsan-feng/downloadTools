@@ -98,6 +98,7 @@ export async function HongShuDetailsDownload(source, config){
     const resource_params = {
         id:source.id,
         platform:"hongshu",
+        nickname:nickname,
         source:source.download_link,
         req_headers:request_headers,
         download_link: download_data

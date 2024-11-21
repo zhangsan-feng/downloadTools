@@ -4,7 +4,7 @@ const HttpRouterMatchV1 = "/v1/web_api"
 const HttpRouterUrl = `${HttpRouterMatchV1}`
 
 
-// export type ProxyParams = {
+// export type ProxyApiParams = {
 //     req_url:any;
 //     req_type:any;
 //     req_headers:any;
@@ -13,7 +13,7 @@ const HttpRouterUrl = `${HttpRouterMatchV1}`
 // }
 export const ProxyApi = (params)=> HttpPost(`${HttpRouterUrl}/proxy`, params);
 
-// export type  = {
+// ResourceDownloadApiParams  = {
 //     id:any,
 //     req_headers:any;
 //     nickname:any

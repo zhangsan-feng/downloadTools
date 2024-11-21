@@ -47,15 +47,12 @@ export async function WeiBoUserFeed(source, config){
         // console.log(response_body)
 
         const data_list = response_body.data.list
-        if (data_list.length === 0) {
-            break
-        }
-
 
         const download_data = {}
+        let nickname;
         data_list.forEach((data, index) => {
             // const user_id = data["user"]["id"]
-            const nickname = data["user"]["screen_name"].replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, "")
+            nickname = data["user"]["screen_name"].replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, "")
             const aweme_id = data["id"]
             const aweme_title = data["text"]?.split("<")[0].replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, "")
 
@@ -79,11 +76,15 @@ export async function WeiBoUserFeed(source, config){
         const resource_params = {
             id:source.id,
             platform:"weibo",
+            nickname:nickname,
             source:source.download_link,
             req_headers:request_headers,
             download_link:download_data
         }
         // console.log(resource_params)
+        if (data_list.length === 0) {
+            break
+        }
         const {data} = await ResourceDownloadApi(resource_params)
         if (data === "stop"){
             break

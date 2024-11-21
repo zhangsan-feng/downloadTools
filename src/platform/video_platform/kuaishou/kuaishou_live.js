@@ -46,6 +46,7 @@ export async function KuAiShouLive(source, config){
     const resource_params = {
         id:source.id,
         source:source.download_link,
+        nickname:nickname,
         platform:"bilibili",
         req_headers:request_headers,
         download_link: { "flv_file_name": flv_file_name, "flv_stream_url": flv_stream_url}

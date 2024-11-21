@@ -1,5 +1,8 @@
 import {GetUrlParams} from '../../comm.js'
 import {ProxyApi} from "../../../api/axios_http.js";
+import {DouYinDetails} from "./douyin_details.js";
+import {DouYinPost} from "./douyin_post.js";
+import {DouYinLive} from "./douyin_live.js";
 
 
 export async function DouYinAdapter(source, config){
@@ -29,39 +32,51 @@ export async function DouYinAdapter(source, config){
         source.download_link = response_headers['location']
     }
 
-    // if (source.download_linkincludes("douyin.com/video/")){
-    //     let aweme_id = source.download_linkreplace("https://www.douyin.com/video/","").split("?")[0]
-    //
-    // }
-    // if (source.download_linkincludes("douyin.com/note/")){
-    //     let aweme_id = source.download_link.replace("https://www.douyin.com/note/","").split("?")[0]
-    //
-    // }
-    //
-    // if (source.download_linkincludes("iesdouyin.com/share/user/")){
-    //     let sec_uid = source.download_linkreplace("https://www.iesdouyin.com/share/video/","").split("?")[0]
-    // }
 
-    // if (source.download_linkincludes("iesdouyin.com/share/user/")){
-    //     let sec_uid = source.download_linkreplace("https://www.iesdouyin.com/share/user/","").split("?")[0]
-    // }
-    //
-    // if (source.download_linkincludes("douyin.com/user/")){
-    //     let sec_uid = source.download_link.replace("https://www.douyin.com/user/","").split("?")[0]
-    //
-    // }
-    //
-    // if (source.download_linkincludes("live.douyin.com")){
-    //     let room_id = source.download_link.split("?")[0].replace("https://live.douyin.com/", "")
-    //
-    //
-    // }
-    //
-    // if (source.download_linkincludes("webcast.amemv.com")) {
-    //     let url_split = source.download_linksplit("?")
-    //     let room_id = url_split[0].replace("https://webcast.amemv.com/douyin/webcast/reflow/", "")
-    //     let sec_user_id = GetUrlParams(source.download_link, "sec_user_id")
-    //
-    // }
+    if (source.download_link.includes("https://www.douyin.com/video/")){
+        source.aweme_id = source.download_link.replace("https://www.douyin.com/video/","").split("?")[0].replace("/","")
+        console.log(source.aweme_id)
+        await DouYinDetails(source, config)
+    }
+    if (source.download_link.includes("douyin.com/note/")){
+        source.aweme_id = source.download_link.replace("https://www.douyin.com/note/","").split("?")[0].replace("/","")
+        // console.log(source.aweme_id)
+        await DouYinDetails(source, config)
+    }
+
+    if (source.download_link.includes("https://www.iesdouyin.com/share/video/")){
+        source.aweme_id = source.download_link.replace("https://www.iesdouyin.com/share/video/","").split("?")[0].replace("/","")
+        // console.log(source.aweme_id)
+        await DouYinDetails(source, config)
+    }
+
+    if (source.download_link.includes("https://www.iesdouyin.com/share/user/")){
+        source.sec_uid = source.download_link.replace("https://www.iesdouyin.com/share/user/","").split("?")[0].replace("/","")
+        // console.log(source.sec_uid)
+        await DouYinPost(source, config)
+    }
+
+    if (source.download_link.includes("https://www.douyin.com/user/")){
+        source.sec_uid = source.download_link.replace("https://www.douyin.com/user/","").split("?")[0].replace("/","")
+        // console.log(source.sec_uid)
+        await DouYinPost(source, config)
+    }
+
+    if (source.download_link.includes("live.douyin.com")){
+        source.room_id = source.download_link.split("?")[0].replace("https://live.douyin.com/", "").replace("/","")
+        source.platform = "web"
+        console.log(source)
+        await DouYinLive(source, config)
+
+    }
+
+    if (source.download_link.includes("webcast.amemv.com")) {
+        let url_split = source.download_link.split("?")
+        source.room_id = url_split[0].replace("https://webcast.amemv.com/douyin/webcast/reflow/", "").replace("/","")
+        source.sec_user_id = GetUrlParams(source.download_link, "sec_user_id")
+        source.platform = "app"
+        console.log(source)
+        await DouYinLive(source, config)
+    }
 
 }

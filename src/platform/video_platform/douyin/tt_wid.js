@@ -1,6 +1,7 @@
-import {HTTPPost} from '../../../api/request.js'
 
-let headers = {
+import {ProxyApi} from "../../../api/axios_http.js";
+
+let request_headers = {
     'accept': 'application/json, text/plain, */*',
     'accept-language': 'zh-CN,zh;q=0.9',
     'cache-control': 'no-cache',
@@ -20,8 +21,8 @@ let headers = {
 // })
 
 export async function GetTTWid(){
-    let url = "https://ttwid.bytedance.com/ttwid/union/register/"
-    let params = {
+    let request_url = "https://ttwid.bytedance.com/ttwid/union/register/"
+    let request_params = {
         "region":"cn",
         "aid":1768,
         "needFid":false,
@@ -31,9 +32,16 @@ export async function GetTTWid(){
         "union":true
     }
 
-    let response = await HTTPPost(url,params, headers)
-    console.log(response.data)
-    let ttw_wid = response.headers['set-cookie'][0].split(";")[0].split("=")[1]
+    const proxy_params = {
+        req_url:request_url,
+        req_type:"POSTJson",
+        req_params:request_params,
+        req_headers:request_headers
+    }
+    // console.log(proxy_params)
+    let {response_headers} = await ProxyApi(proxy_params)
+    // console.log(response_headers)
+    let ttw_wid = response_headers['set-cookie'][0].split(";")[0].split("=")[1]
     // console.log(ttw_wid)
     return ttw_wid
 }

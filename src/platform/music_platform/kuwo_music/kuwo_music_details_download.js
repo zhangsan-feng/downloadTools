@@ -14,6 +14,7 @@ export async function KuWoMusicDetailsDownload(source, config){
         const resource_params = {
             id:source.id,
             platform:"kuwo_music",
+            nickname:source.author,
             source:source.download_link,
             req_headers:request_headers,
             download_link: { [source.file_name]: mp3_link }

@@ -11,9 +11,10 @@ use crate::web_service::api::download_record::{add_record, task_is_running};
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct RequestParams{
     id:i64,
-    req_headers:serde_json::Value,
+    nickname:String,
     platform:String,
     source:String,
+    req_headers:serde_json::Value,
     download_link:serde_json::Value, // video audio image
 }
 
@@ -38,8 +39,8 @@ pub async fn download_resource(Json(params):Json<RequestParams>)-> Json<serde_js
             info!("{}", file_link);
             info!("{}", save_path);
             download_file(file_link, headers.clone(), save_path.clone()).await;
-            add_record(params.id, save_path.clone(), params.platform.clone(), params.source.clone()).await;
-            tokio::time::sleep(std::time::Duration::from_millis(200)).await;
+            add_record(params.id, save_path.clone(), params.platform.clone(), params.source.clone(), params.nickname.clone()).await;
+            tokio::time::sleep(std::time::Duration::from_millis(100)).await;
         }
     }
     ResponseStruct::success(json!("success"))
@@ -62,7 +63,7 @@ pub async fn download_stream(Json(params):Json<RequestParams>) -> Json<serde_jso
         let save_path = format!("{}{}", tmp_path.clone(), flv_file_name);
 
         tokio::spawn(async move {
-            add_record(params.id, save_path.clone(), params.platform.clone(), params.source.clone()).await;
+            add_record(params.id, save_path.clone(), params.platform.clone(), params.source.clone(), params.nickname.clone()).await;
             download_flv(flv_stream_url, headers, save_path, params.id).await;
         });
     }

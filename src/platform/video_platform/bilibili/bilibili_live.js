@@ -64,7 +64,7 @@ async function RoomBaseInfo(uids, headers){
     const title = word_analysis(response_body['data']["by_uids"][uids]["title"])
     const flv_file_name = nickname + '_' + GetTime()+ ".flv"
 
-    return {"flv_file_name":flv_file_name}
+    return {"flv_file_name":flv_file_name, "nickname":nickname,}
 
 }
 
@@ -87,12 +87,13 @@ export async function BiliBiliLive(source){
     }
 
     const {uids, flv_stream_url} = await RoomPlayInfo(source.download_link, request_headers)
-    const {flv_file_name} = await RoomBaseInfo(uids, request_headers)
+    const {flv_file_name, nickname} = await RoomBaseInfo(uids, request_headers)
     console.log(flv_file_name, flv_stream_url)
 
     const resource_params = {
         id:source.id,
         source:source.download_link,
+        "nickname":nickname,
         platform:"bilibili",
         req_headers:request_headers,
         download_link: { "flv_file_name": flv_file_name, "flv_stream_url": flv_stream_url}

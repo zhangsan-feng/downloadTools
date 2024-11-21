@@ -74,6 +74,7 @@ export async function WeiBoDetails1(source, config){
     const resource_params = {
         id:source.id,
         platform:"weibo",
+        nickname:nickname,
         source:source.download_link,
         req_headers:request_headers,
         download_link: download_data

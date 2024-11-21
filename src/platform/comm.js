@@ -2,8 +2,8 @@
 
 export function word_analysis(text){
     text = text.replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, "")
-    if (text.length > 35){
-        return text.slice(0, 35);
+    if (text.length > 15){
+        return text.slice(0, 15);
     }
     return text
 }
@@ -162,7 +162,8 @@ const PlatFormTypes = {
         req_headers:request_headers
     }
     // console.log(proxy_params)
-        const {response_headers, response_body} = await ProxyApi(proxy_params)
+        let {response_headers, response_body} = await ProxyApi(proxy_params)
+        response_body = JSON.parse(response_body)
         console.log(response_headers)
         console.log(response_body)
 

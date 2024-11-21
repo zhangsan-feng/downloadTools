@@ -29,7 +29,7 @@ pub struct RequestParams{
 }
 
 
-pub async fn add_record(id: i64, file_name: String, _platform:String, source:String) {
+pub async fn add_record(id: i64, file_name: String, _platform:String, source:String, nickname:String) {
     info!("add new task {}, {}, {}", id, _platform, file_name);
     let mut task_manager = TaskManager.write().await;
     match task_manager.get_mut(&id) {
@@ -38,7 +38,7 @@ pub async fn add_record(id: i64, file_name: String, _platform:String, source:Str
         }
         None => {
             let record = Task{
-                nickname:"".to_string(),
+                nickname:nickname.clone(),
                 source:source.clone(),
                 status: "running".to_string(),
                 children: vec![file_name],
@@ -73,6 +73,7 @@ pub async fn download_record_query() -> axum::Json<Value> {
 
         tmp_map.insert("id".to_string(), to_value(key).unwrap());
         tmp_map.insert("status".to_string(), to_value(&value.status).unwrap());
+        tmp_map.insert("nickname".to_string(), to_value(&value.nickname).unwrap());
         tmp_map.insert("source".to_string(), to_value(&value.source).unwrap());
         tmp_map.insert("platform".to_string(), to_value(&value.platform).unwrap());
         tmp_map.insert("children_element".to_string(), to_value(&children).unwrap());

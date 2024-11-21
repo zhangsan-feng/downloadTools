@@ -79,10 +79,6 @@ export async function WeiBoUserImage(source, config){
 
         const data_list = response_body.data.list
         sinceid = response_body.data.since_id
-        if (data_list.length === 0 || sinceid == 0) {
-            break
-        }
-
         let download_data = {}
         data_list.forEach((value)=>{
             download_data[value.pid + ".png"] = image_link(value.pid)
@@ -90,10 +86,10 @@ export async function WeiBoUserImage(source, config){
         })
         // console.log(image_list)
 
-
         const resource_params = {
             id:source.id,
             platform:"weibo",
+            nickname:"",
             source:source.download_link,
             req_headers:request_headers,
             download_link:download_data
@@ -101,6 +97,9 @@ export async function WeiBoUserImage(source, config){
         // console.log(resource_params)
         const {data} = await ResourceDownloadApi(resource_params)
         if (data === "stop"){
+            break
+        }
+        if (data_list.length === 0 || sinceid == 0) {
             break
         }
     }

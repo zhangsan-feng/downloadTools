@@ -89,6 +89,7 @@ export async function BiliBiliDetails(source, config) {
     const resource_params = {
         id:source.id,
         platform:"bilibili",
+        "nickname":nickname,
         source:source.download_link,
         req_headers:request_headers,
         download_link: { [audio_file_name]: audio_url, [video_file_name]: video_url}

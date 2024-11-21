@@ -7,11 +7,17 @@ const htmlText = `
     音乐搜索: qq音乐 酷我音乐 酷狗音乐 咪咕音乐
     资源下载:
         抖音
-            视频
-            图片
-            liv
-            主页
-            直播
+            视频 https://www.douyin.com/video/7439510966666104103
+            视频 6.69 09/16 cAG:/ c@N.ws 丝滑扣1不丝滑扣0# 丝滑小连招 # 短裙控 # 御姐  https://v.douyin.com/iD1EUHvg/ 复制此链接，打开Dou音搜索，直接观看视频！
+            图片 4.64 07/03 j@c.nd UYz:/ # 国漫女神# ai绘画# 小医仙 # 上热门🔥  https://v.douyin.com/iDJR2B9G/ 复制此链接，打开Dou音搜索，直接观看视频！
+            图片 https://www.douyin.com/note/7426014315141958963
+            liv 
+            主页 https://www.douyin.com/user/MS4wLjABAAAAYDWon90yZ1_iH789l6fQayeUT6oZpBNlTu0Pou3yrGY?from_tab_name=main&vid=7439510966666104103
+            主页 长按复制此条消息，打开抖音搜索，查看TA的更多作品。 https://v.douyin.com/iDJRAb9q/
+            主页 https://www.douyin.com/user/MS4wLjABAAAAK1V3u06cqNgDRDyF_LesGPrBJP6hCENlSz8k3b7Zjk4CupfEdLxn8IPqy7NZXcB-?from_tab_name=main&vid=7439180504819043619
+            主页 长按复制此条消息，打开抖音搜索，查看TA的更多作品。 https://v.douyin.com/iDJRmdST/
+            直播 https://live.douyin.com/506926705149
+            直播 8- #在抖音，记录美好生活#【抱走柒柒】正在直播，来和我一起支持Ta吧。复制下方链接，打开【抖音】，直接观看直播！ https://v.douyin.com/iDJf5XV7/ 4@8.com :7pm
         快手
             视频 https://www.kuaishou.com/f/XaR7C9XX4WOq18J
             图片 https://v.kuaishou.com/QQDzfm

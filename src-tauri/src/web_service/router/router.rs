@@ -11,7 +11,7 @@ use axum::{
     http::StatusCode, response::IntoResponse,
     routing::{get, post}, Extension, Router
 };
-use std::{borrow::Cow, time::Duration, };
+use std::{borrow::Cow };
 use std::sync::{Arc, RwLock};
 use tower_http::{trace::TraceLayer};
 
@@ -61,8 +61,8 @@ pub fn application_router() -> Router<()> {
             // Handle errors from middleware
             .layer(HandleErrorLayer::new(handle_error))
             .load_shed()
-            .concurrency_limit(1024)
-            .timeout(Duration::from_secs(10))
+            // .concurrency_limit(1024)
+            // .timeout(Duration::from_secs(10))
             .layer(TraceLayer::new_for_http()),)
         .layer(Extension(AppState::default()))
         .with_state(Arc::new(RwLock::new(AppState::default())))

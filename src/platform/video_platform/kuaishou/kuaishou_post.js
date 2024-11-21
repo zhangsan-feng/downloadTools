@@ -33,15 +33,12 @@ async function run1(source, headers){
         const responseData = response_body.data.visionProfilePhotoList.feeds
         const pcursor = response_body.data.visionProfilePhotoList.pcursor
         request_params["variables"]["pcursor"] = pcursor
-        if (responseData.length === 0 || pcursor.length === 0) {
-            break
-        }
-
 
         const download_data = {}
+        let nickname
         responseData.forEach((value, index) => {
             // console.log(value)
-            const nickname = word_analysis(value.author.name)
+            nickname = word_analysis(value.author.name)
             const title    = word_analysis(value.photo.caption)
             const aweme_id    = value.photo.manifest.videoId
             const video_file_name = nickname + "_" + title + "_" + aweme_id + ".mp4"
@@ -61,6 +58,7 @@ async function run1(source, headers){
         const resource_params = {
             id:source.id,
             platform:"kuaishou",
+            nickname:nickname,
             source:source.download_link,
             req_headers:headers,
             download_link: download_data
@@ -68,6 +66,9 @@ async function run1(source, headers){
         // console.log(resource_params)
         const {data} = await ResourceDownloadApi(resource_params)
         if (data === "stop"){
+            break
+        }
+        if (responseData.length === 0 || pcursor.length === 0) {
             break
         }
         await sleep()
@@ -103,15 +104,11 @@ async function run2(source, headers){
         const pcursor = response_body.data.pcursor
         request_params["pcursor"] = pcursor
 
-        if (responseData.length === 0 || pcursor.length === 0){
-            break
-        }
-
-
         const download_data = {}
+        let nickname;
         responseData.forEach((value, index) => {
             // console.log(value)
-            const nickname = word_analysis(value.author.name)
+            nickname = word_analysis(value.author.name)
             const aweme_id    = value.id
             const video_file_name = nickname +  + "_" + aweme_id + ".mp4"
             if (value.playUrl.length !== 0 ){
@@ -132,13 +129,18 @@ async function run2(source, headers){
         const resource_params = {
             id:source.id,
             platform:"kuaishou",
+            nickname:nickname,
             source:source.download_link,
             req_headers:headers,
             download_link: download_data
         }
         // console.log(resource_params)
+
         const {data} = await ResourceDownloadApi(resource_params)
         if (data === "stop"){
+            break
+        }
+        if (responseData.length === 0 || pcursor.length === 0){
             break
         }
         await sleep()
