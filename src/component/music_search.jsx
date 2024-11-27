@@ -1,77 +1,46 @@
 import {Button, Input, message, Table} from 'antd';
 import "./comm.css"
-import {MusicSearchAdapter, MusicDownLoadAdapter, MusicPlayerAdapter} from './platform_params.jsx'
+import {MusicSearchAdapter, MusicDownLoadAdapter, MusicPlayerAdapter} from './platform_params.js'
 import {useEffect, useRef, useState} from 'react'
-import * as sea from "node:sea";
 
 const {Search} = Input
 
 const MusicSearchComponent = () => {
 
     const [searchData, setSearchData] = useState([])
-    const [loading, setLoading] = useState(false);
     const [currentPlayInfo, setCurrentPlayInfo] = useState('')
     const [isPlaying, setIsPlaying] = useState(false);
     const [audioUrl, setAudioUrl] = useState('')
     const audioRef = useRef(null);
 
     const handlePlayPause = () => {
+        const audio = audioRef.current;
         if (isPlaying) {
-            audioRef.current.pause();
+            audio.pause();
         } else {
-            audioRef.current.play();
+            audio.play();
         }
         setIsPlaying(!isPlaying);
     };
 
     const Submit = (data) => {
         // console.log(data)
-        setLoading(true)
         MusicSearchAdapter(data).then(res=>{
             // console.log(res)
             setSearchData(res)
-            setLoading(false)
         })
 
     }
-
     useEffect(() => {
         if (audioRef.current && audioUrl) {
             audioRef.current.src = audioUrl;
-            audioRef.current.play()
-            setIsPlaying(true);
-            // const handleLoadedMetadata = () => {
-            //     setDuration(audio.duration);
-            // };
-
-            const handleEnded = () => {
-                setIsPlaying(false);
-                console.log('Audio has ended');
-                for(let index = 0; index < searchData.length ; index++) {
-                    if (searchData[index].id === currentPlayInfo.id){
-                        if (index + 1 !== searchData.length){
-                            // console.log(searchData[index], searchData[index + 1])
-                            setCurrentPlayInfo(searchData[index + 1])
-                            MusicPlayerAdapter(searchData[index + 1]).then(res=>{
-                                setAudioUrl((res))
-                                handlePlayPause();
-                            }).catch(err=>{message.error({content:"播放失败 "})})
-                            return
-                        }
-                    }
-                }
-            };
-
-            // audio.addEventListener('loadedmetadata', handleLoadedMetadata);
-            audioRef.current.addEventListener('ended', handleEnded);
-
-            return () => {
-                // audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
-                audioRef.current.removeEventListener('ended', handleEnded);
-            };
-
+            if (isPlaying) {
+                audioRef.current.play().catch(error => {
+                    console.error('Error playing new audio source:', error);
+                });
+            }
         }
-    }, [audioUrl]);
+    }, [audioUrl, isPlaying]);
 
     const columns = [
         {title: 'id', dataIndex: 'id', width:150,},
@@ -112,9 +81,10 @@ const MusicSearchComponent = () => {
                     setCurrentPlayInfo(src)
                     MusicPlayerAdapter(src).then(res=>{
                         setAudioUrl((res))
-                        handlePlayPause();
-                    }).catch(err=>{message.error({content:"播放失败 "})})
-
+                        handlePlayPause()
+                    })
+                        .catch(err=>{message.error({content:"播放失败 "})})
+                    //
                 }}>播放</a>
             },
         },
@@ -126,8 +96,11 @@ const MusicSearchComponent = () => {
 
             <div style={{display: "flex", top: 50,}}>
                 <div style={{display: 'flex', top: 50 }}>
-                    <Search style={{width: 300}} key='1' placeholder="音乐搜索" loading={loading} enterButton="搜索" onSearch={Submit}/>
+                    <span style={{justifyContent: 'center', alignContent: 'center'}}>音乐搜索:</span>
+                    <Search style={{width: 500}} key='1' enterButton="搜索" onSearch={Submit}/>
+
                 </div>
+
 
                 {currentPlayInfo ?
                     <div >
@@ -136,15 +109,20 @@ const MusicSearchComponent = () => {
                         <span style={spanStyle}>{currentPlayInfo.platform}</span>
                         <span style={spanStyle}>{currentPlayInfo.author}</span>
                         <span style={spanStyle}>{currentPlayInfo.music_name}</span>
-
-                        <Button style={{marginLeft: 10}} onClick={handlePlayPause}>{isPlaying ? '停止' : '播放'}</Button>
-                    </div> : (<div></div>)}
+                        <Button style={{marginLeft: 10}}
+                                onClick={handlePlayPause}>{isPlaying ? '停止' : '播放'}</Button>
+                    </div> : (
+                        <div></div>
+                    )
+                }
             </div>
 
             <div style={{marginTop: 20,}}>
-                {searchData.length !== 0 ? (<div>
+                {searchData.length !== 0 ? (
+                    <div>
                         <Table
                             columns={columns}
+                            pagination={{pageSize: 100}}
                             dataSource={searchData}
                             scroll={{y: "68vh"}}
                             rowKey="id"

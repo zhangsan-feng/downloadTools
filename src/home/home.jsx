@@ -6,38 +6,33 @@ import DownloadVideoComponent from "../component/download_video.jsx";
 import MusicSearchComponent from "../component/music_search.jsx";
 import DownloadRecord from "../component/download_record.jsx";
 import SupportPlatformTable from "../component/support_platform.jsx";
-import CronJobs from "../component/cron_jobs.jsx";
 
 
+//
 
-const TabStyle  = {width:"85vw", backgroundColor:"#FFE5D9", height:"95vh",
+const TabStyle  = {width:"84vw", backgroundColor:"#FFE5D9", height:"95vh",
     marginLeft:"2%", borderRadius:25, padding:25, opacity:'1'}
 
 
 function Home() {
 
+
     document.addEventListener('contextmenu', event => event.preventDefault());
     // document.addEventListener('copy', event => event.preventDefault());
-
+    setTimeout(()=>{},3000)
     return (
         <div className="container">
 
             <div style={{ display:"flex", padding: 15, height: "100%", width:"100%"}}>
                 <Tabs
-                    tabBarStyle={{width:"12%",  height:"95%", backgroundColor:"#F0A6CA",borderRadius:25, padding:15, opacity:'1'}}
+                    tabBarStyle={{width:"13%",  height:"95%", backgroundColor:"#F0A6CA",borderRadius:25, padding:15, opacity:'1'}}
                     tabPosition={"left"}
                     items={[
                         {
                             label: '资源下载',
-                            key: 0,
-                            style:TabStyle,
-                            children: <DownloadVideoComponent/>
-                        },
-                        {
-                            label: '定时下载',
                             key: 1,
                             style:TabStyle,
-                            children: <CronJobs/>
+                            children: <DownloadVideoComponent/>
                         },
                         {
                             label: '音乐搜索',

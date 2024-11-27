@@ -72,7 +72,6 @@ export async function DouYinPost(source, config){
         "verifyFp": fp,
         "fp": fp,
         "msToken": mstoken,
-        // "uifid":GetCookieKey(request_headers['cookie'], "UIFID")
     }
     for (;;) {
         // console.log(headers)
