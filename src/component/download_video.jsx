@@ -1,7 +1,7 @@
 
 import {Input, Button, message} from 'antd';
 import "./comm.css"
-import {DownLoadAdapter} from './platform_params.js'
+import {DownLoadAdapter} from './platform_params.jsx'
 import {useState} from "react";
 
 
@@ -14,6 +14,7 @@ import {useState} from "react";
 const DownloadVideoComponent = () =>{
     const [fileContent, setFileContent] = useState('');
     const [ButtonLoading, setButtonLoading] = useState(false)
+
     const Submit = async ()=>{
         // setButtonLoading(true)
         message.success({content:"已经加入下载队列 即将开始下载"})
