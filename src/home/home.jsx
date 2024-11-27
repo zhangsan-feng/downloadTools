@@ -15,7 +15,16 @@ const TabStyle  = {width:"85vw", backgroundColor:"#FFE5D9", height:"95vh",
 
 
 function Home() {
+    document.addEventListener('keydown', function(event) {
 
+        if (event.key === 'F5' || event.keyCode === 116) {
+            event.preventDefault();
+        }
+        
+        if (event.ctrlKey && (event.key === 'f' || event.key === 'F')) {
+            event.preventDefault();
+        }
+    });
     document.addEventListener('contextmenu', event => event.preventDefault());
     // document.addEventListener('copy', event => event.preventDefault());
 
