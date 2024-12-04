@@ -19,9 +19,13 @@ const DownloadVideoComponent = () =>{
 
     const Submit = async ()=>{
         // setButtonLoading(true)
-        message.success({content:"已经加入下载队列 即将开始下载"})
+
         // await sleep()
         const download_link = document.getElementById("download_link").value
+        if (download_link.length === 0){
+            return
+        }
+        message.success({content:"已经加入下载队列 即将开始下载"})
         DownLoadAdapter(download_link).
         then(res=>{}).
         catch(err=>{
