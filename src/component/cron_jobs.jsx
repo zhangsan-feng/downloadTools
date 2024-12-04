@@ -1,5 +1,5 @@
 import {Button, Input, message} from "antd";
-import {DownLoadAdapter} from "./platform_params.jsx";
+import {DownLoadAdapter} from "./download_component/download_adapter.jsx";
 import {useState} from "react";
 
 const {Search} = Input
@@ -34,15 +34,15 @@ const CronJobs = () => {
     return (
         <div>
             <div>
-                <div style={{display: 'flex', top: 50}}>
-                    <Search style={{width: 500}} key='1' enterButton="添加" onSearch={Submit}/>
-                    <input style={{opacity: 0, display: "none"
-                    }} type="file" id="fileInput" accept=".txt" onChange={handleFileChange}/>
-                    <Button style={{marginLeft:20, width: 150,}} type='primary'
-                            onClick={()=>{document.getElementById('fileInput').click()}}>
-                        从文件中添加
-                    </Button>
-                </div>
+                {/*<div style={{display: 'flex', top: 50}}>*/}
+                {/*    <Search style={{width: 500}} key='1' enterButton="添加" onSearch={Submit}/>*/}
+                {/*    <input style={{opacity: 0, display: "none"*/}
+                {/*    }} type="file" id="fileInput" accept=".txt" onChange={handleFileChange}/>*/}
+                {/*    <Button style={{marginLeft:20, width: 150,}} type='primary'*/}
+                {/*            onClick={()=>{document.getElementById('fileInput').click()}}>*/}
+                {/*        从文件中添加*/}
+                {/*    </Button>*/}
+                {/*</div>*/}
             </div>
             <div></div>
         </div>)

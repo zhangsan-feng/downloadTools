@@ -2,29 +2,27 @@
 import "./home.css"
 import {Tabs} from 'antd';
 import PlatFormConfig from "../component/platform_config.jsx";
-import DownloadVideoComponent from "../component/download_video.jsx";
-import MusicSearchComponent from "../component/music_search.jsx";
+import DownloadVideoComponent from "../component/download_component/download_video.jsx";
+import MusicComponent from "../component/music_component/music_component.jsx";
 import DownloadRecord from "../component/download_record.jsx";
 import SupportPlatformTable from "../component/support_platform.jsx";
 import CronJobs from "../component/cron_jobs.jsx";
-
-
 
 const TabStyle  = {width:"85vw", backgroundColor:"#FFE5D9", height:"95vh",
     marginLeft:"2%", borderRadius:25, padding:25, opacity:'1'}
 
 
 function Home() {
-    document.addEventListener('keydown', function(event) {
-
-        if (event.key === 'F5' || event.keyCode === 116) {
-            event.preventDefault();
-        }
-        
-        if (event.ctrlKey && (event.key === 'f' || event.key === 'F')) {
-            event.preventDefault();
-        }
-    });
+    // document.addEventListener('keydown', function(event) {
+    //
+    //     if (event.key === 'F5' || event.keyCode === 116) {
+    //         event.preventDefault();
+    //     }
+    //
+    //     if (event.ctrlKey && (event.key === 'f' || event.key === 'F')) {
+    //         event.preventDefault();
+    //     }
+    // });
     document.addEventListener('contextmenu', event => event.preventDefault());
     // document.addEventListener('copy', event => event.preventDefault());
 
@@ -49,10 +47,10 @@ function Home() {
                             children: <CronJobs/>
                         },
                         {
-                            label: '音乐搜索',
+                            label: '音乐模块',
                             key: 2,
                             style:TabStyle,
-                            children: <MusicSearchComponent/>
+                            children: <MusicComponent/>
                         },
                         {
                             label: '支持平台',

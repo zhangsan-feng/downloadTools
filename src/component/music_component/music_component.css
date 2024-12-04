@@ -1,0 +1,27 @@
+
+.music-content {
+    width: 300px;
+    height: 200px;
+    background-color: #2aceb5 !important;
+    margin-left: 50px;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    margin-top: 50px;
+    border-radius: 10px;
+}
+
+.play-container{
+    bottom: 0;
+    position: absolute;
+    z-index: 9999;
+    display: flex;
+    height: 50px;
+    font-size: 16px;
+}
+.play-container:hover {
+}
+
+.play-column-style{
+    background-color: #7292ce;
+}

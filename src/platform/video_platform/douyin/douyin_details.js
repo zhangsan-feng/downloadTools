@@ -77,7 +77,7 @@ export async  function DouYinDetails(source, config){
     // console.log(proxy_params)
     let {response_body} = await ProxyApi(proxy_params)
     response_body = JSON.parse(response_body)
-    // console.log(response_body)
+    console.log(response_body)
     // return
     // console.log(response)
     let data = response_body.aweme_detail

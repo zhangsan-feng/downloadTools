@@ -65,6 +65,7 @@ export function ScriptHandler() {
     function removeScript() {
         if (scriptElement && document.body.contains(scriptElement)) {
             document.body.removeChild(scriptElement);
+            console.log('remove script success');
         } else {
             console.error('remove script error');
         }

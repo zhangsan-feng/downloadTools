@@ -2,8 +2,6 @@ import {getReqId, getSecret} from "./kuwo_music_Secret.js";
 import {ProxyApi} from "../../../api/axios_http.js";
 
 
-
-
 export async function KuWoMusicDetailsInfo(source, config){
     const music_id = source.download_link.split("?")[0].replace("https://www.kuwo.cn/play_detail/", "")
     // console.log(music_id)

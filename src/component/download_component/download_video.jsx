@@ -1,7 +1,6 @@
 
 import {Input, Button, message} from 'antd';
-import "./comm.css"
-import {DownLoadAdapter} from './platform_params.jsx'
+import {DownLoadAdapter} from './download_adapter.jsx'
 import {useState} from "react";
 
 
@@ -14,6 +13,9 @@ import {useState} from "react";
 const DownloadVideoComponent = () =>{
     const [fileContent, setFileContent] = useState('');
     const [ButtonLoading, setButtonLoading] = useState(false)
+    const [jobData, setJobData] = useState([]);
+    const [cron, SetCron] = useState(1000 * 60 * 30);
+    
 
     const Submit = async ()=>{
         // setButtonLoading(true)
@@ -49,8 +51,10 @@ const DownloadVideoComponent = () =>{
         }
 
     };
+
+
     return (
-        <div style={{}}>
+        <div>
 
             <div style={{display: 'flex', top: 50, width: 800, marginLeft: "15%"}}>
                 <span style={{justifyContent: 'center', alignContent: 'center'}}>url:</span>

@@ -40,5 +40,4 @@ export const FfmpegCompositeVideoApi = (params) => HttpPost(`${HttpRouterUrl}/ff
 export const FfmpegDownloadM3U8Api = (params) => HttpPost(`${HttpRouterUrl}/ffmpeg_download_m38u`, params)
 export const StopDownloadTaskApi = (params) => HttpPost(`${HttpRouterUrl}/stop_download_task`, params)
 export const DownloadFinishApi  = (params) => HttpPost(`${HttpRouterUrl}/download_finish`, params)
-
 export const DownloadRecordQueryApi  = (params) => HttpGet(`${HttpRouterUrl}/download_record_query`, params)

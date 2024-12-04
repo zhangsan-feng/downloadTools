@@ -1,4 +1,4 @@
-import './comm.css'
+
 import {Input} from 'antd'
 
 
@@ -48,7 +48,7 @@ const htmlText = `
 
 const SupportPlatformTable = ()=>{
     return (
-        <div className="support-platform-container" >
+        <div style={{width:"100%",height:"100%"}}>
             <TextArea value={htmlText}
                       style={{height:"100%", resize:'none', overflow:'auto', whiteSpace:"pre", width: "100%"}}
             />
