@@ -81,7 +81,7 @@ const MusicComponent = () => {
         {title: 'id', dataIndex: 'id'},
         {title: 'platform', dataIndex: 'platform'},
         {title: 'music_id', dataIndex: 'music_id'},
-        {title: 'author', dataIndex: 'author'},
+        {title: 'author', dataIndex: 'author',ellipsis: true},
         {title: "music_name", dataIndex: "music_name", ellipsis: true},
         {title: "file_name", dataIndex: "file_name", ellipsis: true, width: 240},
         {
@@ -141,9 +141,6 @@ const MusicComponent = () => {
                     onClick={MusicHostList}>音乐热榜</Button>
             <Button loading={loading} style={{width: 150, marginLeft: "2%"}} type='primary'
                     onClick={MusicRecommend}>音乐推荐</Button>
-
-            {/*<Button style={{marginLeft: 10, width: 200}} type='primary' onClick={DownLoadComment}>下载评论</Button>*/}
-            {/*<Button style={{marginLeft: 10, width: 200}} type='primary' onClick={MusicSearch} >音乐搜索</Button>*/}
         </div>
 
         <div style={{marginTop: 20,}}>
@@ -153,11 +150,12 @@ const MusicComponent = () => {
                     dataSource={searchData}
                     scroll={{y: "60vh"}}
                     rowKey="id"
+                    pagination={{pageSize:100}}
                     rowClassName={(data)=>{
                         if (data.id === currentPlayInfo.id){
                             return "play-column-style"
                         }
-                        console.log(data)
+                        // console.log(data)
                     }}
                 />
                 <audio ref={audioRef} onCanPlay={() => console.log('Audio can play')}/>
