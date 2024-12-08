@@ -15,6 +15,7 @@
 ```
 https://github.com/zhangsan-feng/downloadTools/releases 安装包
 
+配置cookie 即可使用
 
 ![](./0.png)
 ![](./1.png)
