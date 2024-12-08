@@ -1,5 +1,5 @@
 import {Button, Input, message, Table} from 'antd';
-import {MusicSearchAdapter, MusicDownLoadAdapter, MusicPlayerAdapter} from './music_adapter.js'
+import {MusicSearchAdapter, MusicDownLoadAdapter, MusicPlayerAdapter} from './music_adapter.jsx'
 import {useEffect, useRef, useState} from 'react'
 import './music_component.css'
 import {PauseCircleOutlined, PlayCircleOutlined} from "@ant-design/icons";
@@ -135,7 +135,7 @@ const MusicComponent = () => {
         </div>
 
         <div style={{marginTop: 20, marginLeft: "20%",}}>
-            <Button loading={loading} style={{width: 150, marginLeft: "12%"}} type='primary'
+            <Button loading={loading} style={{width: 150, marginLeft: "9%"}} type='primary'
                     onClick={MusicSearch}>音乐搜索</Button>
             <Button loading={loading} style={{width: 150, marginLeft: "2%"}} type='primary'
                     onClick={MusicHostList}>音乐热榜</Button>

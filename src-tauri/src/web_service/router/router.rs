@@ -3,7 +3,8 @@ use crate::web_service::api::{
     cmd_api::{ffmpeg_composite_video, ffmpeg_download_m38u},
     download::{download_resource, download_stream},
     download_record::{download_record_query,stop_download_task, download_finish},
-    proxy_api::{proxy}
+    proxy_api::{proxy},
+    download_list::{download_list_add, download_list_delete, download_list_query}
 };
 use tower::{BoxError, ServiceBuilder};
 use axum::{
@@ -14,6 +15,7 @@ use axum::{
 use std::{borrow::Cow };
 use std::sync::{Arc, RwLock};
 use tower_http::{trace::TraceLayer};
+
 
 async fn handle_error(error: BoxError) -> impl IntoResponse {
     if error.is::<tower::timeout::error::Elapsed>() {
@@ -57,6 +59,11 @@ pub fn application_router() -> Router<()> {
         .route("/download_finish", post(download_finish))
         .route("/ffmpeg_composite_video", post(ffmpeg_composite_video))
         .route("/ffmpeg_download_m38u", post(ffmpeg_download_m38u))
+        .route("/download_list_query", get(download_list_query))
+        .route("/download_list_add", post(download_list_add))
+        .route("/download_list_delete", post(download_list_delete))
+
+
         // .layer(middleware::from_fn(_middleware::request_record::request_record))
         .layer(           ServiceBuilder::new()
             // Handle errors from middleware

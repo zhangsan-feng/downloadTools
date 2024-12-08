@@ -20,6 +20,7 @@ async function GenCookie() {
     for (const index in response.data) {
         config[response.data[index].platform] = {
             "cookie":response.data[index].cookie
+
         }
     }
     // console.log(config)

@@ -6,7 +6,7 @@ import DownloadVideoComponent from "../component/download_component/download_vid
 import MusicComponent from "../component/music_component/music_component.jsx";
 import DownloadRecord from "../component/download_record.jsx";
 import SupportPlatformTable from "../component/support_platform.jsx";
-import CronJobs from "../component/cron_jobs.jsx";
+import CronJobs from "../component/cron_jobs/cron_jobs.jsx";
 
 const TabStyle  = {width:"85vw", backgroundColor:"#FFE5D9", height:"95vh",
     marginLeft:"2%", borderRadius:25, padding:25, opacity:'1'}
