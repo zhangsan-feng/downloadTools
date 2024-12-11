@@ -5,8 +5,9 @@ import {ProxyApi} from "../../../api/axios_http.js";
 export async function KuWoMusicDetailsInfo(source, config){
     const music_id = source.download_link.split("?")[0].replace("https://www.kuwo.cn/play_detail/", "")
     // console.log(music_id)
-    const cookie = config['kw_music']['cookie']
+
     const request_url = "https://www.kuwo.cn/api/v1/www/music/playUrl"
+    const cookie = config['kw_music']['cookie']
     const request_headers = {
         'Accept': 'application/json, text/plain, */*',
         'Accept-Language': 'zh-CN,zh;q=0.9',

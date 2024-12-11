@@ -2,11 +2,11 @@ import {ProxyApi} from "../../../api/axios_http.js";
 import {word_analysis} from "../../comm";
 
 
-export async function MiGuMusicSearch() {
+export async function MiGuMusicSearch(key_world, config) {
     const request_params = {
         'ua': 'Android_migu',
         'version': '5.0.1',
-        'text': '牵丝戏',
+        'text': key_world,
         'pageNo': 1,
         'pageSize': 1,
         'searchSwitch': '{"song":1,"album":0,"singer":0,"tagSong":0,"mvSong":0,"songlist":0,"bestShow":1}'
@@ -54,5 +54,6 @@ export async function MiGuMusicSearch() {
             "download_link": download_link
         })
     }
+    // console.log(call_back)
     return call_back
 }

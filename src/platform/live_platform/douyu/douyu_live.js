@@ -1,7 +1,7 @@
 import * as CryptoJS from 'crypto-js';
-import {MD5} from 'crypto-js';
+
 import {parse, stringify} from "qs";
-import {HTTPPostData} from '../../../../api/request.js'
+
 
 async function gen(rid) {
     let vdwdae325w_64we = "220120240902";
@@ -997,8 +997,7 @@ export async function DouYuLive() {
     const paramsStr = stringify(params);
     console.log(params)
     console.log(paramsStr)
-    let response = await HTTPPostData(url ,paramsStr,  headers);
-    console.log(response)
+
 }
 
 await DouYuLive()

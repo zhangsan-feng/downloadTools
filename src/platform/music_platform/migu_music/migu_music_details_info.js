@@ -29,3 +29,7 @@ export async function MiGuMusicDetailsInfo(source, config){
     return {"response_body":response_body, "request_headers":request_headers}
 
 }
+
+
+// http://app.pd.nf.migu.cn/MIGUM2.0/v1.0/content/sub/listenSong.do?toneFlag=E&netType=00&userId=15548614588710179085069&ua=Android_migu&version=5.1&copyrightId=0&contentId=600929000002163892&channel=0
+// http://app.pd.nf.migu.cn/MIGUM2.0/v1.0/content/sub/listenSong.do?toneFlag=E&netType=00&userId=15548614588710179085069&ua=Android_migu&version=5.1&copyrightId=0&contentId=600929000002060886&channel=0

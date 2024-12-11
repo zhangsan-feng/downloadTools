@@ -1,9 +1,9 @@
 import {Button, Input, message, Table} from 'antd';
-import {MusicSearchAdapter, MusicDownLoadAdapter, MusicPlayerAdapter} from './music_adapter.jsx'
+import {MusicSearchAdapter, MusicDownLoadAdapter, MusicPlayerAdapter, MusicRecommendAdapter} from './music_adapter.jsx'
 import {useEffect, useRef, useState} from 'react'
 import './music_component.css'
 import {PauseCircleOutlined, PlayCircleOutlined} from "@ant-design/icons";
-const {Search} = Input
+
 
 
 
@@ -20,7 +20,7 @@ const MusicComponent = () => {
         if (isPlaying) {
             audioRef.current.pause();
         } else {
-            audioRef.current.play();
+            audioRef.current.play().catch(err => message.error({content:"播放失败"}));
         }
         setIsPlaying(!isPlaying);
     };
@@ -37,12 +37,22 @@ const MusicComponent = () => {
 
     }
     const MusicHostList = () => {}
-    const MusicRecommend = () => {}
+
+    const MusicRecommend = ()=>{
+        setLoading(true)
+        MusicRecommendAdapter().
+        then(res=>{
+            setSearchData(res)
+            setLoading(false)
+        }).
+        catch(err=>{})
+    }
+
 
     useEffect(() => {
         if (audioRef.current && audioUrl) {
             audioRef.current.src = audioUrl;
-            audioRef.current.play()
+            audioRef.current.play().catch(err => message.error({content:"播放失败"}));
             setIsPlaying(true);
             // const handleLoadedMetadata = () => {
             //     setDuration(audio.duration);
@@ -66,11 +76,8 @@ const MusicComponent = () => {
                 }
             };
 
-            // audio.addEventListener('loadedmetadata', handleLoadedMetadata);
             audioRef.current.addEventListener('ended', handleEnded);
-
             return () => {
-                // audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
                 audioRef.current.removeEventListener('ended', handleEnded);
             };
 
@@ -92,7 +99,7 @@ const MusicComponent = () => {
                 return <a onClick={()=>{
                     MusicDownLoadAdapter(src)
                         .then(res=>{message.success({content:"下载完成 " + src.music_name})})
-                        .catch(err=>{message.error({content:"下载失败"})})
+                        .catch(err=>{})
                     // console.log(src.music_id)
                 }}>下载</a>
             },
@@ -137,7 +144,7 @@ const MusicComponent = () => {
         <div style={{marginTop: 20, marginLeft: "20%",}}>
             <Button loading={loading} style={{width: 150, marginLeft: "9%"}} type='primary'
                     onClick={MusicSearch}>音乐搜索</Button>
-            <Button loading={loading} style={{width: 150, marginLeft: "2%"}} type='primary'
+            <Button loading={false} disabled style={{width: 150, marginLeft: "2%"}} type='primary'
                     onClick={MusicHostList}>音乐热榜</Button>
             <Button loading={loading} style={{width: 150, marginLeft: "2%"}} type='primary'
                     onClick={MusicRecommend}>音乐推荐</Button>

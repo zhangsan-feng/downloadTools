@@ -32,13 +32,10 @@ lazy_static = "1.4.0"
 sea-orm = { version = "1.0.0",features = ["sqlx-sqlite", "runtime-tokio", "runtime-async-std"]  }
 rand = "0.8.5"
 tokio = {version = "1.40.0", features = ["full"] }
-axum = {version = "0.7.7", features = ["default", "multipart", "tokio", "ws"] }
+axum = {version = "0.7.7", features = ["default", "multipart", "tokio"] }
 tower-http = {version = "0.6.1", features = ["full"] }
 tower = { version = "0.5.1", features = ["full"] }
-#base64 = "0.22.1"
-#windows = {version = "0.58.0", features = ["Win32_System_Memory", "Win32_System_Threading", "Win32_Foundation", "Win32_Security_Cryptography",] }
-#aes-gcm = "0.10.3"
-#directories = "5.0.1"
+
 
 
 

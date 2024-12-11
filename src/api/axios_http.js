@@ -41,3 +41,15 @@ export const FfmpegDownloadM3U8Api = (params) => HttpPost(`${HttpRouterUrl}/ffmp
 export const StopDownloadTaskApi = (params) => HttpPost(`${HttpRouterUrl}/stop_download_task`, params)
 export const DownloadFinishApi  = (params) => HttpPost(`${HttpRouterUrl}/download_finish`, params)
 export const DownloadRecordQueryApi  = (params) => HttpGet(`${HttpRouterUrl}/download_record_query`, params)
+
+export async function GetHtmlContent(url, headers){
+    const proxy_params = {
+        req_url:url,
+        req_type:"GET",
+        req_params: {},
+        req_headers:headers
+    }
+    // console.log(proxy_params)
+    let { response_body} = await ProxyApi(proxy_params)
+    return response_body
+}

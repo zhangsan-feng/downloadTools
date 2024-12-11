@@ -10,12 +10,15 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@ant-design/icons": "^5.5.2",
     "antd": "^5.22.3",
     "axios": "^1.7.9",
     "base64-js": "^1.5.1",
+    "cheerio": "^1.0.0",
     "crypto-js": "^4.2.0",
     "js-sha1": "^0.7.0",
     "md5": "^2.3.0",
+    "qs": "^6.13.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.0.2"
