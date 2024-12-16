@@ -88,7 +88,7 @@ export async function MusicSearchAdapter(key_world){
             call_back.push(...await functions[index](key_world, config))
         }catch (e) {
             console.log(e)
-            message.error({content:"搜索失败"})
+            // message.error({content:"搜索失败"})
         }
     }
     // console.log(call_back)
@@ -106,7 +106,7 @@ export async function MusicRecommendAdapter(){
             call_back.push(...await functions[index](config))
         }catch (e) {
             console.log(e)
-            message.error({content:"搜索失败"})
+            // message.error({content:"搜索失败"})
         }
     }
     // console.log(call_back)
