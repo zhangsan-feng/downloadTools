@@ -6,6 +6,11 @@
     酷我音乐 
     咪咕音乐 
     
+音乐推荐
+    酷狗音乐 
+    酷我音乐 
+    咪咕音乐
+    
 视频下载     
     抖音     需要登录 
     红书     需要登录 
@@ -13,7 +18,6 @@
     快手     需要登录 
     微博     需要登录 
 ```
-
 
 https://github.com/zhangsan-feng/downloadTools/releases 安装包
 
