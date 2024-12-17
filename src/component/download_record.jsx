@@ -65,14 +65,14 @@ const DownloadRecord = ()=>{
     const [TableData, setTableData] = useState([])
     useEffect(()=>{
         DownloadRecordQueryApi({}).then(res=>{
-            console.log(res)
+            // console.log(res)
             setTableData(res.data)
         })
     }, [])
 
     setTimeout(()=>{
         DownloadRecordQueryApi({}).then(res=>{
-            console.log(res)
+            // console.log(res)
             setTableData(res.data)
         })
     }, 1500)

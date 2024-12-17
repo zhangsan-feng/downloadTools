@@ -93,8 +93,9 @@ export async  function DouYinDetails(source, config){
         let file_name = nickname + "_" + desc + "_" + aweme_id + "_" +word_analysis(value.uri) + ".png"
         download_data[file_name] = value.url_list[0]
         if (value["video"]){
-            let file_name = nickname + "_" + desc + "_" + aweme_id + "_" +word_analysis(value.uri) + ".mp4"
+            let file_name = nickname + "_" + desc + "_" + aweme_id  + "_" + Date.now() + Math.floor(Math.random() * 120000) +  ".mp4"
             video_list = value["video"]["play_addr"]["url_list"]
+            // console.log(file_name, video_list)
             download_data[file_name] = video_list[video_list.length - 1]
         }
     })

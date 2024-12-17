@@ -107,7 +107,7 @@ export async function DouYinPost(source, config){
             })
             // console.log(image_list)
             if (image_list.length === 0) {
-                let file_name = nickname + "_" + desc + "_" + aweme_id + ".mp4"
+                let file_name = nickname + "_" + desc + "_" + aweme_id  + "_" + Date.now() + Math.floor(Math.random() * 120000) +  ".mp4"
                 download_data[file_name] = video_list[video_list.length - 1]
             }
         })
