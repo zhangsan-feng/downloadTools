@@ -52,7 +52,7 @@ export async function DownLoadAdapter(input_link){
         if (source.download_link.includes("bilibili")){
             await BiliBiliAdapter(source, config)
         }
-        if (source.download_link.includes("kuaishou")){
+        if (source.download_link.includes("kuaishou") || source.download_link.includes("chenzhongtech")){
             await KuAiShouAdapter(source, config)
         }
         if (source.download_link.includes("weibo")){

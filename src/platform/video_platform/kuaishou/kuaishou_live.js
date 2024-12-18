@@ -9,25 +9,44 @@ export async function KuAiShouLive(source, config){
 
     const request_headers = {
         'Accept': '*/*',
-        'Accept-Language': 'zh-CN,zh;q=0.9,zh-TW;q=0.8,en-US;q=0.7,en;q=0.6',
+        'Accept-Language': 'zh-CN,zh;q=0.9',
+        'Cache-Control': 'no-cache',
         'Connection': 'keep-alive',
-        'Cookie': config['kuaishou'].cookie,
-        'Origin': 'https://v.m.chenzhongtech.com',
-        'Referer': 'https://live.kuaishou.com/',
+        'Cookie':  config['kuaishou'].cookie,
+        'Origin': 'https://livev.m.chenzhongtech.com',
+        'Pragma': 'no-cache',
+        'Referer': source.download_link,
         'Sec-Fetch-Dest': 'empty',
         'Sec-Fetch-Mode': 'cors',
         'Sec-Fetch-Site': 'same-origin',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36',
+        'content-type': 'application/json',
+        'sec-ch-ua': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+        'sec-ch-ua-mobile': '?1',
+        'sec-ch-ua-platform': '"Android"',
     }
-    const request_params = {
-        "principalId":source.download_link.replace("https://live.kuaishou.com/u/", "")
+    let eid = ""
+    if (source.download_link.includes('https://live.kuaishou.com/u/')) {
+        eid = source.download_link.split("?")[0].replace("https://live.kuaishou.com/u/", "")
     }
-    const request_url = "https://live.kuaishou.com/live_api/liveroom/livedetail"
 
+    if (source.download_link.includes('https://livev.m.chenzhongtech.com/fw/live/')){
+        eid = source.download_link.split("?")[0].replace("https://livev.m.chenzhongtech.com/fw/live/", "")
+    }
+
+    const request_params = {
+        'source': 6,
+        'eid': eid,
+        'shareMethod': 'card',
+        'clientType': 'WEB_OUTSIDE_SHARE_H5',
+        'efid': '0',
+    }
+    // https://live.kuaishou.com/live_api/liveroom/livedetail
+    const request_url = "https://livev.m.chenzhongtech.com/rest/k/live/byUser?kpn=GAME_ZONE&kpf=OUTSIDE_ANDROID_H5&captchaToken="
 
     const proxy_params = {
         req_url:request_url,
-        req_type:"GET",
+        req_type:"POSTJson",
         req_params: request_params,
         req_headers:request_headers
     }
@@ -36,10 +55,9 @@ export async function KuAiShouLive(source, config){
     response_body  = JSON.parse(response_body)
     console.log(response_body)
 
-    const nickname = word_analysis(response_body.data.author.name)
+    const nickname = word_analysis(response_body.shareInfo.shareTitle.split(" ")[1])
     const flv_file_name = nickname + "_" + GetTime() + ".flv"
-    const play_info = response_body.data.liveStream.playUrls[0].adaptationSet.representation
-    const flv_stream_url = play_info[play_info.length - 1].url
+    const flv_stream_url = response_body.liveStream.playUrls[0].url
     // console.log(file_name)
     // console.log(live_stream_url)
 
@@ -47,7 +65,7 @@ export async function KuAiShouLive(source, config){
         id:source.id,
         source:source.download_link,
         nickname:nickname,
-        platform:"bilibili",
+        platform:"kuaishou",
         req_headers:request_headers,
         download_link: { "flv_file_name": flv_file_name, "flv_stream_url": flv_stream_url}
     }

@@ -61,6 +61,8 @@ export async function KuAiShouAdapter(source, config){
         await KuAiShouPost(source, config)
     }
 
-    if (source.download_link.includes("https://live.kuaishou.com/u/")){await KuAiShouLive(source, config)}
+    if (source.download_link.includes("https://live.kuaishou.com/u/") ||
+        source.download_link.includes("https://livev.m.chenzhongtech.com/fw/live/")
+    ){await KuAiShouLive(source, config)}
 
 }
