@@ -24,7 +24,7 @@ const htmlText = `
             主页 https://www.kuaishou.com/profile/3x4bq4rsxhhus3k
             主页 https://v.kuaishou.com/TpOQ7P
             主页 https://v.kuaishou.com/SLWIOp
-            直播 https://live.kuaishou.com/u/3x6jhnh2wnr3n32 尽量使用下方长连接短链接容易频繁失败 长连接为浏览ua 是移动端
+            直播 https://live.kuaishou.com/u/3x6jhnh2wnr3n32 尽量使用下方长连接, 短链接容易频繁失败 长连接为浏览ua 是移动端 (f12 点击移动端即可)
             直播 https://livev.m.chenzhongtech.com/fw/live/3x2j54sfxge3jqg?cc=share_wxms&followRefer=151&shareMethod=CARD&kpn=GAME_ZONE&subBiz=LIVE_STEARM_OUTSIDE&shareId=18200042138992&shareToken=X-8gLIQO6VORR25i&shareMode=APP&efid=0&originShareId=18200042138992&shareObjectId=qMzHWnyQWME&shareUrlOpened=0&timestamp=1734590567239
         红书
             视频 https://www.xiaohongshu.com/explore/672755ad000000003c016882?xsec_token=ABUdZzNUXuNuHeF0eVZ2wRrGHEuyB9b3DaK2JQ0bf590Y=&xsec_source=pc_feed
