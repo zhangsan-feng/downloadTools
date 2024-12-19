@@ -34,7 +34,8 @@ export async function DownLoadAdapter(input_link){
         try {
             link = match_url(input_link[index])
         }catch (err){
-            message.error({content:"解析链接失败"})
+            throw "解析链接失败"
+            // message.error({content:"解析链接失败"})
         }
         if (link.length === 0){continue}
         const source = {

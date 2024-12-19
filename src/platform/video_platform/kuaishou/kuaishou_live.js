@@ -33,7 +33,7 @@ export async function KuAiShouLive(source, config){
     if (source.download_link.includes('https://livev.m.chenzhongtech.com/fw/live/')){
         eid = source.download_link.split("?")[0].replace("https://livev.m.chenzhongtech.com/fw/live/", "")
     }
-
+    console.log(eid)
     const request_params = {
         'source': 6,
         'eid': eid,

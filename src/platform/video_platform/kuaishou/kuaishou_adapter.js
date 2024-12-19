@@ -6,12 +6,12 @@ import {KuAiShouPost} from './kuaishou_post.js'
 
 
 export async function KuAiShouAdapter(source, config){
-    const request_headers  = {
+    let request_headers  = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
         'Accept-Language': 'zh-CN,zh;q=0.9',
         'Cache-Control': 'no-cache',
         'Connection': 'keep-alive',
-        'Cookie': 'did=web_2e13bff6082bb0b1e93924487e017e8f; didv=1731394619000; userId=2704089021',
+        'Cookie': config['kuaishou'].cookie,
         'Pragma': 'no-cache',
         'Sec-Fetch-Dest': 'document',
         'Sec-Fetch-Mode': 'navigate',
@@ -24,8 +24,29 @@ export async function KuAiShouAdapter(source, config){
         'sec-ch-ua-platform': '"Windows"',
     }
 
-    if (source.download_link.includes("v.kuaishou.com") || source.download_link.includes("kuaishou.com/f/")){
-
+    if (source.download_link.includes("https://v.kuaishou.com/") ||
+        source.download_link.includes("https://www.kuaishou.com/f/") ||
+        source.download_link.includes("https://live.kuaishou.com/u/")
+    ){
+        if (source.download_link.includes("https://live.kuaishou.com/u/")){
+            request_headers = {
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+                'Accept-Language': 'zh-CN,zh;q=0.9',
+                'Cache-Control': 'no-cache',
+                'Connection': 'keep-alive',
+                'Cookie': config['kuaishou'].cookie,
+                'Pragma': 'no-cache',
+                'Sec-Fetch-Dest': 'document',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'same-origin',
+                'Sec-Fetch-User': '?1',
+                'Upgrade-Insecure-Requests': '1',
+                'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36',
+                'sec-ch-ua': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+                'sec-ch-ua-mobile': '?1',
+                'sec-ch-ua-platform': '"Android"',
+            }
+        }
         const proxy_params = {
             req_url:source.download_link,
             req_type:"GETNoRedirect",
@@ -34,7 +55,7 @@ export async function KuAiShouAdapter(source, config){
         }
         // console.log(proxy_params)
         const {response_headers} = await ProxyApi(proxy_params)
-        // console.log(response_headers['location'])
+        console.log(response_headers['location'])
         source.download_link = response_headers['location']
     }
 
@@ -51,10 +72,9 @@ export async function KuAiShouAdapter(source, config){
         source.download_link = response_headers['location']
     }
 
-    // console.log(source)
     if (
-        source.download_link.includes("kuaishou.com/short-video/") ||
-        source.download_link.includes("v.m.chenzhongtech.com")
+        source.download_link.includes("https://www.kuaishou.com/short-video/") ||
+        source.download_link.includes("https://v.m.chenzhongtech.com/")
     ){await KuAiShouDetails(source, config)}
 
     if (source.download_link.includes("kuaishou.com/profile/")){

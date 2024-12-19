@@ -11,7 +11,7 @@ const htmlText = `
             视频 6.69 09/16 cAG:/ c@N.ws 丝滑扣1不丝滑扣0# 丝滑小连招 # 短裙控 # 御姐  https://v.douyin.com/iD1EUHvg/ 复制此链接，打开Dou音搜索，直接观看视频！
             图片 4.64 07/03 j@c.nd UYz:/ # 国漫女神# ai绘画# 小医仙 # 上热门🔥  https://v.douyin.com/iDJR2B9G/ 复制此链接，打开Dou音搜索，直接观看视频！
             图片 https://www.douyin.com/note/7426014315141958963
-            liv 
+            liv https://www.douyin.com/note/7443037739303456059
             主页 https://www.douyin.com/user/MS4wLjABAAAAYDWon90yZ1_iH789l6fQayeUT6oZpBNlTu0Pou3yrGY?from_tab_name=main&vid=7439510966666104103
             主页 长按复制此条消息，打开抖音搜索，查看TA的更多作品。 https://v.douyin.com/iDJRAb9q/
             主页 https://www.douyin.com/user/MS4wLjABAAAAK1V3u06cqNgDRDyF_LesGPrBJP6hCENlSz8k3b7Zjk4CupfEdLxn8IPqy7NZXcB-?from_tab_name=main&vid=7439180504819043619
@@ -24,7 +24,8 @@ const htmlText = `
             主页 https://www.kuaishou.com/profile/3x4bq4rsxhhus3k
             主页 https://v.kuaishou.com/TpOQ7P
             主页 https://v.kuaishou.com/SLWIOp
-            直播 https://live.kuaishou.com/u/3x6jhnh2wnr3n32
+            直播 https://live.kuaishou.com/u/3x6jhnh2wnr3n32 尽量使用下方长连接短链接容易频繁失败 长连接为浏览ua 是移动端
+            直播 https://livev.m.chenzhongtech.com/fw/live/3x2j54sfxge3jqg?cc=share_wxms&followRefer=151&shareMethod=CARD&kpn=GAME_ZONE&subBiz=LIVE_STEARM_OUTSIDE&shareId=18200042138992&shareToken=X-8gLIQO6VORR25i&shareMode=APP&efid=0&originShareId=18200042138992&shareObjectId=qMzHWnyQWME&shareUrlOpened=0&timestamp=1734590567239
         红书
             视频 https://www.xiaohongshu.com/explore/672755ad000000003c016882?xsec_token=ABUdZzNUXuNuHeF0eVZ2wRrGHEuyB9b3DaK2JQ0bf590Y=&xsec_source=pc_feed
             图片 https://www.xiaohongshu.com/explore/67276bda000000001b013d8a?xsec_token=ABUdZzNUXuNuHeF0eVZ2wRrL1TX1be7FouXYT8wjifFho=&xsec_source=pc_feed

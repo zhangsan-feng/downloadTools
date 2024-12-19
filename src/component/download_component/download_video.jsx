@@ -14,7 +14,6 @@ const DownloadVideoComponent = () =>{
 
     const [ButtonLoading, setButtonLoading] = useState(false)
 
-
     const Submit = async ()=>{
         // setButtonLoading(true)
 
@@ -51,7 +50,6 @@ const DownloadVideoComponent = () =>{
             reader.readAsText(file);
         }
     };
-
 
     return (
         <div>
