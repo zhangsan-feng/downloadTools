@@ -50,7 +50,7 @@ export async function WeiBoUserVideo(source, config){
         cursor =  response_body.data.next_cursor
 
         const download_data = {}
-        let nickname;
+        let nickname = ""
         data_list.forEach((data, index) => {
             // const user_id = data["user"]["id"]
             nickname = data["user"]["screen_name"].replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, "")

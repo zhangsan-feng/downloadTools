@@ -105,7 +105,7 @@ async function run2(source, headers){
         request_params["pcursor"] = pcursor
 
         const download_data = {}
-        let nickname;
+        let nickname = ""
         responseData.forEach((value, index) => {
             // console.log(value)
             nickname = word_analysis(value.author.name)

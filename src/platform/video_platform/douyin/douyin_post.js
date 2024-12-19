@@ -92,7 +92,7 @@ export async function DouYinPost(source, config){
         request_params['max_cursor'] = response_body.max_cursor
         // console.log(response_body.has_more, response_body.max_cursor)
         let download_data = {}
-        let nickname;
+        let nickname = ""
         response_body.aweme_list.forEach((data, index) => {
             // console.log(data)
             nickname = word_analysis(data["author"]["nickname"])

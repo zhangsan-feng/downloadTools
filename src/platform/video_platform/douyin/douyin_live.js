@@ -25,7 +25,7 @@ export async function DouYinLive(source, config){
 
     let flv_stream_url;
     let flv_file_name;
-    let nickname;
+    let nickname = ""
     if (source.platform === "app"){
         let request_params = {
             "verifyFp":"verify_lvuzy11u_Hthrr8sa_Y1QC_4Gcr_9Tb3_kzcv7AIESkMc",
