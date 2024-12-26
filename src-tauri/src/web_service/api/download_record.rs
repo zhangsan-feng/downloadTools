@@ -29,7 +29,7 @@ pub struct RequestParams{
 }
 
 
-pub async fn add_record(id: i64, file_name: String, _platform:String, source:String, nickname:String) {
+pub async fn add_download_record(id: i64, file_name: String, _platform:String, source:String, nickname:String) {
     info!("add new task {}, {}, {}", id, _platform, file_name);
     let mut task_manager = TaskManager.write().await;
     match task_manager.get_mut(&id) {

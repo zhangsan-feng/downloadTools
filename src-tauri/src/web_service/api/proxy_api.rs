@@ -26,7 +26,7 @@ pub async fn proxy(axum::Json(params): axum::Json<ProxyParams>) -> axum::Json<se
         "GETNoRedirect" =>http_get_no_redirect(params.req_url, req_headers, params.req_params).await,
         _ => http_get(params.req_url, req_headers, params.req_params).await
     };
-
+    let response_url = res.url().to_string();
     let headers_value: HashMap<String, String> = res.headers().iter()
         .map(|(name, value)| { (
             name.to_string(),
@@ -37,7 +37,8 @@ pub async fn proxy(axum::Json(params): axum::Json<ProxyParams>) -> axum::Json<se
 
     let response_json = json!({
         "response_headers": headers_value,
-        "response_body": body_text
+        "response_body": body_text,
+        "response_url": response_url,
     });
 
     axum::Json(response_json)

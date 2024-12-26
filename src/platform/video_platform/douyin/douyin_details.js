@@ -77,16 +77,18 @@ export async  function DouYinDetails(source, config){
     // console.log(proxy_params)
     let {response_body} = await ProxyApi(proxy_params)
     response_body = JSON.parse(response_body)
-    console.log(response_body)
+    // console.log(response_body)
     // return
     // console.log(response)
     let data = response_body.aweme_detail
 
     let nickname   = word_analysis(data["author"]["nickname"])
     let desc       = word_analysis(data["desc"])
-    let video_list = data["video"]["play_addr"]["url_list"]
+    // let video_list = data["video"]["play_addr"]["url_list"]  .reduce((max, obj) => (obj.value > max.value ? obj : max), { value: -Infinity });
+    let video_list = data["video"]["bit_rate"].reduce((max, obj) => (obj.bit_rate > max.bit_rate ? obj : max), { bit_rate: -Infinity })["play_addr"]["url_list"];
     let image_list = data["images"] ? data["images"] : []
     let aweme_id = source.aweme_id
+
 
     let download_data = {}
     image_list.forEach((value, index)=>{

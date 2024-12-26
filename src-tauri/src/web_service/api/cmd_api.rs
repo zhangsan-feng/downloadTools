@@ -3,7 +3,7 @@ use crate::web_service::utils::response_impl::{ResponseImpl, ResponseStruct};
 use axum::Json;
 use log::info;
 use serde::{Deserialize, Serialize};
-use crate::web_service::api::download_record::add_record;
+use crate::web_service::api::download_record::add_download_record;
 
 
 #[derive(Debug, Serialize, Deserialize, Clone,)]
@@ -30,7 +30,8 @@ pub async fn ffmpeg_composite_video(Json(params):Json<RequestParams>) ->Json<Val
     std::process::Command::new("ffmpeg").args(cmd.split_whitespace()).output().expect("ffmpeg command failed");
     tokio::fs::remove_file(audio_file_name).await.unwrap();
     tokio::fs::remove_file(video_file_name).await.unwrap();
-    add_record(params.id, merge_file_name.clone(), params.platform.clone(), "".to_string(), "".to_string()).await;
+    add_download_record(params.id, merge_file_name.clone(), params.platform.clone(),
+        "".to_string(), "".to_string()).await;
 
     ResponseStruct::success(json!("success"))
 }
@@ -51,7 +52,7 @@ pub async fn ffmpeg_download_m38u(Json(params):Json<M3U8tParams>) ->Json<Value> 
 
     let cmd = format!("-i {} -c copy -f mp4 {}", params.url,  tmp_path);
     std::process::Command::new("ffmpeg").args(cmd.split_whitespace()).output().expect("ffmpeg command failed");
-    add_record(params.id, tmp_path.clone(),"".to_string(), "".to_string(), "".to_string()).await;
+    add_download_record(params.id, tmp_path.clone(),"".to_string(), "".to_string(), "".to_string()).await;
 
     ResponseStruct::success(json!("success"))
 }
