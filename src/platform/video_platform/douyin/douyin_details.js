@@ -92,7 +92,7 @@ export async  function DouYinDetails(source, config){
 
     let download_data = {}
     image_list.forEach((value, index)=>{
-        let file_name = nickname + "_" + desc + "_" + aweme_id + "_" +word_analysis(value.uri) + ".png"
+        let file_name = nickname + "_" + desc + "_" + aweme_id + "_" + word_analysis(value.uri) + ".png"
         download_data[file_name] = value.url_list[0]
         if (value["video"]){
             let file_name = nickname + "_" + desc + "_" + aweme_id  + "_" + Date.now() + Math.floor(Math.random() * 120000) +  ".mp4"

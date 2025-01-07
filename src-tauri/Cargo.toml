@@ -31,10 +31,9 @@ lazy_static = "1.4.0"
 sea-orm = { version = "1.0.0",features = ["sqlx-sqlite", "runtime-tokio", "runtime-async-std"]  }
 rand = "0.8.5"
 tokio = {version = "1.40.0", features = ["full"] }
-axum = {version = "0.7.7", features = ["default", "multipart", "tokio"] }
+axum = {version = "0.8.1", features = ["default", "multipart", "tokio"] }
 tower-http = {version = "0.6.1", features = ["full"] }
 tower = { version = "0.5.1", features = ["full"] }
-
 
 
 

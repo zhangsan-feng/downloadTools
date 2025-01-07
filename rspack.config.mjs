@@ -17,18 +17,20 @@ export default defineConfig({
 	},
 	devServer: {
 		port: 54436,
+		historyApiFallback: true,
 	},
 	resolve: {
-		extensions: ["...", ".ts", ".tsx", ".jsx"]
+		extensions: ["...", ".js", ".ts", ".tsx", ".jsx"]
 	},
 	module: {
+		noParse:"*",
 		rules: [
 			{
 				test: /\.svg$/,
 				type: "asset"
 			},
 			{
-				test: /\.(jsx?|tsx?)$/,
+				test: /\.(jsx?|tsx?|js?)$/,
 				use: [
 					{
 						loader: "builtin:swc-loader",
