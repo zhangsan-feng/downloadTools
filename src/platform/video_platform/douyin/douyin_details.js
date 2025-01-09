@@ -102,7 +102,6 @@ export async  function DouYinDetails(source, config){
     // console.log(image_list)
     if (image_list.length === 0){
         let video_list = data["video"]["bit_rate"].reduce((max, obj) => (obj.bit_rate > max.bit_rate ? obj : max), { bit_rate: -Infinity })["play_addr"]["url_list"];
-
         let file_name = nickname + "_" + desc + "_" + aweme_id + ".mp4"
         download_data[file_name] = video_list[video_list.length - 1]
     }

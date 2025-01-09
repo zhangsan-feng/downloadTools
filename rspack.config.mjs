@@ -20,7 +20,7 @@ export default defineConfig({
 		historyApiFallback: true,
 	},
 	resolve: {
-		extensions: ["...", ".js", ".ts", ".tsx", ".jsx"]
+		extensions: ["...", ".ts", ".tsx", ".jsx"]
 	},
 	module: {
 		noParse:"*",
@@ -30,7 +30,7 @@ export default defineConfig({
 				type: "asset"
 			},
 			{
-				test: /\.(jsx?|tsx?|js?)$/,
+				test: /\.(jsx?|tsx?)$/,
 				use: [
 					{
 						loader: "builtin:swc-loader",
