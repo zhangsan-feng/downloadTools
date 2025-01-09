@@ -98,16 +98,14 @@ export async function DouYinPost(source, config){
             nickname = word_analysis(data["author"]["nickname"])
             let desc = word_analysis(data["desc"])
             let aweme_id = data["aweme_id"]
-            // let video_list = data["video"]["play_addr"]["url_list"]
-            let video_list = data["video"]["bit_rate"].reduce((max, obj) => (obj.bit_rate > max.bit_rate ? obj : max), { bit_rate: -Infinity })["play_addr"]["url_list"];
             let image_list = data["images"] ? data["images"] : []
 
             image_list.forEach((value, index)=>{
-                let file_name = nickname + "_" + desc + "_" + aweme_id + "_" + word_analysis(value.uri) + ".png"
+                let file_name = nickname + "_" + desc + "_" + aweme_id  + "_" + Date.now() + Math.floor(Math.random() * 120000) +  ".png"
                 download_data[file_name] = value.url_list[0]
                 if (value["video"]){
                     let file_name = nickname + "_" + desc + "_" + aweme_id  + "_" + Date.now() + Math.floor(Math.random() * 120000) +  ".mp4"
-                    video_list = value["video"]["play_addr"]["url_list"]
+                    let video_list = value["video"]["play_addr"]["url_list"]
                     // console.log(file_name, video_list)
                     download_data[file_name] = video_list[video_list.length - 1]
                 }
@@ -115,6 +113,7 @@ export async function DouYinPost(source, config){
             
             // console.log(image_list)
             if (image_list.length === 0) {
+                let video_list = data["video"]["bit_rate"].reduce((max, obj) => (obj.bit_rate > max.bit_rate ? obj : max), { bit_rate: -Infinity })["play_addr"]["url_list"];
                 let file_name = nickname + "_" + desc + "_" + aweme_id  + "_" + Date.now() + Math.floor(Math.random() * 120000) +  ".mp4"
                 download_data[file_name] = video_list[video_list.length - 1]
             }
