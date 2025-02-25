@@ -60,7 +60,7 @@ const MusicComponent = () => {
 
             const handleEnded = () => {
                 setIsPlaying(false);
-                console.log('Audio has ended');
+                // console.log('Audio has ended');
                 for(let index = 0; index < searchData.length ; index++) {
                     if (searchData[index].id === currentPlayInfo.id){
                         if (index + 1 !== searchData.length){
